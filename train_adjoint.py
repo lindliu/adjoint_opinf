@@ -22,7 +22,8 @@ from utils import get_train_test_data, add_noise, smooth, \
                   get_theta_by_opinf, model_reducer, optimal_opinf, \
                   integrate, ode_solver, func_surrogate, func_lambda
 from scipy.integrate import solve_ivp
-
+import glob
+import os
 
 import random
 random.seed(10)
@@ -39,22 +40,22 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     np.random.seed(10)    # for numpy random
     
     if data_name == 'burgers':
-        data_file = "./data/burgers/total_burgers_snapshots_nu_01.npz"  ###  
+        data_file = glob.glob(os.path.join(os.getcwd(),"./data/burgers/total_burgers_snapshots_nu_01.npz"))[0]  ###  
         num_samples = 10000//step ## 2000 ##
         split_ratio = .5   
         
         data = np.load(data_file)
 
     if data_name == 'fkpp':        
-        data_files = [f'./data/fkpp/total_fkpp_{i}.npy' for i in range(1,6)]
+        data_files = [glob.glob(os.path.join(os.getcwd(), f'./data/fkpp/total_fkpp_{i}.npy'))[0] for i in range(1,6)]
         data_Q = [np.load(data_files[i]) for i in range(5)]
         data_Q = np.concatenate(data_Q,axis=2)
         
         data = {}
         data['Q'] = data_Q
-        data['t'] = np.load("./data/fkpp/total_fkpp_t.npy")
-        data['x'] = np.load('./data/fkpp/total_fkpp_x.npy')
-        data['y'] = np.load('./data/fkpp/total_fkpp_y.npy')
+        data['t'] = np.load(glob.glob(os.path.join(os.getcwd(), "./data/fkpp/total_fkpp_t.npy"))[0])
+        data['x'] = np.load(glob.glob(os.path.join(os.getcwd(), './data/fkpp/total_fkpp_x.npy'))[0])
+        data['y'] = np.load(glob.glob(os.path.join(os.getcwd(), './data/fkpp/total_fkpp_y.npy'))[0])
         
         num_samples = 2001//step ## 2000 ##
         split_ratio = .75   
@@ -474,8 +475,8 @@ if __name__ == "__main__":
     # weighted = False # True # 
 
     
-    for data_name in ['fkpp', 'burgers']:
-    # for data_name in ['burgers']:
+    for data_name in ['burgers', 'fkpp']:
+    # for data_name in ['fkpp']:
         if data_name=='fkpp':
             step = 1  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
