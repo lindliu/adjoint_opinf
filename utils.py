@@ -294,7 +294,7 @@ def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5):
         rho_list.append(rho)
         
         if rho>10:#np.log(M)/T:
-            loss_list.append(np.Inf)
+            loss_list.append(np.inf)
             continue
         
         # try:
@@ -310,10 +310,10 @@ def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5):
             loss_list.append(np.mean((Q_ - Q_opinf_)**2))
         else:
             print('FalseFalseFalseFalseFalse')
-            loss_list.append(np.Inf)
+            loss_list.append(np.inf)
             
     # print(loss_list)
-    if min(loss_list)==np.Inf:
+    if min(loss_list)==np.inf:
         idx = np.argmin(rho_list)
     else:
         idx = np.argmin(loss_list)

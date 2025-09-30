@@ -144,7 +144,7 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     # theta = np.random.rand(r**2+r**3)*.1
     
         
-    loss_boundary = 20000 # np.Inf # 
+    loss_boundary = 20000 # np.inf # 
     for piece in pieces: # [750]:#
     # for piece in reversed(range(5,6)): # [750]:#
         # piece = 5
@@ -179,7 +179,7 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
             else:
                 q0 = Q_[:, 0]
             
-            # loss_new = -np.Inf
+            # loss_new = -np.inf
             for j in range(max_iter):
                 theta_old = theta.copy()
                 
@@ -528,7 +528,7 @@ if __name__ == "__main__":
                     
                     # 判断是否快速下降或上升（积分爆炸）
                     if not success or np.abs(Q_adjoint[:,1:]-Q_adjoint[:,:-1]).max()>10:
-                        choose_reg.append(np.Inf)
+                        choose_reg.append(np.inf)
                     else:
                         # choose_reg.append(error_adjoint_train)
                         choose_reg.append(error_adjoint_valid)
