@@ -374,20 +374,12 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     
     
     Q_0 = Q_val_[:,0]
-    Q_opinf_6 = ode_solver(func_surrogate, Q_0, t_val, par=(A_opinf_6, H_opinf_6), rescale=True)
-    Q_adjoint = ode_solver(func_surrogate, Q_0, t_val, par=(A_opt, H_opt), rescale=True)
-    Q_opinf_2 = ode_solver(func_surrogate, Q_0, t_val, par=(A_opinf_2, H_opinf_2), rescale=True)
-    error_opinf_6_valid = np.mean((Q_val_.T - Q_opinf_6.T)**2)/np.mean(Q_val_.T**2)
-    error_adjoint_valid = np.mean((Q_val_.T - Q_adjoint.T)**2)/np.mean(Q_val_.T**2)
-    error_opinf_2_valid = np.mean((Q_val_.T - Q_opinf_2.T)**2)/np.mean(Q_val_.T**2)
-    
-    axes[1,0].plot(t_val, Q_opinf_6.T, '--')
-    axes[1,0].axvline(x=t_all[valid_idx], ls='--')
-    axes[1,1].plot(t_val, Q_adjoint.T, '--')
-    axes[1,1].axvline(x=t_all[valid_idx], ls='--')
-    axes[1,2].plot(t_val, Q_opinf_2.T, '--')
-    axes[1,2].axvline(x=t_all[valid_idx], ls='--')
-
+    Q_opinf_6_val = ode_solver(func_surrogate, Q_0, t_val, par=(A_opinf_6, H_opinf_6), rescale=True)
+    Q_adjoint_val = ode_solver(func_surrogate, Q_0, t_val, par=(A_opt, H_opt), rescale=True)
+    Q_opinf_2_val = ode_solver(func_surrogate, Q_0, t_val, par=(A_opinf_2, H_opinf_2), rescale=True)
+    error_opinf_6_valid = np.mean((Q_val_.T - Q_opinf_6_val.T)**2)/np.mean(Q_val_.T**2)
+    error_adjoint_valid = np.mean((Q_val_.T - Q_adjoint_val.T)**2)/np.mean(Q_val_.T**2)
+    error_opinf_2_valid = np.mean((Q_val_.T - Q_opinf_2_val.T)**2)/np.mean(Q_val_.T**2)
     
     Q_0 = Q_[:,0]
     Q_opinf_6 = ode_solver(func_surrogate, Q_0, t_train, par=(A_opinf_6, H_opinf_6), rescale=True)
@@ -411,6 +403,15 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     axes[1,2].axvline(x=t_all[train_idx], ls='--')
     axes[1,2].title.set_text(f'opinf_2 vs true, train: {np.log10(error_opinf_2_train):.3} val: {np.log10(error_opinf_2_valid):.3}')
     
+    
+    axes[1,0].plot(t_val, Q_opinf_6_val.T, '--')
+    axes[1,0].axvline(x=t_all[valid_idx], ls='--')
+    axes[1,1].plot(t_val, Q_adjoint_val.T, '--')
+    axes[1,1].axvline(x=t_all[valid_idx], ls='--')
+    axes[1,2].plot(t_val, Q_opinf_2_val.T, '--')
+    axes[1,2].axvline(x=t_all[valid_idx], ls='--')
+
+
     
     Q_0 = Q_test_[:,0]
     Q_opinf_6 = ode_solver(func_surrogate, Q_0, t_test, par=(A_opinf_6, H_opinf_6), rescale=True)
@@ -460,21 +461,21 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
 if __name__ == "__main__": 
     
     ###### config #####
-    data_name = 'fkpp'  ###   'burgers'  ##  
     smoother = True #  False # 
     max_iter = 10
+    # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
+    pieces = [3,1,3]  # [2,1] # [1]  #   #   ##   
 
     save_results = True # False # 
     
+    # data_name = 'fkpp'  ###   'burgers'  ##  
     # ## if no regularizer on adjoint, let reg_Frobenius=0
     # reg_Frobenius = 1e1 # 0 # 
-    # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
-    # pieces = [3,1,3]  # [2,1] # [1]  #   #   ##   
     # weighted = False # True # 
 
     
-    # for data_name in ['fkpp', 'burgers']:
-    for data_name in ['burgers']:
+    for data_name in ['fkpp', 'burgers']:
+    # for data_name in ['burgers']:
         if data_name=='fkpp':
             step = 1  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
@@ -483,30 +484,31 @@ if __name__ == "__main__":
             num_samples = 10000//step # 10000
         
         noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
-        # for noise_level in noise_level_list:
-        for noise_level in [140]:
+        for noise_level in noise_level_list:
+        # for noise_level in [0]:
             error_opinf_6_init_list, error_adjoint_init_list, error_opinf_2_init_list = [], [], []
             error_opinf_6_train_list, error_adjoint_train_list, error_opinf_2_train_list = [], [], []
             error_opinf_6_list, error_adjoint_list, error_opinf_2_list = [], [], []
+            error_opinf_6_valid_list, error_adjoint_valid_list, error_opinf_2_valid_list = [], [], []
             
             reg_best, weighted_best = [], []
             for r in range(1,6):
             # for r in [4]:
                 print(f'dimension: {r}')
-                ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
-                if r == 1:
-                    pieces = [5,1,5]
-                else:
-                    pieces = [3,1,3]
+                # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
+                # if r == 1:
+                #     pieces = [5,1,5]
+                # else:
+                #     pieces = [3,1,3]
                     
                 #### find the best reg_Frobenius value ###
-                if noise_level<1:
-                    reg_Frobenius = [0, 0]
-                    weighted_list = [True, False]
-                else:
-                    reg_Frobenius_list = [0, 1e-2, 1e-1, 1e0, 1e1]*2
-                    weighted_list = [True]*int(len(reg_Frobenius_list)//2) + \
-                                    [False]*int(len(reg_Frobenius_list)//2)
+                # if noise_level<1:
+                #     reg_Frobenius_list = [0, 0]
+                #     weighted_list = [True, False]
+                # else:
+                reg_Frobenius_list = [0, 1e-2, 1e-1, 1e0, 1e1]*2
+                weighted_list = [True]*int(len(reg_Frobenius_list)//2) + \
+                                [False]*int(len(reg_Frobenius_list)//2)
                 
                 # reg_Frobenius_list, weighted_list = [5e0], [True]
                 choose_reg = []
@@ -568,6 +570,10 @@ if __name__ == "__main__":
                 error_adjoint_train_list.append(error_adjoint_train)
                 error_opinf_2_train_list.append(error_opinf_2_train)
 
+                error_opinf_6_valid_list.append(error_opinf_6_valid)
+                error_adjoint_valid_list.append(error_adjoint_valid)
+                error_opinf_2_valid_list.append(error_opinf_2_valid) 
+                
                 
             error_opinf_6_list = np.array(error_opinf_6_list)
             error_adjoint_list = np.array(error_adjoint_list)
@@ -581,6 +587,10 @@ if __name__ == "__main__":
             error_adjoint_train_list = np.array(error_adjoint_train_list)
             error_opinf_2_train_list = np.array(error_opinf_2_train_list)
 
+            error_opinf_6_valid_list = np.array(error_opinf_6_valid_list)
+            error_adjoint_valid_list = np.array(error_adjoint_valid_list)
+            error_opinf_2_valid_list = np.array(error_opinf_2_valid_list)
+            
             reg_best = np.array(reg_best)
             weighted_best = np.array(weighted_best)
             
@@ -589,11 +599,12 @@ if __name__ == "__main__":
                         error_opinf_6_list=error_opinf_6_list, error_adjoint_list=error_adjoint_list, error_opinf_2_list=error_opinf_2_list,
                         error_opinf_6_init_list=error_opinf_6_init_list, error_adjoint_init_list=error_adjoint_init_list, error_opinf_2_init_list=error_opinf_2_init_list,
                         error_opinf_6_train_list=error_opinf_6_train_list, error_adjoint_train_list=error_adjoint_train_list, error_opinf_2_train_list=error_opinf_2_train_list,
+                        error_opinf_6_valid_list=error_opinf_6_valid_list, error_adjoint_valid_list=error_adjoint_valid_list, error_opinf_2_valid_list=error_opinf_2_valid_list,
                         reg_best=reg_best, weighted_best=weighted_best)
             
             
             
-            fig, axes = plt.subplots(3,3,figsize=(16,10))
+            fig, axes = plt.subplots(4,3,figsize=(16,16))
             axes[0,0].plot(np.log10(error_opinf_6_init_list), marker='+', label='opinf_6')
             axes[0,0].plot(np.log10(error_adjoint_init_list), marker='o', label='adjoint')
             # axes[0,0].set_xlabel('Model Dimension(r)', fontsize='x-large')
@@ -612,47 +623,62 @@ if __name__ == "__main__":
             # axes[0,2].set_xlabel('Model Dimension(r)', fontsize='x-large')
             # axes[0,2].set_ylabel(r'regularizer value', fontsize='x-large')
             axes[0,2].set_title('regularizer value')
-            axes[0,2].legend()
             
             
             axes[1,0].plot(np.log10(error_opinf_6_train_list), marker='+', label='opinf_6')
             axes[1,0].plot(np.log10(error_adjoint_train_list), marker='o', label='adjoint')
             # axes[1,0].set_xlabel('Model Dimension(r)', fontsize='x-large')
             axes[1,0].set_ylabel(r'train relative error ($log_{10}$)', fontsize='x-large')
-            axes[1,0].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            # axes[1,0].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
             axes[1,0].legend()
             
             axes[1,1].plot(np.log10(error_opinf_2_train_list), marker='+', label='opinf_2')
             axes[1,1].plot(np.log10(error_adjoint_train_list), marker='o', label='adjoint')
             # axes[1,1].set_xlabel('Model Dimension(r)', fontsize='x-large')
             axes[1,1].set_ylabel(r'train relative error ($log_{10}$)', fontsize='x-large')
-            axes[1,1].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            # axes[1,1].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
             axes[1,1].legend()
             
-            axes[1,2].plot(weighted_best, 'o', label='reg_best')
+            axes[1,2].plot(weighted_best, 'o', label='weighted')
             axes[1,2].set_title('if weighted loss')
-            axes[1,2].legend()
+            axes[1,2].set_title('weighted best')
+
             
             
-            
-            axes[2,0].plot(np.log10(error_opinf_6_list), marker='+', label='opinf_6')
-            axes[2,0].plot(np.log10(error_adjoint_list), marker='o', label='adjoint')
-            axes[2,0].set_xlabel('Model Dimension(r)', fontsize='x-large')
-            axes[2,0].set_ylabel(r'test relative error ($log_{10}$)', fontsize='x-large')
-            axes[2,0].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            axes[2,0].plot(np.log10(error_opinf_6_valid_list), marker='+', label='opinf_6')
+            axes[2,0].plot(np.log10(error_adjoint_valid_list), marker='o', label='adjoint')
+            # axes[2,0].set_xlabel('Model Dimension(r)', fontsize='x-large')
+            axes[2,0].set_ylabel(r'valid relative error ($log_{10}$)', fontsize='x-large')
+            # axes[2,0].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
             axes[2,0].legend()
             
-            axes[2,1].plot(np.log10(error_opinf_2_list), marker='+', label='opinf_2')
-            axes[2,1].plot(np.log10(error_adjoint_list), marker='o', label='adjoint')
-            axes[2,1].set_xlabel('Model Dimension(r)', fontsize='x-large')
-            axes[2,1].set_ylabel(r'test relative error ($log_{10}$)', fontsize='x-large')
-            axes[2,1].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            axes[2,1].plot(np.log10(error_opinf_2_valid_list), marker='+', label='opinf_2')
+            axes[2,1].plot(np.log10(error_adjoint_valid_list), marker='o', label='adjoint')
+            # axes[2,1].set_xlabel('Model Dimension(r)', fontsize='x-large')
+            axes[2,1].set_ylabel(r'valid relative error ($log_{10}$)', fontsize='x-large')
+            # axes[2,1].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
             axes[2,1].legend()
             
-            axes[2,2].plot(t[k_samples:], np.mean(abs(error_state_opinf_6),axis=1), marker='+', label='opinf_6')
-            axes[2,2].plot(t[k_samples:], np.mean(abs(error_state_adjoint),axis=1), marker='o', label='adjoint')
-            axes[2,2].plot(t[k_samples:], np.mean(abs(error_state_opinf_2),axis=1), marker='x', label='opinf_2')
-            axes[2,2].legend()
+
+            
+            axes[3,0].plot(np.log10(error_opinf_6_list), marker='+', label='opinf_6')
+            axes[3,0].plot(np.log10(error_adjoint_list), marker='o', label='adjoint')
+            axes[3,0].set_xlabel('Model Dimension(r)', fontsize='x-large')
+            axes[3,0].set_ylabel(r'test relative error ($log_{10}$)', fontsize='x-large')
+            # axes[3,0].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            axes[3,0].legend()
+            
+            axes[3,1].plot(np.log10(error_opinf_2_list), marker='+', label='opinf_2')
+            axes[3,1].plot(np.log10(error_adjoint_list), marker='o', label='adjoint')
+            axes[3,1].set_xlabel('Model Dimension(r)', fontsize='x-large')
+            axes[3,1].set_ylabel(r'test relative error ($log_{10}$)', fontsize='x-large')
+            # axes[3,1].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            axes[3,1].legend()
+            
+            axes[3,2].plot(t[k_samples:], np.mean(abs(error_state_opinf_6),axis=1), marker='+', label='opinf_6')
+            axes[3,2].plot(t[k_samples:], np.mean(abs(error_state_adjoint),axis=1), marker='o', label='adjoint')
+            axes[3,2].plot(t[k_samples:], np.mean(abs(error_state_opinf_2),axis=1), marker='x', label='opinf_2')
+            axes[3,2].legend()
             
             if save_results:
                 fig.savefig(f'./figures/plot_{data_name}_sam{num_samples}_noise{noise_level}_iter{max_iter}_smooth{smoother}.png')
