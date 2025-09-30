@@ -33,7 +33,7 @@ np.random.seed(10)    # for numpy random
 
 # opinf.utils.mpl_config()
 
-def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Frobenius=0, weighted=False, max_iter=10):
+def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Frobenius=0, weighted=False, max_iter=10, split_ratio=.75):
     
     import random
     random.seed(10)
@@ -42,7 +42,7 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     if data_name == 'burgers':
         data_file = glob.glob(os.path.join(os.getcwd(),"./data/burgers/total_burgers_snapshots_nu_01.npz"))[0]  ###  
         num_samples = 10000//step ## 2000 ##
-        split_ratio = .5   
+        # split_ratio = .5   
         
         data = np.load(data_file)
 
@@ -58,7 +58,7 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
         data['y'] = np.load(glob.glob(os.path.join(os.getcwd(), './data/fkpp/total_fkpp_y.npy'))[0])
         
         num_samples = 2001//step ## 2000 ##
-        split_ratio = .75   
+        # split_ratio = .75   
 
 
     Q_original, t = data['Q'], data['t']
@@ -306,8 +306,8 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     reg = str(reg_Frobenius).replace('.','p')
     ### save result (theta)
     if save_results:
-        file_opinf = f"./data/theta_opinf_{data_name}_sam{num_samples}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
-        file_adjoint = f"./data/theta_adjoint_{data_name}_sam{num_samples}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
+        file_opinf = f"./data/theta_opinf_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
+        file_adjoint = f"./data/theta_adjoint_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
         
         np.savez(file_opinf, A_opinf=A_opinf, H_opinf=H_opinf)
         np.savez(file_adjoint, A_opt=A_opt, H_opt=H_opt)
@@ -438,7 +438,7 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     fig.suptitle(f'reg_Frobenius: {reg_Frobenius}, pieces: {pieces}, weighted: {weighted}')
     
     if save_results:
-        fig.savefig(f'./figures/Results_{data_name}_sam{num_samples}_noise{noise_level}_dim{r}_{weighted}_{order}_reg{reg}_iter{max_iter}_weighted{weighted}.png')
+        fig.savefig(f'./figures/Results_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_reg{reg}_iter{max_iter}_weighted{weighted}.png')
         plt.close()
 
     print(f'opinf 6 test error: {error_opinf_6:.6}, val error: {error_opinf_6_valid}')
@@ -465,8 +465,8 @@ if __name__ == "__main__":
     smoother = True #  False # 
     max_iter = 10
     # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
-    pieces = [3,1,3]  # [2,1] # [1]  #   #   ##   
-
+    pieces = [3,1,3]  # [5,1,5] # [1]
+    
     save_results = True # False # 
     
     # data_name = 'fkpp'  ###   'burgers'  ##  
@@ -480,9 +480,14 @@ if __name__ == "__main__":
         if data_name=='fkpp':
             step = 1  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
+            split_ratio = .75
+            
         if data_name=='burgers':
             step = 10 # 10 # 20 #  # 500 # 100
             num_samples = 10000//step # 10000
+            split_ratio = .5
+        
+        ratio = str(split_ratio).replace('.','p')
         
         noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
         for noise_level in noise_level_list:
@@ -503,10 +508,6 @@ if __name__ == "__main__":
                 #     pieces = [3,1,3]
                     
                 #### find the best reg_Frobenius value ###
-                # if noise_level<1:
-                #     reg_Frobenius_list = [0, 0]
-                #     weighted_list = [True, False]
-                # else:
                 reg_Frobenius_list = [0, 1e-2, 1e-1, 1e0, 1e1]*2
                 weighted_list = [True]*int(len(reg_Frobenius_list)//2) + \
                                 [False]*int(len(reg_Frobenius_list)//2)
@@ -524,7 +525,7 @@ if __name__ == "__main__":
                     error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, \
                     success \
                         = main(data_name, r, noise_level, step, \
-                               smoother, pieces, reg_Frobenius, weighted, max_iter)
+                               smoother, pieces, reg_Frobenius, weighted, max_iter, split_ratio)
                     
                     # 判断是否快速下降或上升（积分爆炸）
                     if not success or np.abs(Q_adjoint[:,1:]-Q_adjoint[:,:-1]).max()>10:
@@ -548,7 +549,7 @@ if __name__ == "__main__":
                 error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, \
                 success \
                     = main(data_name, r, noise_level, step, \
-                           smoother, pieces, reg_Frobenius, weighted, max_iter)
+                           smoother, pieces, reg_Frobenius, weighted, max_iter, split_ratio)
                 
                 
                 error_state_opinf_6 = Q_test_.T - Q_opinf_6.T
@@ -596,7 +597,7 @@ if __name__ == "__main__":
             weighted_best = np.array(weighted_best)
             
             if save_results:
-                np.savez(f"./data/error_{data_name}_sam{num_samples}_noise{noise_level}_iter{max_iter}_smooth{smoother}.npz", 
+                np.savez(f"./data/error_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_iter{max_iter}_smooth{smoother}.npz", 
                         error_opinf_6_list=error_opinf_6_list, error_adjoint_list=error_adjoint_list, error_opinf_2_list=error_opinf_2_list,
                         error_opinf_6_init_list=error_opinf_6_init_list, error_adjoint_init_list=error_adjoint_init_list, error_opinf_2_init_list=error_opinf_2_init_list,
                         error_opinf_6_train_list=error_opinf_6_train_list, error_adjoint_train_list=error_adjoint_train_list, error_opinf_2_train_list=error_opinf_2_train_list,
@@ -682,5 +683,5 @@ if __name__ == "__main__":
             axes[3,2].legend()
             
             if save_results:
-                fig.savefig(f'./figures/plot_{data_name}_sam{num_samples}_noise{noise_level}_iter{max_iter}_smooth{smoother}.png')
+                fig.savefig(f'./figures/plot_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_iter{max_iter}_smooth{smoother}.png')
                 plt.close()
