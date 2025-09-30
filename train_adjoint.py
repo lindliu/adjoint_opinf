@@ -306,8 +306,8 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     reg = str(reg_Frobenius).replace('.','p')
     ### save result (theta)
     if save_results:
-        file_opinf = f"./data/theta_opinf_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
-        file_adjoint = f"./data/theta_adjoint_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
+        file_opinf = f"./results/theta_opinf_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
+        file_adjoint = f"./results/theta_adjoint_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
         
         np.savez(file_opinf, A_opinf=A_opinf, H_opinf=H_opinf)
         np.savez(file_adjoint, A_opt=A_opt, H_opt=H_opt)
@@ -597,7 +597,7 @@ if __name__ == "__main__":
             weighted_best = np.array(weighted_best)
             
             if save_results:
-                np.savez(f"./data/error_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_iter{max_iter}_smooth{smoother}.npz", 
+                np.savez(f"./results/error_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_iter{max_iter}_smooth{smoother}.npz", 
                         error_opinf_6_list=error_opinf_6_list, error_adjoint_list=error_adjoint_list, error_opinf_2_list=error_opinf_2_list,
                         error_opinf_6_init_list=error_opinf_6_init_list, error_adjoint_init_list=error_adjoint_init_list, error_opinf_2_init_list=error_opinf_2_init_list,
                         error_opinf_6_train_list=error_opinf_6_train_list, error_adjoint_train_list=error_adjoint_train_list, error_opinf_2_train_list=error_opinf_2_train_list,
