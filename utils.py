@@ -304,10 +304,14 @@ def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5):
                             t_eval=t_all, args=(A_opinf, H_opinf),  method='BDF')
         
         if Q_opinf_.success:
+            #### choose model depend on train dataset
             Q_opinf_ = ode_solver(func_surrogate, Q_[:,0], t, par=(A_opinf, H_opinf), rescale=False)
-            # Q_opinf_ = solve_ivp(func_surrogate, (t[0], t[-1]), Q_[:,0], \
-            #                     t_eval=t, args=(A_opinf, H_opinf),  method='BDF')['y']
             loss_list.append(np.mean((Q_ - Q_opinf_)**2))
+            
+            #### choose model depend on validataion dataset
+            # val_idx = int(t_all.shape[0]*.1)
+            # Q_opinf_ = ode_solver(func_surrogate, Q_test_[:,0], t_test[:val_idx], par=(A_opinf, H_opinf), rescale=False)
+            # loss_list.append(np.mean((Q_test_[:,:val_idx] - Q_opinf_)**2))
         else:
             print('FalseFalseFalseFalseFalse')
             loss_list.append(np.inf)
