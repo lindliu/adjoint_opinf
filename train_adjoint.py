@@ -475,23 +475,23 @@ if __name__ == "__main__":
     # weighted = False # True # 
 
     
-    # for data_name in ['burgers', 'fkpp']:
-    for data_name in ['fkpp']:
+    for data_name in ['burgers', 'fkpp']:
+    # for data_name in ['fkpp']:
         if data_name=='fkpp':
-            step = 1  ## 1, 2, 4, 5, 10, 20, 40
+            step = 2  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
             split_ratio = .75
             
         if data_name=='burgers':
-            step = 10 # 10 # 20 #  # 500 # 100
+            step = 1 # 1 # 10 # 20 #  # 500 # 100
             num_samples = 10000//step # 10000
             split_ratio = .5
         
         ratio = str(split_ratio).replace('.','p')
         
         noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
-        # for noise_level in noise_level_list:
-        for noise_level in [80, 100, 120, 140, 160, 180, 200]:
+        for noise_level in noise_level_list:
+        # for noise_level in [80, 100, 120, 140, 160, 180, 200]:
             error_opinf_6_init_list, error_adjoint_init_list, error_opinf_2_init_list = [], [], []
             error_opinf_6_train_list, error_adjoint_train_list, error_opinf_2_train_list = [], [], []
             error_opinf_6_list, error_adjoint_list, error_opinf_2_list = [], [], []
