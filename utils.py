@@ -278,7 +278,8 @@ def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1):
     return A_opinf, H_opinf
 
 
-def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5):
+def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5, valid_ratio=0, Q_test_=None):
+    assert valid_ratio>=0 and valid_ratio<1
     
     loss_list = []
     rho_list = []
@@ -304,14 +305,17 @@ def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5):
                             t_eval=t_all, args=(A_opinf, H_opinf),  method='BDF')
         
         if Q_opinf_.success:
-            #### choose model depend on train dataset
-            Q_opinf_ = ode_solver(func_surrogate, Q_[:,0], t, par=(A_opinf, H_opinf), rescale=False)
-            loss_list.append(np.mean((Q_ - Q_opinf_)**2))
+            if valid_ratio==0:
+                #### choose model depend on train dataset
+                Q_opinf_ = ode_solver(func_surrogate, Q_[:,0], t, par=(A_opinf, H_opinf), rescale=False)
+                loss_list.append(np.mean((Q_ - Q_opinf_)**2))
             
-            #### choose model depend on validataion dataset
-            # val_idx = int(t_all.shape[0]*.1)
-            # Q_opinf_ = ode_solver(func_surrogate, Q_test_[:,0], t_test[:val_idx], par=(A_opinf, H_opinf), rescale=False)
-            # loss_list.append(np.mean((Q_test_[:,:val_idx] - Q_opinf_)**2))
+            else:
+                assert Q_test_ is not None
+                #### choose model depend on validataion dataset
+                val_idx = int(t_all.shape[0]*valid_ratio)
+                Q_opinf_ = ode_solver(func_surrogate, Q_test_[:,0], t_test[:val_idx], par=(A_opinf, H_opinf), rescale=True)
+                loss_list.append(np.mean((Q_test_[:,:val_idx] - Q_opinf_)**2))
         else:
             print('FalseFalseFalseFalseFalse')
             loss_list.append(np.inf)
