@@ -140,7 +140,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, noise_leve
         weights = np.ones(r)
         
 
-    loss_boundary = 30000 # np.inf # 
+    loss_boundary = np.inf #  30000 #
     for piece in pieces: # [750]:#
     # for piece in reversed(range(5,6)): # [750]:#
         # piece = 5
