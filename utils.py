@@ -11,6 +11,9 @@ import numpy as np
 import opinf
 from scipy.integrate import solve_ivp
 
+import random
+random.seed(10)
+np.random.seed(10) 
 
 def integrate(Q_, t, method='spline'):
 
@@ -272,7 +275,7 @@ def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1, reg_
     return A_opinf, H_opinf
 
 
-def optimal_opinf(Q_, t, t_test, order='ord6', use_val=True, valid_ratio=0, Q_test_=None, M=100, T=5):
+def optimal_opinf(Q_, t, t_test, order='ord6', opinf_use_val=True, valid_ratio=0, Q_test_=None, M=100, T=5):
     assert valid_ratio>=0 and valid_ratio<1
     
     ### TruncatedSVDSolver for L2T is critical  ########
@@ -280,6 +283,8 @@ def optimal_opinf(Q_, t, t_test, order='ord6', use_val=True, valid_ratio=0, Q_te
     rho_list = []
     regularizer_list = ['no','L2','L2','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
     par_tsvd_list = [0,1e-2,1e-1,1e0,0,-1,-2,-3,-4,-5,-6,-7]
+    # regularizer_list = ['no','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
+    # par_tsvd_list = [0,1e-2,0,-1,-2,-3,-4,-5,-6,-7]
     for regularizer_, par_tsvd_ in zip(regularizer_list, par_tsvd_list):
         A_opinf, H_opinf = get_theta_by_opinf(Q_, t, order=order, regularizer=regularizer_, par_tsvd=par_tsvd_, reg_l2=par_tsvd_)
         
@@ -300,12 +305,12 @@ def optimal_opinf(Q_, t, t_test, order='ord6', use_val=True, valid_ratio=0, Q_te
                             t_eval=t_all, args=(A_opinf, H_opinf),  method='BDF')
         
         if Q_opinf_.success:
-            if use_val==False:
+            if opinf_use_val==False:
                 #### choose model depend on train dataset
                 Q_opinf_ = ode_solver(func_surrogate, Q_[:,0], t, par=(A_opinf, H_opinf), rescale=False)
                 loss_list.append(np.mean((Q_ - Q_opinf_)**2))
             
-            if use_val==True:
+            if opinf_use_val==True:
                 assert valid_ratio>0 and valid_ratio<1
                 assert Q_test_ is not None
                 #### choose model depend on validataion dataset
@@ -326,8 +331,11 @@ def optimal_opinf(Q_, t, t_test, order='ord6', use_val=True, valid_ratio=0, Q_te
     regularizer = regularizer_list[idx]
     par_tsvd = par_tsvd_list[idx]
     
-    A_opinf, H_opinf = get_theta_by_opinf(Q_, t, order=order, regularizer=regularizer, par_tsvd=par_tsvd)
+    A_opinf, H_opinf = get_theta_by_opinf(Q_, t, order=order, regularizer=regularizer, par_tsvd=par_tsvd, reg_l2=par_tsvd)
     
+    
+    if regularizer=='L2':
+        par_tsvd = np.log10(par_tsvd)
     return A_opinf, H_opinf, regularizer, par_tsvd, loss_min
     
     
