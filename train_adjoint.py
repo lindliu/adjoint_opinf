@@ -497,7 +497,7 @@ if __name__ == "__main__":
     # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
     pieces = [3,1,3]  # [1] #  [5,1,5] # 
     split_ratio_validation = .1
-    opinf_use_val = True # False # 
+    opinf_use_val = False # True # 
     
     save_results = True # False # 
     
