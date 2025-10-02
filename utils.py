@@ -87,26 +87,20 @@ def ode_solver(func, x0, t, par=None, method="BDF", rescale=True):
         
         return sol_ode['y']
     
-def subsample_snapshots(Q_higher, t, step):
-    """Subsample high-resolution snapshots (k=1000) to lower density (k_low)."""
-    return Q_higher[:, ::step], t[::step]
+# def subsample_snapshots(Q_higher, t, step):
+#     """Subsample high-resolution snapshots (k=1000) to lower density (k_low)."""
+#     return Q_higher[:, ::step], t[::step]
 
-def get_train_test_data(data, t, step = 1000, split_ratio=.5, noise_level=1, noise_method="std"):
-    Q = data
+def get_train_test_data(Q, t, split_ratio=.5, noise_level=1, noise_method="std"):
+    num_samples = Q.shape[1]
+    split = int(num_samples*split_ratio)
     
-    ### Q sampling
-    Q_sam, t_sam = subsample_snapshots(Q, t, step)
-    
-    num_samples = Q_sam.shape[1]
-    mid = int(num_samples*split_ratio)
-    
-    Q_train = Q_sam[:, :mid]
-    Q_test = Q_sam[:, mid:]
+    Q_train = Q[:, :split]
+    Q_test = Q[:, split:]
     
     ### Time vector
-    # t = np.linspace(0, 1, k_samples)
-    t_train = t_sam[:mid]  # Training time
-    t_test = t_sam[mid:]    # Prediction time
+    t_train = t[:split]  # Training time
+    t_test = t[split:]    # Prediction time
     # dt = t_train[1] - t_train[0]
     
     # np.save(f'./data/Q_train_density_{num_samples}.npy', Q_train)
@@ -278,7 +272,7 @@ def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1, reg_
     return A_opinf, H_opinf
 
 
-def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5, valid_ratio=0, Q_test_=None):
+def optimal_opinf(Q_, t, t_test, order='ord6', use_val=True, valid_ratio=0, Q_test_=None, M=100, T=5):
     assert valid_ratio>=0 and valid_ratio<1
     
     ### TruncatedSVDSolver for L2T is critical  ########
@@ -306,12 +300,13 @@ def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5, valid_ratio=0, Q_test
                             t_eval=t_all, args=(A_opinf, H_opinf),  method='BDF')
         
         if Q_opinf_.success:
-            if valid_ratio==0:
+            if use_val==False:
                 #### choose model depend on train dataset
                 Q_opinf_ = ode_solver(func_surrogate, Q_[:,0], t, par=(A_opinf, H_opinf), rescale=False)
                 loss_list.append(np.mean((Q_ - Q_opinf_)**2))
             
-            else:
+            if use_val==True:
+                assert valid_ratio>0 and valid_ratio<1
                 assert Q_test_ is not None
                 #### choose model depend on validataion dataset
                 val_idx = int(t_all.shape[0]*valid_ratio)
