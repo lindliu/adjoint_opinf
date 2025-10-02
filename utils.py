@@ -240,7 +240,7 @@ def smooth(y, t, window_size, poly_order=2, verbose=False):
 
 
 
-def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1):
+def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1, reg_l2=1e-2):
     ### Q_ means reduced Q
     # # Estimate time derivatives using 6th-order finite differences.
     ddt_estimator = opinf.ddt.UniformFiniteDifferencer(t_, order)
@@ -252,7 +252,7 @@ def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1):
     if regularizer == 'L2':
         D = Q_.T
         Z = Qdot_
-        l2solver = opinf.lstsq.L2Solver(regularizer=1e-2).fit(D, Z)
+        l2solver = opinf.lstsq.L2Solver(regularizer=reg_l2).fit(D, Z)
         model = opinf.models.ContinuousModel(operators=["A", "H"], solver=l2solver)
     if regularizer == 'L2T':
         D = Q_.T
@@ -281,12 +281,13 @@ def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1):
 def optimal_opinf(Q_, t, t_test, order='ord6', M=100, T=5, valid_ratio=0, Q_test_=None):
     assert valid_ratio>=0 and valid_ratio<1
     
+    ### TruncatedSVDSolver for L2T is critical  ########
     loss_list = []
     rho_list = []
-    regularizer_list = ['no','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
-    par_tsvd_list = [0,0,0,-1,-2,-3,-4,-5,-6,-7]
+    regularizer_list = ['no','L2','L2','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
+    par_tsvd_list = [0,1e-2,1e-1,1e0,0,-1,-2,-3,-4,-5,-6,-7]
     for regularizer_, par_tsvd_ in zip(regularizer_list, par_tsvd_list):
-        A_opinf, H_opinf = get_theta_by_opinf(Q_, t, order=order, regularizer=regularizer_, par_tsvd=par_tsvd_)
+        A_opinf, H_opinf = get_theta_by_opinf(Q_, t, order=order, regularizer=regularizer_, par_tsvd=par_tsvd_, reg_l2=par_tsvd_)
         
         r = A_opinf.shape[0]
         eigvals_A = np.linalg.eigvals(A_opinf)

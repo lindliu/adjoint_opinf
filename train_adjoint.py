@@ -104,16 +104,14 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
         weights = np.ones(r)
         
     
+    split_ratio_validation = .1  ## if this is 0, then it means opinf choose model based on train dataset
     ### select best A_opinf, H_opinf by grid search ####
-    ### TruncatedSVDSolver for L2T is critical  ########
-    # A_opinf_6, H_opinf_6, regularizer_6, par_tsvd_6, loss_min_6 = \
-    #     optimal_opinf(weights[:,None]*Q__, t_train, t_test, 'ord6', M=np.max(np.abs(Q__))*10, T=t[-1])
     A_opinf_6, H_opinf_6, regularizer_6, par_tsvd_6, loss_min_6 = \
-        optimal_opinf(Q__, t_train, t_test, 'ord6', M=np.max(np.abs(Q__))*10, T=t[-1])
+        optimal_opinf(Q__, t_train, t_test, 'ord6', M=np.max(np.abs(Q__))*10, T=t[-1],valid_ratio=split_ratio_validation, Q_test_=Q_test_)
     
     ##### result by order='ord2'
     A_opinf_2, H_opinf_2, regularizer_2, par_tsvd_2, loss_min_2 = \
-        optimal_opinf(Q__, t_train, t_test, 'ord2', M=np.max(np.abs(Q__))*10, T=t[-1])
+        optimal_opinf(Q__, t_train, t_test, 'ord2', M=np.max(np.abs(Q__))*10, T=t[-1],valid_ratio=split_ratio_validation, Q_test_=Q_test_)
     
     # A_opinf = A_opinf_6
     # H_opinf = H_opinf_6
@@ -144,7 +142,7 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     # theta = np.random.rand(r**2+r**3)*.1
     
         
-    loss_boundary = 20000 # np.inf # 
+    loss_boundary = np.inf # 20000 # 
     for piece in pieces: # [750]:#
     # for piece in reversed(range(5,6)): # [750]:#
         # piece = 5
@@ -306,8 +304,8 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     reg = str(reg_Frobenius).replace('.','p')
     ### save result (theta)
     if save_results:
-        file_opinf = f"./results/theta_opinf_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
-        file_adjoint = f"./results/theta_adjoint_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(par_tsvd)}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
+        file_opinf = f"./results/theta_opinf_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(int(par_tsvd))}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
+        file_adjoint = f"./results/theta_adjoint_{data_name}_sam{num_samples}_ratio{ratio}_noise{noise_level}_dim{r}_{weighted}_{order}_{regularizer}_{abs(int(par_tsvd))}_reg{reg}_iter{max_iter}_weighted{weighted}.npz"
         
         np.savez(file_opinf, A_opinf=A_opinf, H_opinf=H_opinf)
         np.savez(file_adjoint, A_opt=A_opt, H_opt=H_opt)
@@ -327,7 +325,6 @@ def main(data_name, r, noise_level, step, smoother=False, pieces=[2], reg_Froben
     t_all = np.r_[t_train,t_test]
     Q_, Q_test_, svdvals = model_reducer(Q_train, Q_original_test, r)
     Q_all_ = np.c_[Q_,Q_test_]
-    
     
     split_ratio_validation = .1
     train_idx = Q_.shape[1]
@@ -478,12 +475,12 @@ if __name__ == "__main__":
     for data_name in ['burgers', 'fkpp']:
     # for data_name in ['fkpp']:
         if data_name=='fkpp':
-            step = 2  ## 1, 2, 4, 5, 10, 20, 40
+            step = 1  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
             split_ratio = .75
             
         if data_name=='burgers':
-            step = 1 # 1 # 10 # 20 #  # 500 # 100
+            step = 10 # 1 # 10 # 20 #  # 500 # 100
             num_samples = 10000//step # 10000
             split_ratio = .5
         
@@ -542,6 +539,23 @@ if __name__ == "__main__":
                 weighted_best.append(weighted)
                 ##########################################
                 
+
+                choose_seg = []
+                pieces_list = [[5,1,5],[3,1,3]]
+                for pieces in pieces_list:
+                    Q_, Q_test_, Q_opinf_6, Q_adjoint, Q_opinf_2, t, k_samples, \
+                    error_opinf_6_init_test, error_adjoint_init_test, error_opinf_2_init_test, \
+                    error_opinf_6_train, error_adjoint_train, error_opinf_2_train, \
+                    error_opinf_6_init_valid, error_adjoint_init_valid, error_opinf_2_init_valid, \
+                    error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, \
+                    success \
+                        = main(data_name, r, noise_level, step, \
+                            smoother, pieces, reg_Frobenius, weighted, max_iter, split_ratio)
+                    choose_seg.append(error_adjoint_valid)
+                
+                pieces = pieces_list[np.argmin(choose_seg)]
+
+
                 Q_, Q_test_, Q_opinf_6, Q_adjoint, Q_opinf_2, t, k_samples, \
                 error_opinf_6_init_test, error_adjoint_init_test, error_opinf_2_init_test, \
                 error_opinf_6_train, error_adjoint_train, error_opinf_2_train, \
