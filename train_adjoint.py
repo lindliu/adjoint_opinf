@@ -501,8 +501,8 @@ if __name__ == "__main__":
     
     save_results = True # False # 
     
-    for data_name in ['burgers', 'fkpp']:
-    # for data_name in ['burgers']:
+    # for data_name in ['burgers', 'fkpp']:
+    for data_name in ['fkpp']:
         if data_name=='fkpp':
             step = 1  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
@@ -516,8 +516,8 @@ if __name__ == "__main__":
         ratio = str(split_ratio).replace('.','p')
         
         noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
-        for noise_level in noise_level_list:
-        # for noise_level in [40]:
+        # for noise_level in noise_level_list:
+        for noise_level in [60, 80, 100, 120, 140, 160, 180, 200]:
             
             name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
 
