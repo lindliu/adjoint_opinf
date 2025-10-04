@@ -654,14 +654,14 @@ if __name__ == "__main__":
             axes[0,0].plot(np.log10(error_adjoint_init_list), marker='o', label='adjoint')
             # axes[0,0].set_xlabel('Model Dimension(r)', fontsize='x-large')
             axes[0,0].set_ylabel(r'test(init) relative error ($log_{10}$)', fontsize='x-large')
-            axes[0,0].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            axes[0,0].set_title(f'{data_name}, ord6, noise {noise_level} samples {num_samples}')
             axes[0,0].legend()
             
             axes[0,1].plot(np.log10(error_opinf_2_init_list), marker='+', label='opinf_2')
             axes[0,1].plot(np.log10(error_adjoint_init_list), marker='o', label='adjoint')
             # axes[0,1].set_xlabel('Model Dimension(r)', fontsize='x-large')
             axes[0,1].set_ylabel(r'test(init) relative error ($log_{10}$)', fontsize='x-large')
-            axes[0,1].set_title(f'{data_name} noise {noise_level} samples {num_samples}')
+            axes[0,1].set_title(f'{data_name}, ord2, noise {noise_level} samples {num_samples}')
             axes[0,1].legend()
             
             axes[0,2].plot(reg_best, 'o', label='reg_best')
