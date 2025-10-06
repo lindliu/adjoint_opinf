@@ -140,7 +140,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, noise_leve
         weights = np.ones(r)
         
 
-    loss_boundary = np.inf #  30000 #
+    loss_boundary = np.inf # 30000 # 
     for piece in pieces: # [750]:#
     # for piece in reversed(range(5,6)): # [750]:#
         # piece = 5
@@ -497,7 +497,7 @@ if __name__ == "__main__":
     # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
     pieces = [3,1,3]  # [1] #  [5,1,5] # 
     split_ratio_validation = .1
-    opinf_use_val = False # True # 
+    opinf_use_val = True # False # 
     
     save_results = True # False # 
     
@@ -517,7 +517,7 @@ if __name__ == "__main__":
         
         noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
         # for noise_level in noise_level_list:
-        for noise_level in [60, 80, 100, 120, 140, 160, 180, 200]:
+        for noise_level in [200]:
             
             name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
 
