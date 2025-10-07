@@ -492,7 +492,7 @@ def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
 if __name__ == "__main__": 
     
     ###### config #####
-    smoother = True #  False # 
+    smoother = False # True #  
     max_iter = 10
     # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
     pieces = [3,1,3]  # [1] #  [5,1,5] # 
@@ -501,23 +501,23 @@ if __name__ == "__main__":
     
     save_results = True # False # 
     
-    # for data_name in ['burgers', 'fkpp']:
-    for data_name in ['fkpp']:
+    for data_name in ['fkpp', 'burgers']:
+    # for data_name in ['fkpp']:
         if data_name=='fkpp':
-            step = 1  ## 1, 2, 4, 5, 10, 20, 40
+            step = 2  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
             split_ratio = .75
             
         if data_name=='burgers':
-            step = 10 # 1 # 10 # 20 #  # 500 # 100
+            step = 20 # 1 # 10 # 20 #  # 500 # 100
             num_samples = 10000//step # 10000
             split_ratio = .5
         
         ratio = str(split_ratio).replace('.','p')
         
         noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
-        # for noise_level in noise_level_list:
-        for noise_level in [200]:
+        for noise_level in noise_level_list:
+        # for noise_level in [200]:
             
             name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
 
