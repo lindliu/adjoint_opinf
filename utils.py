@@ -202,13 +202,18 @@ def smooth(y, t, window_size, poly_order=2, verbose=False):
             std1 = [] 
             while True:
                 std1.append(std_prev)
-                window_size_used += 10
+                
+                window_size_increased = 10
+                if window_size_used+window_size_increased>y_norm0.shape[0]:
+                    window_size_increased = y_norm0.shape[0]-window_size_used
+                
+                window_size_used += window_size_increased
                 y_norm0 = savgol_filter(y_norm0, window_size_used, poly_order)
                 std_new = np.std(diff(y_norm0,1))
                 if verbose: 
                     print('Prev STD: %.5f - New STD: %.5f - Percent change: %.5f' % (std_prev, std_new, 100*(std_new-std_prev)/std_prev))
                 if abs((std_new-std_prev)/std_prev) < 0.1: 
-                    window_size_used -= 10
+                    window_size_used -= window_size_increased
                     break
                 else:
                     std_prev = std_new

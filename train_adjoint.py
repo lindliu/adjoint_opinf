@@ -29,7 +29,7 @@ import random
 random.seed(10)
 np.random.seed(10)    # for numpy random
 
-def data_loader(data_name, step, split_ratio):
+def data_loader(data_name, step, noise_level, split_ratio):
     
     #### the seed should be fixed in function where random values are used ###
     random.seed(10)
@@ -457,7 +457,7 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
 def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
           weighted=False, max_iter=10, split_ratio=.75, split_ratio_validation=.1, opinf_use_val=True, name_suffix=None):
     ### get data ###
-    Q_train, t_train, Q_test, t_test, Q_original_train, Q_original_test, num_samples = data_loader(data_name, step, split_ratio)
+    Q_train, t_train, Q_test, t_test, Q_original_train, Q_original_test, num_samples = data_loader(data_name, step, noise_level, split_ratio)
 
     ### A and H by operator inference under reduced order dataset
     A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, Q_train_, svdvals, regularizer, par_tsvd, order = \
@@ -492,14 +492,14 @@ def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
 if __name__ == "__main__": 
     
     ###### config #####
-    smoother = False # True #  
     max_iter = 10
     # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
     pieces = [3,1,3]  # [1] #  [5,1,5] # 
     split_ratio_validation = .1
     opinf_use_val = True # False # 
+    smoother = True 
     
-    save_results = True # False # 
+    save_results = False # True # 
     
     for data_name in ['fkpp', 'burgers']:
     # for data_name in ['fkpp']:
@@ -523,7 +523,6 @@ if __name__ == "__main__":
 
             # ### get data ###
             # Q_train, t_train, Q_test, t_test, Q_original_train, Q_original_test, num_samples = data_loader(data_name, step, split_ratio)
-
             
             error_opinf_6_init_list, error_adjoint_init_list, error_opinf_2_init_list = [], [], []
             error_opinf_6_train_list, error_adjoint_train_list, error_opinf_2_train_list = [], [], []
@@ -538,7 +537,6 @@ if __name__ == "__main__":
                 # ### A and H by operator inference under reduced order dataset
                 # A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, Q_train_, svdvals, regularizer, par_tsvd, order = \
                 #     operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validation, opinf_use_val)
-
                     
                 #### find the best reg_Frobenius value ###
                 reg_Frobenius_list = [0, 1e-2, 1e-1, 1e0, 1e1]*2
