@@ -497,9 +497,9 @@ if __name__ == "__main__":
     pieces = [3,1,3]  # [1] #  [5,1,5] # 
     split_ratio_validation = .1
     opinf_use_val = True # False # 
-    smoother = True 
+    smoother = True # False
     
-    save_results = False # True # 
+    save_results = True # False #
     
     for data_name in ['fkpp', 'burgers']:
     # for data_name in ['fkpp']:
