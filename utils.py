@@ -190,7 +190,8 @@ def func_lambda(t, x, A, H, u_interp):
 def smooth(y, t, window_size, poly_order=2, verbose=False):    
     from scipy.signal import savgol_filter
     from statsmodels.tsa.statespace.tools import diff
-
+    
+    smoothed = False
     y_ = np.zeros([*y.shape])
     # Automatic tunning of the window size 
     if window_size == None: 
@@ -222,13 +223,15 @@ def smooth(y, t, window_size, poly_order=2, verbose=False):
                 
             if window_size_used > 1: 
                 print('Smoothing window size (dimension 1): '+str(window_size_used),'\n')
-                
                 y_[k,:] = savgol_filter(y[k,:], window_size_used, poly_order)
+                smoothed = True
+                
             else: 
+                y_[k,:] = y[k,:]
                 print('No smoothing applied')
                 print('\n')
                 
-                return y, t
+                # return y, t, False
         
     # Pre-specified window size
     else: 
@@ -237,7 +240,7 @@ def smooth(y, t, window_size, poly_order=2, verbose=False):
             
             t = t[:len(y)]
     
-    return y_, t
+    return y_, t, smoothed
 
 
 

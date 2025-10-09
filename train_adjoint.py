@@ -105,7 +105,7 @@ def operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validati
     return A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, Q_train_, svdvals, regularizer, par_tsvd, order
 
 
-def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, noise_level, smoother=False, pieces=[2], reg_Frobenius=0, \
+def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, smoother=False, pieces=[2], reg_Frobenius=0, \
          weighted=False, max_iter=10):
     
     k_samples = Q_train_.shape[1]  # number of samples for training(snapshot data)
@@ -119,12 +119,15 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, noise_leve
 
     ### smoother
     # smoother = False
-    if smoother and noise_level>0:
-        Q_s, _ = smooth(Q_train_, t_train, window_size=None, poly_order=3)
+    if smoother:
+        Q_s, _, smoothed = smooth(Q_train_, t_train, window_size=None, poly_order=3)
         # Q_train_, _ = smooth(Q_train_, t_train, window_size=None, poly_order=3)
-    
-        resid = Q_s - Q_train_
-        var = np.var(resid, axis=1) + 1e-8
+        
+        if smoothed:
+            resid = Q_s - Q_train_
+            var = np.var(resid, axis=1) + 1e-8
+        else:
+            var = 1
     else:
         var = 1
 
@@ -168,7 +171,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, noise_leve
             
             ############################### GD Loop ##############################
             ######################################################################
-            if smoother and noise_level>0:
+            if smoothed:
                 Q_s_ = Q_s[:, split_a[l]:split_b[l]]
                 q0 = Q_s_[:, 0]
             else:
@@ -464,7 +467,7 @@ def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
         operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validation, opinf_use_val)
 
     ### optimize A and H by adjoint method
-    A_opt, H_opt = optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, noise_level, smoother=smoother, \
+    A_opt, H_opt = optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, smoother=smoother, \
                                         pieces=pieces, reg_Frobenius=reg_Frobenius, weighted=weighted, max_iter=max_iter)
     
 
@@ -501,15 +504,15 @@ if __name__ == "__main__":
     
     save_results = True # False #
     
-    for data_name in ['fkpp', 'burgers']:
+    for data_name in ['burgers', 'fkpp']:
     # for data_name in ['fkpp']:
         if data_name=='fkpp':
-            step = 2  ## 1, 2, 4, 5, 10, 20, 40
+            step = 4  ## 1, 2, 4, 5, 10, 20, 40
             num_samples = 2001//step ## 2000 ##
             split_ratio = .75
             
         if data_name=='burgers':
-            step = 20 # 1 # 10 # 20 #  # 500 # 100
+            step = 100 # 1 # 10 # 20 # 100 # 500 # 100
             num_samples = 10000//step # 10000
             split_ratio = .5
         
@@ -598,7 +601,7 @@ if __name__ == "__main__":
                 error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, \
                 success \
                     = main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius, \
-                           weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix)
+                           weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix+'_best')
         
                 error_opinf_6_list.append(error_opinf_6)
                 error_adjoint_list.append(error_adjoint)
