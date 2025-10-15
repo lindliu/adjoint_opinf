@@ -509,12 +509,12 @@ if __name__ == "__main__":
         for data_name in ['burgers', 'fkpp']:
         # for data_name in ['fkpp']:
             if data_name=='fkpp':
-                step = 1  ## 1, 2, 4, 5, 10, 20, 40
+                step = 2  ## 1, 2, 4, 5, 10, 20, 40
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
                 
             if data_name=='burgers':
-                step = 10 # 1 # 10 # 20 # 100 # 500 # 
+                step = 20 # 1 # 10 # 20 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
             
