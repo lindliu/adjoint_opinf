@@ -222,7 +222,7 @@ def smooth(y, t, window_size, poly_order=2, verbose=False):
                     y_norm0 = (y[k,:]-min(y[k,:]))/(max(y[k,:])-min(y[k,:]))  
                 
             if window_size_used > 1: 
-                print('Smoothing window size (dimension 1): '+str(window_size_used),'\n')
+                print(f'Smoothing window size (dimension {k}): '+str(window_size_used),'\n')
                 y_[k,:] = savgol_filter(y[k,:], window_size_used, poly_order)
                 smoothed = True
                 
