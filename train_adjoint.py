@@ -6,14 +6,6 @@ Created on Thu Sep 18 10:33:53 2025
 @author: dliu
 """
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Aug 29 13:30:17 2025
-
-@author: dliu
-"""
-
 import matplotlib.pyplot as plt
 import numpy as np
 import opinf
@@ -436,7 +428,8 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     
     if save_results:
         fig.savefig(f'./figures/Results_{name_suffix}.png')
-        plt.close()
+    
+    plt.close()
 
     print(f'opinf 6 test error: {error_opinf_6:.6}, val error: {error_opinf_6_valid:.6}')
     print(f'opinf 2 test error: {error_opinf_2:.6}, val error: {error_opinf_2_valid:.6}')
@@ -737,4 +730,5 @@ if __name__ == "__main__":
                 
                 if save_results:
                     fig.savefig(f'./figures/plot_{name_suffix}.png')
-                    plt.close()
+                    
+                plt.close()
