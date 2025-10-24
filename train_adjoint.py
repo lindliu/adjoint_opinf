@@ -324,7 +324,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
 
 
 def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
-                     Q_train_, Q_valid_, Q_test_, Q_s, t_train, t_valid, t_test, name_suffix=None):
+                     Q_train_, Q_valid_, Q_test_, Q_s, t_train, t_valid, t_test, name_suffix=None, save_results=True):
     
     
     # ############### opinf vs adjoint #############    
@@ -434,7 +434,7 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     
     fig.suptitle(f'reg_Frobenius: {reg_Frobenius}, pieces: {pieces}, weighted: {weighted}')
     
-    if save_results and '_best_' in name_suffix:
+    if save_results:
         fig.savefig(f'./figures/Results_{name_suffix}.png')
         plt.close()
 
@@ -484,7 +484,7 @@ def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
     error_opinf_6_init_valid, error_adjoint_init_valid, error_opinf_2_init_valid, \
     error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, success = \
         predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
-                              Q_train_, Q_valid_, Q_test_, Q_s, t_train, t_valid, t_test, name_suffix=name_suffix)
+                              Q_train_, Q_valid_, Q_test_, Q_s, t_train, t_valid, t_test, name_suffix=name_suffix, save_results=save_results)
     
     if save_results:
         np.savez(f"./results/theta_adjoint_with_opinf_{name_suffix}.npz", \
