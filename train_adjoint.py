@@ -29,7 +29,7 @@ import random
 random.seed(10)
 np.random.seed(10)    # for numpy random
 
-def data_loader(data_name, step, noise_level, split_ratio):
+def data_loader(data_name, step, noise_level, split_ratio, split_ratio_validation=.1):
     
     #### the seed should be fixed in function where random values are used ###
     random.seed(10)
@@ -61,28 +61,65 @@ def data_loader(data_name, step, noise_level, split_ratio):
     Q_original, t = Q_original[:, ::step], t[::step] #subsample snapshots
     num_samples = Q_original.shape[1]
 
-    Q_original_train, t_train, Q_original_test, t_test = \
-        get_train_test_data(Q_original, t, split_ratio=split_ratio)
+    Q_original_train, t_train, Q_original_valid, t_valid, Q_original_test, t_test = \
+        get_train_test_data(Q_original, t, split_ratio=split_ratio, split_ratio_validation=split_ratio_validation)
 
     Q_original_noised = add_noise(Q_original, percentage=noise_level, method="std")
-    Q_train, t_train, Q_test, t_test = get_train_test_data(Q_original_noised, t, split_ratio=split_ratio)
+    Q_train, t_train, Q_valid, t_valid, Q_test, t_test = \
+        get_train_test_data(Q_original_noised, t, split_ratio=split_ratio, split_ratio_validation=split_ratio_validation)
     # dt = t_train[1] - t_train[0]
 
-    return Q_train, t_train, Q_test, t_test, Q_original_train, Q_original_test, num_samples
+    return Q_train, t_train, Q_valid, t_valid, Q_test, t_test, Q_original_train, Q_original_valid, Q_original_test, num_samples
 
-def operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validation=.1, opinf_use_val=True):
+def get_smoothed(Q_train_, t_train):
+    ### smoother
+    # smoother = False
+    if smoother:
+        Q_s, _, smoothed = smooth(Q_train_, t_train, window_size=None, poly_order=3)
+        # Q_train_, _ = smooth(Q_train_, t_train, window_size=None, poly_order=3)
+        
+        if smoothed:
+            resid = Q_s - Q_train_
+            var = np.var(resid, axis=1) + 1e-8
+        else:
+            var = 1
+    else:
+        var = 1
+    return Q_s, var
+
+def get_weights(r, svdvals, var):
+    ### 权重，特征值越小噪音越大，则其权重越小
+    # weights = svdvals[:r]
+    weights = svdvals[:r]/(var+1e-8)
+    # weights = svdvals[:r]**2/var
+
+    weights = weights/weights.sum()
+    return weights
+    
+def operator_inference(Q_train, t_train, Q_valid, t_valid, Q_original_test, t_test, r, opinf_use_val=True, smoother=True, weighted=True):
     ### Snapshot data Q = [q(t_0) q(t_1) ... q(t_k)], size=(r,k)
     ### reduce data order to r
-    Q_train_, Q_test_, svdvals = model_reducer(Q_train, Q_test, r)
+    Q_train_, Q_valid_, Q_test_, svdvals = model_reducer(Q_train, Q_valid, Q_original_test, r)
     
+    if smoother:
+        Q_s, var = get_smoothed(Q_train_, t_train)
+    else:
+        Q_s = Q_train_
+        var = 1
+        
+    if weighted:
+        weights = get_weights(r, svdvals, var)
+    else:
+        weights = np.ones(r)
+        
     # split_ratio_validation = .1  ## if this is 0, then it means opinf choose model based on train dataset
     ### select best A_opinf, H_opinf by grid search ####
     A_opinf_6, H_opinf_6, regularizer_6, par_tsvd_6, loss_min_6 = \
-        optimal_opinf(Q_train_, t_train, t_test, 'ord6', opinf_use_val, valid_ratio=split_ratio_validation, Q_test_=Q_test_)#, M=np.max(np.abs(Q_train_))*10, T=t[-1],)
+        optimal_opinf(Q_train_, t_train, t_valid, t_test, 'ord6', opinf_use_val, Q_valid_=Q_valid_, Q_s=Q_s)#, M=np.max(np.abs(Q_train_))*10, T=t[-1],)
     
     ##### result by order='ord2'
     A_opinf_2, H_opinf_2, regularizer_2, par_tsvd_2, loss_min_2 = \
-        optimal_opinf(Q_train_, t_train, t_test, 'ord2', opinf_use_val, valid_ratio=split_ratio_validation, Q_test_=Q_test_)#, M=np.max(np.abs(Q_train_))*10, T=t[-1],)
+        optimal_opinf(Q_train_, t_train, t_valid, t_test, 'ord2', opinf_use_val, Q_valid_=Q_valid_, Q_s=Q_s)#, M=np.max(np.abs(Q_train_))*10, T=t[-1],)
 
     #### ord2/6
     if loss_min_6<=loss_min_2:
@@ -102,12 +139,11 @@ def operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validati
         order = 'ord2'
     
         
-    return A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, Q_train_, svdvals, regularizer, par_tsvd, order
+    return A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
+        Q_train_, Q_valid_, Q_test_, Q_s, weights, regularizer, par_tsvd, order
 
 
-def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, smoother=False, pieces=[2], reg_Frobenius=0, \
-         weighted=False, max_iter=10):
-    
+def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, pieces=[2], reg_Frobenius=0, max_iter=10):
     k_samples = Q_train_.shape[1]  # number of samples for training(snapshot data)
     r = Q_train_.shape[0]
     
@@ -116,32 +152,6 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, smoother=F
     # theta = np.random.rand(r**2+r**3)*.1
 
     dt = t_train[1]-t_train[0]
-
-    ### smoother
-    # smoother = False
-    if smoother:
-        Q_s, _, smoothed = smooth(Q_train_, t_train, window_size=None, poly_order=3)
-        # Q_train_, _ = smooth(Q_train_, t_train, window_size=None, poly_order=3)
-        
-        if smoothed:
-            resid = Q_s - Q_train_
-            var = np.var(resid, axis=1) + 1e-8
-        else:
-            var = 1
-    else:
-        var = 1
-
-        
-    if weighted:
-        ### 权重，特征值越小噪音越大，则其权重越小
-        # weights = svdvals[:r]
-        weights = svdvals[:r]/(var+1e-8)
-        # weights = svdvals[:r]**2/var
-
-        weights = weights/weights.sum()
-    else:
-        weights = np.ones(r)
-        
 
     loss_boundary = np.inf # 30000 # 
     for piece in pieces: # [750]:#
@@ -171,11 +181,11 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, smoother=F
             
             ############################### GD Loop ##############################
             ######################################################################
-            if smoothed:
-                Q_s_ = Q_s[:, split_a[l]:split_b[l]]
-                q0 = Q_s_[:, 0]
-            else:
-                q0 = Q_[:, 0]
+            # if smoothed:
+            Q_s_ = Q_s[:, split_a[l]:split_b[l]]
+            q0 = Q_s_[:, 0]
+            # else:
+            #     q0 = Q_[:, 0]
             
             # loss_new = -np.inf
             for j in range(max_iter):
@@ -304,7 +314,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, smoother=F
 
 def save_theta(A_opinf, H_opinf, A_opt, H_opt, name_suffix):
     ### save result (theta)
-    if save_results:
+    if save_results and '_best_' in name_suffix:
         file_opinf = f"./results/theta_opinf_{name_suffix}.npz"
         file_adjoint = f"./results/theta_adjoint_{name_suffix}.npz"
         
@@ -319,36 +329,29 @@ def save_theta(A_opinf, H_opinf, A_opt, H_opt, name_suffix):
 
 
 def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
-                     Q_train, t_train, Q_original_test, t_test, r, split_ratio_validation=.1, name_suffix=None):
+                     Q_train_, Q_valid_, Q_test_, Q_s, t_train, t_valid, t_test, name_suffix=None):
     
     
     # ############### opinf vs adjoint #############    
-    t_all = np.r_[t_train,t_test]
-    Q_, Q_test_, svdvals = model_reducer(Q_train, Q_original_test, r)
-    Q_all_ = np.c_[Q_,Q_test_]
+    t_all = np.r_[t_train,t_valid,t_test]
+    Q_all_ = np.c_[Q_train_, Q_valid_, Q_test_]
     
     
-    train_idx = Q_.shape[1]
-    valid_idx = int(split_ratio_validation * Q_all_.shape[1]) + train_idx
-    
-    
-    t_val = t_all[train_idx:valid_idx]
-    t_test = t_all[valid_idx:]
-    Q_val_ = Q_all_[:, train_idx:valid_idx]
-    Q_test_ = Q_all_[:, valid_idx:]
-    
+    train_idx = Q_train_.shape[1]
+    valid_idx = train_idx + Q_valid_.shape[1]
     
     
     fig, axes = plt.subplots(3,3,figsize=[16,10])
     
-    Q_0 = Q_all_[:,0]
+    ### all time prediction
+    Q_0 = Q_s[:,0]
     Q_opinf_6 = ode_solver(func_surrogate, Q_0, t_all, par=(A_opinf_6, H_opinf_6), rescale=True)
     Q_adjoint = ode_solver(func_surrogate, Q_0, t_all, par=(A_opt, H_opt), rescale=True)
     Q_opinf_2 = ode_solver(func_surrogate, Q_0, t_all, par=(A_opinf_2, H_opinf_2), rescale=True)
 
-    error_opinf_6_init_valid = np.mean((Q_val_.T - Q_opinf_6[:,train_idx:valid_idx].T)**2)/np.mean(Q_val_.T**2)
-    error_adjoint_init_valid = np.mean((Q_val_.T - Q_adjoint[:,train_idx:valid_idx].T)**2)/np.mean(Q_val_.T**2)
-    error_opinf_2_init_valid = np.mean((Q_val_.T - Q_opinf_2[:,train_idx:valid_idx].T)**2)/np.mean(Q_val_.T**2)
+    error_opinf_6_init_valid = np.mean((Q_valid_.T - Q_opinf_6[:,train_idx:valid_idx].T)**2)/np.mean(Q_valid_.T**2)
+    error_adjoint_init_valid = np.mean((Q_valid_.T - Q_adjoint[:,train_idx:valid_idx].T)**2)/np.mean(Q_valid_.T**2)
+    error_opinf_2_init_valid = np.mean((Q_valid_.T - Q_opinf_2[:,train_idx:valid_idx].T)**2)/np.mean(Q_valid_.T**2)
     
     error_opinf_6_init_test = np.mean((Q_test_.T - Q_opinf_6[:,valid_idx:].T)**2)/np.mean(Q_test_.T**2)
     error_adjoint_init_test = np.mean((Q_test_.T - Q_adjoint[:,valid_idx:].T)**2)/np.mean(Q_test_.T**2)
@@ -371,23 +374,24 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     axes[0,2].title.set_text(f'opinf_2 vs true: {np.log10(error_opinf_2_init_test):.3} val: {np.log10(error_opinf_2_init_valid):.3}')
     
     
+    ### valid time period prediction
+    Q_0 = Q_s[:,-1]
+    Q_opinf_6_val = ode_solver(func_surrogate, Q_0, t_valid, par=(A_opinf_6, H_opinf_6), rescale=True)
+    Q_adjoint_val = ode_solver(func_surrogate, Q_0, t_valid, par=(A_opt, H_opt), rescale=True)
+    Q_opinf_2_val = ode_solver(func_surrogate, Q_0, t_valid, par=(A_opinf_2, H_opinf_2), rescale=True)
+    error_opinf_6_valid = np.mean((Q_valid_.T - Q_opinf_6_val.T)**2)/np.mean(Q_valid_.T**2)
+    error_adjoint_valid = np.mean((Q_valid_.T - Q_adjoint_val.T)**2)/np.mean(Q_valid_.T**2)
+    error_opinf_2_valid = np.mean((Q_valid_.T - Q_opinf_2_val.T)**2)/np.mean(Q_valid_.T**2)
     
-    Q_0 = Q_val_[:,0]
-    Q_opinf_6_val = ode_solver(func_surrogate, Q_0, t_val, par=(A_opinf_6, H_opinf_6), rescale=True)
-    Q_adjoint_val = ode_solver(func_surrogate, Q_0, t_val, par=(A_opt, H_opt), rescale=True)
-    Q_opinf_2_val = ode_solver(func_surrogate, Q_0, t_val, par=(A_opinf_2, H_opinf_2), rescale=True)
-    error_opinf_6_valid = np.mean((Q_val_.T - Q_opinf_6_val.T)**2)/np.mean(Q_val_.T**2)
-    error_adjoint_valid = np.mean((Q_val_.T - Q_adjoint_val.T)**2)/np.mean(Q_val_.T**2)
-    error_opinf_2_valid = np.mean((Q_val_.T - Q_opinf_2_val.T)**2)/np.mean(Q_val_.T**2)
-    
-    Q_0 = Q_[:,0]
+    ### train time period prediction
+    Q_0 = Q_s[:,0]
     Q_opinf_6 = ode_solver(func_surrogate, Q_0, t_train, par=(A_opinf_6, H_opinf_6), rescale=True)
     Q_adjoint = ode_solver(func_surrogate, Q_0, t_train, par=(A_opt, H_opt), rescale=True)
     Q_opinf_2 = ode_solver(func_surrogate, Q_0, t_train, par=(A_opinf_2, H_opinf_2), rescale=True)
 
-    error_opinf_6_train = np.mean((Q_.T - Q_opinf_6.T)**2)/np.mean(Q_.T**2)
-    error_adjoint_train = np.mean((Q_.T - Q_adjoint.T)**2)/np.mean(Q_.T**2)
-    error_opinf_2_train = np.mean((Q_.T - Q_opinf_2.T)**2)/np.mean(Q_.T**2)
+    error_opinf_6_train = np.mean((Q_train_.T - Q_opinf_6.T)**2)/np.mean(Q_train_.T**2)
+    error_adjoint_train = np.mean((Q_train_.T - Q_adjoint.T)**2)/np.mean(Q_train_.T**2)
+    error_opinf_2_train = np.mean((Q_train_.T - Q_opinf_2.T)**2)/np.mean(Q_train_.T**2)
     
     axes[1,0].plot(t_all, Q_all_.T, label='true')
     axes[1,0].plot(t_train, Q_opinf_6.T, '--')
@@ -403,15 +407,15 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     axes[1,2].title.set_text(f'opinf_2 vs true, train: {np.log10(error_opinf_2_train):.3} val: {np.log10(error_opinf_2_valid):.3}')
     
     
-    axes[1,0].plot(t_val, Q_opinf_6_val.T, '--')
+    axes[1,0].plot(t_valid, Q_opinf_6_val.T, '--')
     axes[1,0].axvline(x=t_all[valid_idx], ls='--')
-    axes[1,1].plot(t_val, Q_adjoint_val.T, '--')
+    axes[1,1].plot(t_valid, Q_adjoint_val.T, '--')
     axes[1,1].axvline(x=t_all[valid_idx], ls='--')
-    axes[1,2].plot(t_val, Q_opinf_2_val.T, '--')
+    axes[1,2].plot(t_valid, Q_opinf_2_val.T, '--')
     axes[1,2].axvline(x=t_all[valid_idx], ls='--')
 
 
-    
+    ### test time period prediction
     Q_0 = Q_test_[:,0]
     Q_opinf_6 = ode_solver(func_surrogate, Q_0, t_test, par=(A_opinf_6, H_opinf_6), rescale=True)
     Q_adjoint = ode_solver(func_surrogate, Q_0, t_test, par=(A_opt, H_opt), rescale=True)
@@ -435,7 +439,7 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     
     fig.suptitle(f'reg_Frobenius: {reg_Frobenius}, pieces: {pieces}, weighted: {weighted}')
     
-    if save_results:
+    if save_results and '_best_' in name_suffix:
         fig.savefig(f'./figures/Results_{name_suffix}.png')
         plt.close()
 
@@ -446,10 +450,11 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     # print(f'test error (opinf-adjoint): {error_opinf_6 - error_adjoint}')
     
 
-    sol_ode = solve_ivp(func_surrogate, (t_all[0], t_all[-1]), Q_[:,0], t_eval=t_all, args=(A_opt, H_opt), method='BDF') # or "BDF", "RK45", "Radau", "LSODA"
+    sol_ode = solve_ivp(func_surrogate, (t_all[0], t_all[-1]), Q_s[:,0], t_eval=t_all, args=(A_opt, H_opt), method='BDF') # or "BDF", "RK45", "Radau", "LSODA"
     success = sol_ode.success
     
-    return error_opinf_6, error_adjoint, error_opinf_2, \
+    return Q_opinf_6, Q_adjoint, Q_opinf_2, \
+            error_opinf_6, error_adjoint, error_opinf_2, \
             error_opinf_6_init_test, error_adjoint_init_test, error_opinf_2_init_test, \
             error_opinf_6_train, error_adjoint_train, error_opinf_2_train, \
             error_opinf_6_init_valid, error_adjoint_init_valid, error_opinf_2_init_valid, \
@@ -460,30 +465,38 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
 def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
           weighted=False, max_iter=10, split_ratio=.75, split_ratio_validation=.1, opinf_use_val=True, name_suffix=None):
     ### get data ###
-    Q_train, t_train, Q_test, t_test, Q_original_train, Q_original_test, num_samples = data_loader(data_name, step, noise_level, split_ratio)
+    Q_train, t_train, Q_valid, t_valid, Q_test, t_test, Q_original_train, Q_original_valid, Q_original_test, num_samples = \
+                                        data_loader(data_name, step, noise_level, split_ratio, split_ratio_validation)
 
     ### A and H by operator inference under reduced order dataset
-    A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, Q_train_, svdvals, regularizer, par_tsvd, order = \
-        operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validation, opinf_use_val)
+    A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
+        Q_train_, Q_valid_, Q_test_, Q_s, weights, regularizer, par_tsvd, order = \
+        operator_inference(Q_train, t_train, Q_valid, t_valid, Q_original_test, t_test, r, opinf_use_val, smoother=smoother, weighted=weighted)
+
 
     ### optimize A and H by adjoint method
-    A_opt, H_opt = optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, svdvals, smoother=smoother, \
-                                        pieces=pieces, reg_Frobenius=reg_Frobenius, weighted=weighted, max_iter=max_iter)
-    
+    A_opt, H_opt = optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights=weights,\
+                                        pieces=pieces, reg_Frobenius=reg_Frobenius, max_iter=max_iter)  
 
     ### get errors and save results
     reg = str(reg_Frobenius).replace('.','p')
     name_suffix = name_suffix+f'_dim{r}_{order}_{regularizer}_{abs(int(par_tsvd))}_reg{reg}_weighted{weighted}'
     save_theta(A_opinf, H_opinf, A_opt, H_opt, name_suffix)
 
+    Q_opinf_6, Q_adjoint, Q_opinf_2, \
     error_opinf_6, error_adjoint, error_opinf_2, \
     error_opinf_6_init_test, error_adjoint_init_test, error_opinf_2_init_test, \
     error_opinf_6_train, error_adjoint_train, error_opinf_2_train, \
     error_opinf_6_init_valid, error_adjoint_init_valid, error_opinf_2_init_valid, \
     error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, success = \
         predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
-                              Q_train, t_train, Q_original_test, t_test, r, split_ratio_validation, name_suffix=name_suffix)
+                              Q_train_, Q_valid_, Q_test_, Q_s, t_train, t_valid, t_test, name_suffix=name_suffix)
     
+    if '_best_' in name_suffix:
+        np.savez(f'./results/Predictions_{name_suffix}', Q_train_=Q_train_, Q_valid_=Q_valid_, Q_test_=Q_test_, Q_s=Q_s, \
+                 t_train=t_train, t_valid=t_valid, t_test=t_test, \
+                 Q_opinf_6=Q_opinf_6, Q_adjoint=Q_adjoint, Q_opinf_2=Q_opinf_2)
+        
     return error_opinf_6, error_adjoint, error_opinf_2, \
         error_opinf_6_init_test, error_adjoint_init_test, error_opinf_2_init_test, \
         error_opinf_6_train, error_adjoint_train, error_opinf_2_train, \
@@ -503,26 +516,26 @@ if __name__ == "__main__":
     
     save_results = True # False #
     
-    for opinf_use_val in [True, False]:
-    # for opinf_use_val in [False]:
+    # for opinf_use_val in [True, False]:
+    for opinf_use_val in [True]:
 
-        for data_name in ['burgers', 'fkpp']:
-        # for data_name in ['burgers']:
+        # for data_name in ['burgers', 'fkpp']:
+        for data_name in ['fkpp']:
             if data_name=='fkpp':
-                step = 40  ## 1, 2, 4, 5, 10, 20, 40
+                step = 10  ## 1, 2, 4, 5, 10, 20, 40
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
                 
             if data_name=='burgers':
-                step = 1 # 1 # 10 # 20 # 100 # 500 # 
+                step = 100 # 1 # 10 # 20 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
             
             ratio = str(split_ratio).replace('.','p')
             
             noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
-            for noise_level in noise_level_list:
-            # for noise_level in [160, 180, 200]:
+            # for noise_level in noise_level_list:
+            for noise_level in [0, 40, 80, 120, 160, 200]:
                 
                 name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
 

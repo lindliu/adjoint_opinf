@@ -94,16 +94,19 @@ def ode_solver(func, x0, t, par=None, method="BDF", rescale=True):
 #     """Subsample high-resolution snapshots (k=1000) to lower density (k_low)."""
 #     return Q_higher[:, ::step], t[::step]
 
-def get_train_test_data(Q, t, split_ratio=.5, noise_level=1, noise_method="std"):
+def get_train_test_data(Q, t, split_ratio=.5, split_ratio_validation=.1):
     num_samples = Q.shape[1]
     split = int(num_samples*split_ratio)
+    split_valid = int(num_samples*split_ratio_validation)
     
     Q_train = Q[:, :split]
-    Q_test = Q[:, split:]
+    Q_valid = Q[:, split:split+split_valid]
+    Q_test = Q[:, split+split_valid:]
     
     ### Time vector
     t_train = t[:split]  # Training time
-    t_test = t[split:]    # Prediction time
+    t_valid = t[split:split+split_valid]
+    t_test = t[split+split_valid:]    # Prediction time
     # dt = t_train[1] - t_train[0]
     
     # np.save(f'./data/Q_train_density_{num_samples}.npy', Q_train)
@@ -111,7 +114,7 @@ def get_train_test_data(Q, t, split_ratio=.5, noise_level=1, noise_method="std")
     # np.save(f'./data/t_train_density_{num_samples}.npy', t_train)
     # np.save(f'./data/t_test_density_{num_samples}.npy', t_test)
 
-    return Q_train, t_train, Q_test, t_test
+    return Q_train, t_train, Q_valid, t_valid, Q_test, t_test
 
 def add_noise(Q, percentage, method="max_norm"):
     """
@@ -150,7 +153,7 @@ def add_noise(Q, percentage, method="max_norm"):
     
     return Q_noisy
 
-def model_reducer(Q_train, Q_test, r):
+def model_reducer(Q_train, Q_valid, Q_test, r):
     # Initialize a basis.
     #Vr = opinf.basis.PODBasis(cumulative_energy=0.9999)
     Vr = opinf.basis.PODBasis(num_vectors=r)
@@ -159,10 +162,11 @@ def model_reducer(Q_train, Q_test, r):
     Vr.fit(Q_train)
     
     # Compress the state snapshots to the reduced space defined by the basis.
-    Q_ = Vr.compress(Q_train)
+    Q_train_ = Vr.compress(Q_train)
+    Q_valid_ = Vr.compress(Q_valid)
     Q_test_ = Vr.compress(Q_test)
     
-    return Q_, Q_test_, Vr.svdvals
+    return Q_train_, Q_valid_, Q_test_, Vr.svdvals
 
     
 def func_surrogate(t, x, a, b):
@@ -283,8 +287,7 @@ def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1, reg_
     return A_opinf, H_opinf
 
 
-def optimal_opinf(Q_, t, t_test, order='ord6', opinf_use_val=True, valid_ratio=0, Q_test_=None, M=100, T=5):
-    assert valid_ratio>=0 and valid_ratio<1
+def optimal_opinf(Q_train_, t_train, t_valid, t_test, order='ord6', opinf_use_val=True, Q_valid_=None, Q_s=None, M=100, T=5):
     
     ### TruncatedSVDSolver for L2T is critical  ########
     loss_list = []
@@ -294,7 +297,7 @@ def optimal_opinf(Q_, t, t_test, order='ord6', opinf_use_val=True, valid_ratio=0
     # regularizer_list = ['no','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
     # par_tsvd_list = [0,1e-2,0,-1,-2,-3,-4,-5,-6,-7]
     for regularizer_, par_tsvd_ in zip(regularizer_list, par_tsvd_list):
-        A_opinf, H_opinf = get_theta_by_opinf(Q_, t, order=order, regularizer=regularizer_, par_tsvd=par_tsvd_, reg_l2=par_tsvd_)
+        A_opinf, H_opinf = get_theta_by_opinf(Q_train_, t_train, order=order, regularizer=regularizer_, par_tsvd=par_tsvd_, reg_l2=par_tsvd_)
         
         r = A_opinf.shape[0]
         eigvals_A = np.linalg.eigvals(A_opinf)
@@ -307,28 +310,26 @@ def optimal_opinf(Q_, t, t_test, order='ord6', opinf_use_val=True, valid_ratio=0
             continue
         
         # try:
-        t_all = np.r_[t, t_test]
+        t_all = np.r_[t_train, t_valid, t_test]
         ### verify if operator inference works ###
-        Q_opinf_ = solve_ivp(func_surrogate, (t_all[0], t_all[-1]), Q_[:,0], \
+        Q_opinf_ = solve_ivp(func_surrogate, (t_all[0], t_all[-1]), Q_s[:,0], \
                             t_eval=t_all, args=(A_opinf, H_opinf),  method='BDF')
         
         if Q_opinf_.success:
             if opinf_use_val==False:
                 #### choose model depend on train dataset
-                Q_opinf_ = ode_solver(func_surrogate, Q_[:,0], t, par=(A_opinf, H_opinf), rescale=False)
-                loss_list.append(np.mean((Q_ - Q_opinf_)**2))
+                Q_opinf_ = ode_solver(func_surrogate, Q_s[:,0], t_train, par=(A_opinf, H_opinf), rescale=False)
+                loss_list.append(np.mean((Q_train_ - Q_opinf_)**2))
             
             if opinf_use_val==True:
-                assert valid_ratio>0 and valid_ratio<1
-                assert Q_test_ is not None
+                assert Q_valid_ is not None
                 #### choose model depend on validataion dataset
-                val_idx = int(t_all.shape[0]*valid_ratio)
-                Q_opinf_ = ode_solver(func_surrogate, Q_test_[:,0], t_test[:val_idx], par=(A_opinf, H_opinf), rescale=True)
-                loss_list.append(np.mean((Q_test_[:,:val_idx] - Q_opinf_)**2))
+                Q_opinf_ = ode_solver(func_surrogate, Q_s[:,-1], t_valid, par=(A_opinf, H_opinf), rescale=True)
+                loss_list.append(np.mean((Q_valid_ - Q_opinf_)**2))
         else:
             print('FalseFalseFalseFalseFalse')
             loss_list.append(np.inf)
-            
+    
     # print(loss_list)
     if min(loss_list)==np.inf:
         idx = np.argmin(rho_list)
@@ -339,7 +340,7 @@ def optimal_opinf(Q_, t, t_test, order='ord6', opinf_use_val=True, valid_ratio=0
     regularizer = regularizer_list[idx]
     par_tsvd = par_tsvd_list[idx]
     
-    A_opinf, H_opinf = get_theta_by_opinf(Q_, t, order=order, regularizer=regularizer, par_tsvd=par_tsvd, reg_l2=par_tsvd)
+    A_opinf, H_opinf = get_theta_by_opinf(Q_train_, t_train, order=order, regularizer=regularizer, par_tsvd=par_tsvd, reg_l2=par_tsvd)
     
     
     if regularizer=='L2':
