@@ -312,19 +312,14 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
     
     return A_opt, H_opt
 
-def save_theta(A_opinf, H_opinf, A_opt, H_opt, name_suffix):
-    ### save result (theta)
-    if save_results and '_best_' in name_suffix:
-        file_opinf = f"./results/theta_opinf_{name_suffix}.npz"
-        file_adjoint = f"./results/theta_adjoint_{name_suffix}.npz"
-        
-        np.savez(file_opinf, A_opinf=A_opinf, H_opinf=H_opinf)
-        np.savez(file_adjoint, A_opt=A_opt, H_opt=H_opt)
+# def save_theta(A_opt, H_opt, A_opinf, H_opinf, name_suffix):
 
-        # theta_opinf = np.load(file_opinf)
-        # A_opinf, H_opinf = theta_opinf['A_opinf'], theta_opinf['H_opinf']
-        # theta_opt = np.load(file_adjoint)
-        # A_opt, H_opt = theta_opt['A_opt'], theta_opt['H_opt']
+#         # np.savez(file_adjoint, A_opt=A_opt, H_opt=H_opt)
+
+#         # theta_opinf = np.load(file_opinf)
+#         # A_opinf, H_opinf = theta_opinf['A_opinf'], theta_opinf['H_opinf']
+#         # theta_opt = np.load(file_adjoint)
+#         # A_opt, H_opt = theta_opt['A_opt'], theta_opt['H_opt']
 
 
 
@@ -463,7 +458,7 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
 
 
 def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
-          weighted=False, max_iter=10, split_ratio=.75, split_ratio_validation=.1, opinf_use_val=True, name_suffix=None):
+          weighted=False, max_iter=10, split_ratio=.75, split_ratio_validation=.1, opinf_use_val=True, name_suffix=None, save_results=True):
     ### get data ###
     Q_train, t_train, Q_valid, t_valid, Q_test, t_test, Q_original_train, Q_original_valid, Q_original_test, num_samples = \
                                         data_loader(data_name, step, noise_level, split_ratio, split_ratio_validation)
@@ -481,7 +476,6 @@ def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
     ### get errors and save results
     reg = str(reg_Frobenius).replace('.','p')
     name_suffix = name_suffix+f'_dim{r}_{order}_{regularizer}_{abs(int(par_tsvd))}_reg{reg}_weighted{weighted}'
-    save_theta(A_opinf, H_opinf, A_opt, H_opt, name_suffix)
 
     Q_opinf_6, Q_adjoint, Q_opinf_2, \
     error_opinf_6, error_adjoint, error_opinf_2, \
@@ -492,8 +486,12 @@ def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
         predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
                               Q_train_, Q_valid_, Q_test_, Q_s, t_train, t_valid, t_test, name_suffix=name_suffix)
     
-    if '_best_' in name_suffix:
-        np.savez(f'./results/Predictions_{name_suffix}', Q_train_=Q_train_, Q_valid_=Q_valid_, Q_test_=Q_test_, Q_s=Q_s, \
+    if save_results:
+        np.savez(f"./results/theta_adjoint_with_opinf_{name_suffix}.npz", \
+                 A_adjoint=A_opt, H_adjoint=H_opt, A_opinf=A_opinf, H_opinf=H_opinf)
+        
+        np.savez(f'./results/Predictions_{name_suffix}.npz', \
+                 Q_train_=Q_train_, Q_valid_=Q_valid_, Q_test_=Q_test_, Q_s=Q_s, \
                  t_train=t_train, t_valid=t_valid, t_test=t_test, \
                  Q_opinf_6=Q_opinf_6, Q_adjoint=Q_adjoint, Q_opinf_2=Q_opinf_2)
         
@@ -574,7 +572,7 @@ if __name__ == "__main__":
                         error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, \
                         success \
                             = main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius, \
-                                weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix)
+                                weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix, save_results=False)
 
                         # 判断是否快速下降或上升（积分爆炸）
                         if not success:
@@ -602,7 +600,7 @@ if __name__ == "__main__":
                         error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, \
                         success \
                             = main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius, \
-                                weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix)
+                                weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix, save_results=False)
                         
                         choose_seg.append(error_adjoint_valid)
                     
@@ -616,7 +614,7 @@ if __name__ == "__main__":
                     error_opinf_6_valid, error_adjoint_valid, error_opinf_2_valid, \
                     success \
                         = main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius, \
-                            weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix+'_best')
+                            weighted, max_iter, split_ratio, split_ratio_validation, opinf_use_val, name_suffix+'_best', save_results=save_results)
             
                     error_opinf_6_list.append(error_opinf_6)
                     error_adjoint_list.append(error_adjoint)
