@@ -516,26 +516,26 @@ if __name__ == "__main__":
     
     save_results = True # False #
     
-    # for opinf_use_val in [True, False]:
-    for opinf_use_val in [True]:
+    for opinf_use_val in [True, False]:
+    # for opinf_use_val in [True]:
 
-        # for data_name in ['burgers', 'fkpp']:
-        for data_name in ['fkpp']:
+        for data_name in ['burgers', 'fkpp']:
+        # for data_name in ['fkpp']:
             if data_name=='fkpp':
-                step = 10  ## 1, 2, 4, 5, 10, 20, 40
+                step = 1  ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
                 
             if data_name=='burgers':
-                step = 100 # 1 # 10 # 20 # 100 # 500 # 
+                step = 1 # 1 # 10 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
             
             ratio = str(split_ratio).replace('.','p')
             
-            noise_level_list = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
-            # for noise_level in noise_level_list:
-            for noise_level in [0, 40, 80, 120, 160, 200]:
+            noise_level_list = [0, 40, 80, 120, 160, 200]
+            for noise_level in noise_level_list:
+            # for noise_level in [0, 40, 80, 120, 160, 200]:
                 
                 name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
 
