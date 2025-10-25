@@ -324,7 +324,7 @@ def optimal_opinf(Q_train_, t_train, t_valid, t_test, order='ord6', opinf_use_va
             if opinf_use_val==True:
                 assert Q_valid_ is not None
                 #### choose model depend on validataion dataset
-                Q_opinf_ = ode_solver(func_surrogate, Q_s[:,-1], t_valid, par=(A_opinf, H_opinf), rescale=True)
+                Q_opinf_ = ode_solver(func_surrogate, Q_valid_[:,0], t_valid, par=(A_opinf, H_opinf), rescale=True)
                 loss_list.append(np.mean((Q_valid_ - Q_opinf_)**2))
         else:
             print('FalseFalseFalseFalseFalse')

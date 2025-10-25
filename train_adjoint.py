@@ -362,7 +362,7 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     
     
     ### valid time period prediction
-    Q_0 = Q_s[:,-1]
+    Q_0 = Q_valid_[:,0]
     Q_opinf_6_val = ode_solver(func_surrogate, Q_0, t_valid, par=(A_opinf_6, H_opinf_6), rescale=True)
     Q_adjoint_val = ode_solver(func_surrogate, Q_0, t_valid, par=(A_opt, H_opt), rescale=True)
     Q_opinf_2_val = ode_solver(func_surrogate, Q_0, t_valid, par=(A_opinf_2, H_opinf_2), rescale=True)
@@ -513,12 +513,12 @@ if __name__ == "__main__":
         for data_name in ['burgers', 'fkpp']:
         # for data_name in ['fkpp']:
             if data_name=='fkpp':
-                step = 10 ## 1, 2, 4, 10
+                step = 1 ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
                 
             if data_name=='burgers':
-                step = 500 # 1 # 10 # 100 # 500 # 
+                step = 1 # 1 # 10 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
             
