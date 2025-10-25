@@ -431,9 +431,9 @@ def predict_and_plot(A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, \
     
     plt.close()
 
-    print(f'opinf 6 test error: {error_opinf_6:.6}, val error: {error_opinf_6_valid:.6}')
-    print(f'opinf 2 test error: {error_opinf_2:.6}, val error: {error_opinf_2_valid:.6}')
-    print(f'adjoint test error: {error_adjoint:.6}, val error: {error_adjoint_valid:.6}')
+    print(f'opinf 6 test error: {np.log10(error_opinf_6):.6}, val error: {np.log10(error_opinf_6_valid):.6}')
+    print(f'opinf 2 test error: {np.log10(error_opinf_2):.6}, val error: {np.log10(error_opinf_2_valid):.6}')
+    print(f'adjoint test error: {np.log10(error_adjoint):.6}, val error: {np.log10(error_adjoint_valid):.6}')
 
     # print(f'test error (opinf-adjoint): {error_opinf_6 - error_adjoint}')
     
@@ -501,7 +501,7 @@ if __name__ == "__main__":
     ###### config #####
     max_iter = 10
     # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
-    pieces = [3,1,3]  # [1] #  [5,1,5] # 
+    pieces = [3,2,3]  # [1] #  [5,1,5] # 
     split_ratio_validation = .1
     smoother = True # False
     
@@ -513,12 +513,12 @@ if __name__ == "__main__":
         for data_name in ['burgers', 'fkpp']:
         # for data_name in ['fkpp']:
             if data_name=='fkpp':
-                step = 1  ## 1, 2, 4, 10
+                step = 2  ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
                 
             if data_name=='burgers':
-                step = 1 # 1 # 10 # 100 # 500 # 
+                step = 10 # 1 # 10 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
             
@@ -526,7 +526,7 @@ if __name__ == "__main__":
             
             noise_level_list = [0, 40, 80, 120, 160, 200]
             for noise_level in noise_level_list:
-            # for noise_level in [0, 40, 80, 120, 160, 200]:
+            # for noise_level in [120]:
                 
                 name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
 
@@ -540,19 +540,19 @@ if __name__ == "__main__":
                 
                 reg_best, weighted_best = [], []
                 for r in range(1,6):
-                # for r in [4]:
+                # for r in [3]:
                     print(f'dimension: {r}')
                     
                     # ### A and H by operator inference under reduced order dataset
                     # A_opinf, H_opinf, A_opinf_6, H_opinf_6, A_opinf_2, H_opinf_2, Q_train_, svdvals, regularizer, par_tsvd, order = \
                     #     operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validation, opinf_use_val)
-                        
+                    
                     #### find the best reg_Frobenius value ###
                     reg_Frobenius_list = [0, 1e-2, 1e-1, 1e0, 1e1]*2
                     weighted_list = [True]*int(len(reg_Frobenius_list)//2) + \
                                     [False]*int(len(reg_Frobenius_list)//2)
                     
-                    # reg_Frobenius_list, weighted_list = [5e0], [True]
+                    # reg_Frobenius_list, weighted_list = [0,0], [True,False]
                     choose_reg = []
                     for reg_Frobenius, weighted in zip(reg_Frobenius_list, weighted_list):
                         print(f'noise: {noise_level}, dimension: {r}')
@@ -584,7 +584,7 @@ if __name__ == "__main__":
                     
 
                     choose_seg = []
-                    pieces_list = [[5,1,5],[3,1,3]]
+                    pieces_list = [[5,5],[3,3],[3,2,3]]
                     for pieces in pieces_list:
                         error_opinf_6, error_adjoint, error_opinf_2, \
                         error_opinf_6_init_test, error_adjoint_init_test, error_opinf_2_init_test, \
@@ -598,7 +598,7 @@ if __name__ == "__main__":
                         choose_seg.append(error_adjoint_valid)
                     
                     pieces = pieces_list[np.argmin(choose_seg)]
-
+                    # pieces = [3,3]
 
                     error_opinf_6, error_adjoint, error_opinf_2, \
                     error_opinf_6_init_test, error_adjoint_init_test, error_opinf_2_init_test, \
