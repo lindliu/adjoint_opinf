@@ -87,8 +87,8 @@ Qfom = np.zeros((N+2, M+1))
 Qfom[1:-1, :] = Q  # Fill interior points
 
 # Save snapshots for OpInf
-np.savez(f"./data/burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz", Q=Qfom, t=t, x=x)
-# np.load(f"data/total_burgers_snapshots_nu_{str(nu)[2:]}.npz")
+np.savez(f"./burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz", Q=Qfom, t=t, x=x)
+# np.load(f"./burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz")
 
 # Plotting
 T_mesh, X_mesh = np.meshgrid(t, x)

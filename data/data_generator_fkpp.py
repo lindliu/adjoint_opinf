@@ -93,17 +93,17 @@ print("y space shape:", y.shape)
 
 # Save results
 
-np.save("./data/fkpp/total_fkpp_t.npy", t)
-np.save('./data/fkpp/total_fkpp_x.npy', x[::4])
-np.save('./data/fkpp/total_fkpp_y.npy', y[::4])
-np.save('./data/fkpp/total_fkpp_1.npy', snapshots.T[::4,::4,:400])
-np.save('./data/fkpp/total_fkpp_2.npy', snapshots.T[::4,::4,400:800])
-np.save('./data/fkpp/total_fkpp_3.npy', snapshots.T[::4,::4,800:1200])
-np.save('./data/fkpp/total_fkpp_4.npy', snapshots.T[::4,::4,1200:1600])
-np.save('./data/fkpp/total_fkpp_5.npy', snapshots.T[::4,::4,1600:])
+np.save("./fkpp/total_fkpp_t.npy", t)
+np.save('./fkpp/total_fkpp_x.npy', x[::4])
+np.save('./fkpp/total_fkpp_y.npy', y[::4])
+np.save('./fkpp/total_fkpp_1.npy', snapshots.T[::4,::4,:400])
+np.save('./fkpp/total_fkpp_2.npy', snapshots.T[::4,::4,400:800])
+np.save('./fkpp/total_fkpp_3.npy', snapshots.T[::4,::4,800:1200])
+np.save('./fkpp/total_fkpp_4.npy', snapshots.T[::4,::4,1200:1600])
+np.save('./fkpp/total_fkpp_5.npy', snapshots.T[::4,::4,1600:])
 
         
-# np.savez("./data/total_fkpp.npz", Q=snapshots.T, t=t, x=x, y=y)
+# np.savez("./total_fkpp.npz", Q=snapshots.T, t=t, x=x, y=y)
 
 
 # Plot snapshots
@@ -124,7 +124,7 @@ plt.show()
 
 
 # Load the stored solution and spatial grid
-data = np.load("./data/total_fkpp.npz")
+data = np.load("./fkpp/total_fkpp.npz")
 U, t, x, y = data['Q'], data['t'], data['x'], data['y']
 
 # Define the mesh grid for plotting
