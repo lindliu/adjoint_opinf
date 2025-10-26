@@ -507,8 +507,8 @@ if __name__ == "__main__":
     
     save_results = True # False #
     
-    for opinf_use_val in [True, False]:
-    # for opinf_use_val in [False]:
+    # for opinf_use_val in [True, False]:
+    for opinf_use_val in [False]:
 
         for data_name in ['burgers', 'fkpp']:
         # for data_name in ['fkpp']:
@@ -528,7 +528,7 @@ if __name__ == "__main__":
             
             noise_level_list = [0, 40, 80, 120, 160, 200]
             for noise_level in noise_level_list:
-            # for noise_level in [120]:
+            # for noise_level in [160,200]:
                 
                 name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
 
