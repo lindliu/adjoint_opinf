@@ -100,8 +100,6 @@ axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_title(f'Noise Level: {noise_level}%', fontweight='bold', fontsize='x-large')
-# axes[rr,cc].legend()
-# axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
@@ -111,8 +109,6 @@ axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_title(f'Noise Level: {noise_level}%', fontweight='bold', fontsize='x-large')
-# axes[rr,cc].legend()
-# axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
@@ -122,8 +118,6 @@ axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_title(f'Noise Level: {noise_level}%', fontweight='bold', fontsize='x-large')
-# axes[rr,cc].legend()
-# axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
@@ -133,8 +127,6 @@ axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_title(f'Noise Level: {noise_level}%', fontweight='bold', fontsize='x-large')
-# axes[rr,cc].legend()
-# axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
@@ -144,10 +136,60 @@ axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_title(f'Noise Level: {noise_level}%', fontweight='bold', fontsize='x-large')
-# axes[rr,cc].legend()
-# axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 
 
+
+
+num_samples = 1000
+noise_level = 0
+error = get_errors(data_name, num_samples, noise_level, ratio)
+rr, cc = 2,0
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
+axes[rr,cc].legend()
+
+noise_level = 40
+error = get_errors(data_name, num_samples, noise_level, ratio)
+rr, cc = 2,1
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 80
+error = get_errors(data_name, num_samples, noise_level, ratio)
+rr, cc = 2,2
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 120
+error = get_errors(data_name, num_samples, noise_level, ratio)
+rr, cc = 2,3
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 160
+error = get_errors(data_name, num_samples, noise_level, ratio)
+rr, cc = 2,4
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 200
+error = get_errors(data_name, num_samples, noise_level, ratio)
+rr, cc = 2,5
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 
 

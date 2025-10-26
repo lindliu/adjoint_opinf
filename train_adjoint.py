@@ -507,18 +507,18 @@ if __name__ == "__main__":
     
     save_results = True # False #
     
-    # for opinf_use_val in [True, False]:
-    for opinf_use_val in [False]:
+    for opinf_use_val in [True, False]:
+    # for opinf_use_val in [False]:
 
         for data_name in ['burgers', 'fkpp']:
         # for data_name in ['fkpp']:
             if data_name=='fkpp':
-                step = 2 ## 1, 2, 4, 10
+                step = 10 ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
                 
             if data_name=='burgers':
-                step = 10 # 1 # 10 # 100 # 500 # 
+                step = 500 # 1 # 10 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
             
