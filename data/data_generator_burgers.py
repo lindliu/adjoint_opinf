@@ -88,7 +88,21 @@ Qfom[1:-1, :] = Q  # Fill interior points
 
 # Save snapshots for OpInf
 np.savez(f"./burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz", Q=Qfom, t=t, x=x)
-# np.load(f"./burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz")
+
+
+
+
+
+
+
+
+data_burgers = np.load(f"./burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz")
+Qfom = data_burgers['Q']
+t = data_burgers['t']
+x = data_burgers['x']
+
+
+
 
 # Plotting
 T_mesh, X_mesh = np.meshgrid(t, x)
@@ -101,6 +115,8 @@ ax.set_title("Burgers' Equation (FDM)")
 ax.set_xlabel("Time")
 ax.set_ylabel("Space")
 ax.set_zlabel("q(t, x)")
+ax.view_init(elev=35, azim=-155)
+plt.savefig('./burgers/burgers_3d.png')
 plt.show()
 
 # Line Plot at Different Time Steps
@@ -109,6 +125,7 @@ plt.plot(x, Qfom[:, ::50])
 plt.title("Solution Evolution at Different Time Steps")
 plt.xlabel("x")
 plt.ylabel("q")
+plt.savefig('./burgers/burgers_qx_2d.png')
 plt.show()
 
 # Contour Plot
@@ -118,5 +135,6 @@ plt.colorbar()
 plt.title("Burgers' Equation Solution (FDM)")
 plt.xlabel("Time")
 plt.ylabel("Space")
+plt.savefig('./burgers/burgers_contour.png')
 plt.show()
 

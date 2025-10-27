@@ -106,37 +106,68 @@ np.save('./fkpp/total_fkpp_5.npy', snapshots.T[::4,::4,1600:])
 # np.savez("./total_fkpp.npz", Q=snapshots.T, t=t, x=x, y=y)
 
 
+
+
+
+
+
+import os
+import glob
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Load the stored solution and spatial grid
+t = np.load("./fkpp/total_fkpp_t.npy")
+x = np.load('./fkpp/total_fkpp_x.npy')
+y = np.load('./fkpp/total_fkpp_y.npy')
+data_files = [glob.glob(os.path.join(os.getcwd(), f'./fkpp/total_fkpp_{i}.npy'))[0] for i in range(1,6)]
+snapshots = [np.load(data_files[i]) for i in range(5)]
+snapshots = np.concatenate(snapshots,axis=2)
+
+
+U = snapshots
+
 # Plot snapshots
-fig, axes = plt.subplots(1, len(snapshots), figsize=(15, 5))
-for i, (ax, snapshot) in enumerate(zip(axes, snapshots)):
-    time = dt * (i+1) * snapshot_interval
-    cont = ax.contourf(X, Y, snapshot, levels=20, cmap='viridis')
-    ax.set_title(f't = {time:.2f}')
-    ax.axis('scaled')
-plt.colorbar(cont, ax=axes)
+fig, axes = plt.subplots(1, 5, figsize=(15, 5))
+
+axes[0].contourf(x, y, U[:,:,0], levels=20, cmap='viridis')
+axes[0].set_title(f't = {t[0]:.2f}')
+axes[0].axis('scaled')
+
+axes[1].contourf(x, y, U[:,:,500], levels=20, cmap='viridis')
+axes[1].set_title(f't = {t[500]:.2f}')
+axes[1].axis('scaled')
+
+axes[2].contourf(x, y, U[:,:,1000], levels=20, cmap='viridis')
+axes[2].set_title(f't = {t[1000]:.2f}')
+axes[2].axis('scaled')
+
+axes[3].contourf(x, y, U[:,:,1500], levels=20, cmap='viridis')
+axes[3].set_title(f't = {t[1500]:.2f}')
+axes[3].axis('scaled')
+
+axes[4].contourf(x, y, U[:,:,2000], levels=20, cmap='viridis')
+axes[4].set_title(f't = {t[2000]:.2f}')
+axes[4].axis('scaled')
+
+plt.savefig('./fkpp/fkpp_contour.png')
 plt.show()
 
 
 
 
-
-
-
-
-# Load the stored solution and spatial grid
-data = np.load("./fkpp/total_fkpp.npz")
-U, t, x, y = data['Q'], data['t'], data['x'], data['y']
-
 # Define the mesh grid for plotting
 X, Y = np.meshgrid(x, y, indexing='ij')
+Nt = t.shape[0]
 
 # Function to plot the 3D surface of the solution at a given time step
 def plot_3d_surface(U_snapshot, time_step, ax):
     surf = ax.plot_surface(X, Y, U_snapshot, cmap='plasma', edgecolor='none')
     ax.set_title(r"$t = {:.1f}$".format(t[time_step]), fontsize=30)
-    ax.set_xlabel(r"$x$",fontsize=28, fontweight='bold')
-    ax.set_ylabel(r"$y$",fontsize=28, fontweight='bold')
-    ax.set_zlabel(r"$q(x,y,t)$",fontsize=28, fontweight='bold')
+    ax.set_xlabel(r"$x$", fontsize=25, fontweight='bold', labelpad=10)
+    ax.set_ylabel(r"$y$", fontsize=25, fontweight='bold', labelpad=10)
+    ax.set_zlabel(r"$q(x,y,t)$",fontsize=25, fontweight='bold', labelpad=10)
     # Tick parameters for axes
     ax.tick_params(axis='both', which='major', labelsize=22, length=6, width=2)
     ax.tick_params(axis='both', which='minor', labelsize=22, length=4, width=1.5)
@@ -144,7 +175,7 @@ def plot_3d_surface(U_snapshot, time_step, ax):
     return surf
 
 # Create figure for 3D plots with constrained layout for better positioning
-fig = plt.figure(figsize=(19, 6))
+fig = plt.figure(figsize=(20, 6), constrained_layout=True)
 
 # Plot initial condition (t = 0)
 ax1 = fig.add_subplot(1, 3, 1, projection='3d')
@@ -161,8 +192,9 @@ surf3 = plot_3d_surface(U[:, :, -1], -1, ax3)
 # Set global title with LaTeX and manually adjust vertical position
 #fig.suptitle(r"Fisher-KPP Solution", fontsize=16, y=1.0001)  
 
-plt.tight_layout()
+plt.tight_layout(rect=[0, 0, 0.95, 1])
 
+plt.savefig('./fkpp/fkpp_3d.png', bbox_inches='tight')
 # Show plot
 plt.show()
 
