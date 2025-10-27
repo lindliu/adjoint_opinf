@@ -265,7 +265,7 @@ rr = 1
 # Predicted state evolution
 im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -429,7 +429,7 @@ rr = 2
 # Predicted state evolution
 im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -508,7 +508,7 @@ plt.show()
 
 
 
-only_end=True
+only_end=False
 
 
 
@@ -598,9 +598,10 @@ cc = 0
 rr = 0
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
-    im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
@@ -623,11 +624,12 @@ cbar.ax.tick_params(labelsize=13)
 rr = 1
 # Predicted state evolution
 if only_end:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -647,9 +649,10 @@ cbar.ax.tick_params(labelsize=13)
 rr = 2
 # Predicted state evolution
 if only_end:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
@@ -671,10 +674,11 @@ cbar.ax.tick_params(labelsize=13)
 rr = 3
 # Predicted state evolution
 if only_end:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -752,9 +756,9 @@ cc = 1
 rr = 0
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
 else:
-    im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
@@ -777,11 +781,11 @@ cbar.ax.tick_params(labelsize=13)
 rr = 1
 # Predicted state evolution
 if only_end:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
 else:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -801,9 +805,9 @@ cbar.ax.tick_params(labelsize=13)
 rr = 2
 # Predicted state evolution
 if only_end:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
 else:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
@@ -825,10 +829,11 @@ cbar.ax.tick_params(labelsize=13)
 rr = 3
 # Predicted state evolution
 if only_end:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -907,9 +912,9 @@ cc = 2
 rr = 0
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
 else:
-    im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
@@ -932,9 +937,9 @@ cbar.ax.tick_params(labelsize=13)
 rr = 1
 # Predicted state evolution
 if only_end:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
 else:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
@@ -956,11 +961,11 @@ cbar.ax.tick_params(labelsize=13)
 rr = 2
 # Predicted state evolution
 if only_end:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
 else:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -979,10 +984,11 @@ cbar.ax.tick_params(labelsize=13)
 rr = 3
 # Predicted state evolution
 if only_end:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
