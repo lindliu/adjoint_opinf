@@ -7,6 +7,7 @@ Created on Fri Aug 22 16:43:17 2025
 """
 
 # linear convection–diffusion equation
+# Hybrid numerical methods for convection–diffusion problems in arbitrary geometries
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import diags
@@ -22,7 +23,7 @@ omega = np.pi               # 旋转角速度
 dt = 1e-3                   # 时间步长
 t_end = 0.5                 # 终止时间
 sigma = 0.1
-x0, y0 = 0.5, 0.0
+x0, y0 = -.5, -.5
 
 assert dt<(Lx/Nx)**2/(4*nu)
 assert dt<(Lx/Nx)/Lx
@@ -53,8 +54,8 @@ for n in range(nt):
     u = periodic(u)
 
     # 对流速度场
-    vx = -omega * Y
-    vy =  omega * X
+    vx = 1 #-omega * Y
+    vy =  1.5 #omega * X
 
     # 空间导数 (中心差分)
     dudx = (np.roll(u, -1, axis=0) - np.roll(u, 1, axis=0)) / (2*dx)  ## 二阶中心差分
