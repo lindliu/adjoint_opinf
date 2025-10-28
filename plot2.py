@@ -176,6 +176,7 @@ axes[rr,cc].spines['right'].set_linewidth(1.7)
 # Adjust tick parameters (size of ticks and labels)
 axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
 axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 
 cbar = fig.colorbar(im3, ax=axes[rr,cc])
 cbar.ax.tick_params(labelsize=13)
@@ -318,6 +319,7 @@ axes[rr,cc].spines['right'].set_linewidth(1.7)
 # Adjust tick parameters (size of ticks and labels)
 axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
 axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 
 cbar = fig.colorbar(im3, ax=axes[rr,cc])
 cbar.ax.tick_params(labelsize=13)
@@ -461,6 +463,7 @@ axes[rr,cc].spines['right'].set_linewidth(1.7)
 # Adjust tick parameters (size of ticks and labels)
 axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
 axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 
 cbar = fig.colorbar(im3, ax=axes[rr,cc])
 cbar.ax.tick_params(labelsize=13)
@@ -508,11 +511,11 @@ plt.show()
 
 
 
-only_end=False
+only_end=True
 
 
 
-data_name = 'fkpp'
+data_name = 'fkpp'  ## 'lcd'
 split_ratio = .75
 ratio = str(split_ratio).replace('.','p')
 
