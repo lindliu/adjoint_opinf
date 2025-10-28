@@ -538,7 +538,7 @@ if __name__ == "__main__":
                 split_ratio = .5
             
             if data_name=='lcd':
-                step = 2 ## 1, 2, 4, 10
+                step = 1 ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
                 
