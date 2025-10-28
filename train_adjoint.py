@@ -47,6 +47,21 @@ def data_loader(data_name, step, noise_level, split_ratio, split_ratio_validatio
         
         # num_samples = 2001//step ## 2000 ##
         # split_ratio = .75   
+    
+    if data_name == 'lcd':        
+        data_files = [glob.glob(os.path.join(os.getcwd(), f'./data/lcd/total_lcd_{i}.npy'))[0] for i in range(1,6)]
+        data_Q = [np.load(data_files[i]) for i in range(5)]
+        data_Q = np.concatenate(data_Q,axis=2)
+        
+        data = {}
+        data['Q'] = data_Q
+        data['t'] = np.load(glob.glob(os.path.join(os.getcwd(), "./data/lcd/total_lcd_t.npy"))[0])
+        data['x'] = np.load(glob.glob(os.path.join(os.getcwd(), './data/lcd/total_lcd_x.npy'))[0])
+        data['y'] = np.load(glob.glob(os.path.join(os.getcwd(), './data/lcd/total_lcd_y.npy'))[0])
+        
+        # num_samples = 2001//step ## 2000 ##
+        # split_ratio = .75   
+        
 
     Q_original, t = data['Q'], data['t']
     Q_original = Q_original.reshape(-1, Q_original.shape[-1])
@@ -510,8 +525,8 @@ if __name__ == "__main__":
     for opinf_use_val in [True, False]:
     # for opinf_use_val in [False]:
 
-        for data_name in ['burgers', 'fkpp']:
-        # for data_name in ['fkpp']:
+        # for data_name in ['burgers', 'fkpp']:
+        for data_name in ['lcd']:
             if data_name=='fkpp':
                 step = 10 ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
@@ -522,6 +537,11 @@ if __name__ == "__main__":
                 num_samples = 10000//step # 10000
                 split_ratio = .5
             
+            if data_name=='lcd':
+                step = 2 ## 1, 2, 4, 10
+                num_samples = 2001//step ## 2000 ##
+                split_ratio = .75
+                
             assert split_ratio + split_ratio_validation < 1, 'percentage of train and validation data is more than 1!!'
             
             ratio = str(split_ratio).replace('.','p')
@@ -541,7 +561,7 @@ if __name__ == "__main__":
                 error_opinf_6_valid_list, error_adjoint_valid_list, error_opinf_2_valid_list = [], [], []
                 
                 reg_best, weighted_best = [], []
-                for r in range(1,6):
+                for r in range(1,8):
                 # for r in [3]:
                     print(f'dimension: {r}')
                     
