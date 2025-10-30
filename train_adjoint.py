@@ -561,7 +561,7 @@ if __name__ == "__main__":
                 error_opinf_6_valid_list, error_adjoint_valid_list, error_opinf_2_valid_list = [], [], []
                 
                 reg_best, weighted_best = [], []
-                for r in range(1,8):
+                for r in range(1,16):
                 # for r in [3]:
                     print(f'dimension: {r}')
                     
