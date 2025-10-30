@@ -515,7 +515,7 @@ only_end=True
 
 
 
-data_name = 'fkpp'  ## 'lcd'
+data_name = 'lcd' ## 'fkpp'  ## 
 split_ratio = .75
 ratio = str(split_ratio).replace('.','p')
 
