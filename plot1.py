@@ -90,8 +90,8 @@ rr = 0
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -100,40 +100,40 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -146,8 +146,8 @@ rr = 1
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -156,40 +156,40 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -202,8 +202,8 @@ rr = 2
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -212,40 +212,40 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -259,8 +259,8 @@ rr = 3
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -270,8 +270,8 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -279,8 +279,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -288,8 +288,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -297,8 +297,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -306,8 +306,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -367,8 +367,8 @@ rr = 0
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -377,40 +377,40 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -422,8 +422,8 @@ rr = 1
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -432,40 +432,40 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -478,8 +478,8 @@ rr = 2
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -488,40 +488,40 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -535,8 +535,8 @@ rr = 3
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 0
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -546,8 +546,8 @@ axes[rr,cc].legend()
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 1
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -555,8 +555,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 2
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -564,8 +564,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 3
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -573,8 +573,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 4
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -582,8 +582,8 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
 cc = 5
-axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='ord2-OpInf', markersize=7, linewidth=3)
-axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='ord6-OpInf', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
@@ -597,6 +597,296 @@ fig.suptitle("Model Performance under Different Noise and Sample Conditions (FKP
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig('./figures_analysis/plot_error_fkpp.png',bbox_inches='tight',dpi=300)
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+data_name = 'lcd'
+split_ratio = .75
+ratio = str(split_ratio).replace('.','p')
+
+smoother = True
+max_iter = 10
+
+############ PLOTS errors #################
+fig, axes = plt.subplots(4, 6, sharex=True, figsize=[16,8])
+pad = 5 # in points
+
+cols = ['Noise Level: 0%', 'Noise Level: 40%', 'Noise Level: 80%', 'Noise Level: 120%', 'Noise Level: 160%', 'Noise Level: 200%']
+for ax, col in zip(axes[0], cols):
+    ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
+                xycoords='axes fraction', textcoords='offset points',
+                size='x-large', ha='center', fontweight='bold', va='baseline')
+
+rows = ['Samples: 200', 'Samples: 500', 'Samples: 1000', 'Samples: 2001']
+for ax, row in zip(axes[:,0], rows):
+    ax.annotate(row,
+                xy=(0, 0.5),
+                xytext=(-ax.yaxis.labelpad - pad, 0),
+                xycoords=ax.yaxis.label,
+                textcoords='offset points',
+                size='x-large',
+                fontweight='bold',  # ✅ 加粗
+                ha='right', va='center',
+                rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
+    
+
+
+num_samples = 200
+rr = 0
+
+noise_level = 0
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 0
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
+axes[rr,cc].legend()
+
+noise_level = 40
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 1
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 80
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 2
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 120
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 3
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 160
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 4
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 200
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 5
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+
+
+num_samples = 500
+rr = 1
+
+noise_level = 0
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 0
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
+axes[rr,cc].legend()
+
+noise_level = 40
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 1
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 80
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 2
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 120
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 3
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 160
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 4
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 200
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 5
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+
+
+
+num_samples = 1000
+rr = 2
+
+noise_level = 0
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 0
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
+axes[rr,cc].legend()
+
+noise_level = 40
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 1
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 80
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 2
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 120
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 3
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 160
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 4
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+noise_level = 200
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 5
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
+
+
+
+
+
+num_samples = 2001
+rr = 3
+
+noise_level = 0
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 0
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,4,9,14], [1,5,10,15])
+axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
+axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
+axes[rr,cc].legend()
+
+noise_level = 40
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 1
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,4,9,14], [1,5,10,15])
+axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
+
+noise_level = 80
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 2
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,4,9,14], [1,5,10,15])
+axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
+
+noise_level = 120
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 3
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,4,9,14], [1,5,10,15])
+axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
+
+noise_level = 160
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 4
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,4,9,14], [1,5,10,15])
+axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
+
+noise_level = 200
+error = get_errors(data_name, num_samples, noise_level, ratio)
+cc = 5
+axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+axes[rr,cc].set_xticks([0,4,9,14], [1,5,10,15])
+axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
+
+
+
+plt.subplots_adjust(hspace=0.01, wspace=0.01)
+plt.tight_layout()
+fig.suptitle("Model Performance under Different Noise and Sample Conditions (lcd Equation)",
+             fontsize=18, fontweight='bold', y=1.02)
+# Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
+plt.savefig('./figures_analysis/plot_error_lcd.png',bbox_inches='tight',dpi=300)
+plt.show()
+
+
+
 
 
 
@@ -628,13 +918,13 @@ colors = plt.cm.plasma(np.linspace(0, 1, len(x_indices)))
 fig, axes = plt.subplots(3,3, sharex=True, sharey=True, figsize=[16,12])
 pad = 5 # in points
 
-cols = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
+cols = ['OpInf-ord2', 'OpInf-ord6', 'Adjoint']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
                 fontsize=20, ha='center', fontweight='bold', va='baseline')
 
-rows = ['ord2-OpInf', 'ord6-OpInf', 'Adjoint']
+rows = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
 for ax, row in zip(axes[:,0], rows):
     ax.annotate(row,
                 xy=(0, 0.5),
@@ -654,9 +944,9 @@ name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
-cc = 0
-
 rr = 0
+
+cc = 0
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -709,7 +999,7 @@ axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
 
-rr = 1
+cc = 1
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -755,14 +1045,14 @@ legend_elements = [
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
 
 
 
-rr = 2
+cc = 2
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -807,9 +1097,9 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
 
@@ -821,9 +1111,9 @@ name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
-cc = 1
+rr = 1
 
-rr = 0
+cc = 0
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -869,14 +1159,14 @@ legend_elements = [
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-# axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
+axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
 
 
 
-rr = 1
+cc = 1
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -929,7 +1219,7 @@ legend_elements = [
 
 
 
-rr = 2
+cc = 2
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -974,7 +1264,7 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
@@ -989,9 +1279,9 @@ name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
-cc = 2
+rr = 2
 
-rr = 0
+cc = 0
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1036,15 +1326,15 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-# axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
 
 
 
-rr = 1
+cc = 1
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1089,7 +1379,7 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
@@ -1097,7 +1387,7 @@ legend_elements = [
 
 
 
-rr = 2
+cc = 2
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1205,13 +1495,13 @@ colors = plt.cm.plasma(np.linspace(0, 1, len(x_indices)))
 fig, axes = plt.subplots(3,3, sharex=True, sharey=False, figsize=[16,12])
 pad = 5 # in points
 
-cols = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
+cols = ['OpInf-ord2', 'OpInf-ord6', 'Adjoint']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
                 fontsize=20, ha='center', fontweight='bold', va='baseline')
 
-rows = ['ord2-OpInf', 'ord6-OpInf', 'Adjoint']
+rows = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
 for ax, row in zip(axes[:,0], rows):
     ax.annotate(row,
                 xy=(0, 0.5),
@@ -1231,9 +1521,9 @@ name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
-cc = 0
-
 rr = 0
+
+cc = 0
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1285,7 +1575,7 @@ axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
 
-rr = 1
+cc = 1
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1331,14 +1621,14 @@ legend_elements = [
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
 
 
 
-rr = 2
+cc = 2
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1383,9 +1673,9 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
 
@@ -1401,9 +1691,9 @@ name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
-cc = 1
+rr = 1
 
-rr = 0
+cc = 0
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1449,13 +1739,13 @@ legend_elements = [
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
 
 
-rr = 1
+cc = 1
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1508,7 +1798,7 @@ legend_elements = [
 
 
 
-rr = 2
+cc = 2
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1553,7 +1843,7 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
@@ -1570,9 +1860,9 @@ name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
-cc = 2
+rr = 2
 
-rr = 0
+cc = 0
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1617,14 +1907,14 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
-# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
 
 
-rr = 1
+cc = 1
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1669,7 +1959,7 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
@@ -1677,7 +1967,7 @@ legend_elements = [
 
 
 
-rr = 2
+cc = 2
 for i, color in zip(x_indices, colors):
     axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
@@ -1740,3 +2030,588 @@ fig.suptitle("Illustrative Predictions under Different Noise Levels (FKPP Equati
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig(f'./figures_analysis/plot_examples_FKPP_sample{num_samples}.png',bbox_inches='tight',dpi=300)
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############ PLOTS examples lcd #################
+from matplotlib.lines import Line2D
+
+data_name = 'lcd'
+split_ratio = .75
+ratio = str(split_ratio).replace('.','p')
+
+smoother = True
+max_iter = 10
+opinf_use_val = True
+r = 15
+
+num_samples = 1000
+
+x_indices = range(0,r)
+colors = plt.cm.plasma(np.linspace(0, 1, len(x_indices)))
+
+
+fig, axes = plt.subplots(3,3, sharex=True, sharey=False, figsize=[16,12])
+pad = 5 # in points
+
+cols = ['OpInf-ord2', 'OpInf-ord6', 'Adjoint']
+for ax, col in zip(axes[0], cols):
+    ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
+                xycoords='axes fraction', textcoords='offset points',
+                fontsize=20, ha='center', fontweight='bold', va='baseline')
+
+rows = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
+for ax, row in zip(axes[:,0], rows):
+    ax.annotate(row,
+                xy=(0, 0.5),
+                xytext=(-ax.yaxis.labelpad - pad, 0),
+                xycoords=ax.yaxis.label,
+                textcoords='offset points',
+                fontsize=20,
+                fontweight='bold',  # ✅ 加粗
+                ha='right', va='center',
+                rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
+
+
+
+
+noise_level = 0
+name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
+path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
+assert len(path)==1
+data = np.load(path[0])
+rr = 0
+
+cc = 0
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_opinf_2'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+cc = 1
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+
+cc = 2
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_adjoint'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+
+
+
+
+
+
+noise_level = 80
+name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
+path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
+assert len(path)==1
+data = np.load(path[0])
+rr = 1
+
+cc = 0
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_opinf_2'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+cc = 1
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+
+cc = 2
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_adjoint'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+
+
+
+
+
+noise_level = 160
+name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
+path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
+assert len(path)==1
+data = np.load(path[0])
+rr = 2
+
+cc = 0
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_opinf_2'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+cc = 1
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+
+cc = 2
+for i, color in zip(x_indices, colors):
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
+    
+    axes[rr,cc].plot(data['t_test'], data['Q_adjoint'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+
+# Customize axes thickness
+axes[rr,cc].spines['left'].set_linewidth(1.7)
+axes[rr,cc].spines['bottom'].set_linewidth(1.7)
+axes[rr,cc].spines['top'].set_visible(False)  # Hide top axis
+axes[rr,cc].spines['right'].set_visible(False)  # Hide right axis
+
+# Adjust tick parameters (size of ticks and labels)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
+
+# Ensure only left and bottom ticks are visible
+axes[rr,cc].yaxis.set_ticks_position('left')
+# axes[rr,cc].xaxis.set_ticks_position('bottom')
+
+# Add vertical line and annotations
+ymin, ymax = axes[rr,cc].get_ylim()
+axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
+axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
+# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
+axes[rr,cc].set_xlim(0, .5)
+
+# # Create legend
+# legend_elements = []
+# for i in range(r):
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+
+# Create legend
+legend_elements = [
+    Line2D([0], [0], color='black', linestyle='-', label='True data'),
+    Line2D([0], [0], color='#00FFFF', linestyle='--', label='Prediction')
+]
+
+# # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
+
+
+
+
+plt.subplots_adjust(hspace=0.01, wspace=0.01)
+plt.tight_layout()
+fig.suptitle("Illustrative Predictions under Different Noise Levels (LCD Equation)",
+             fontsize=23, fontweight='bold', y=1.02)
+# Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
+plt.savefig(f'./figures_analysis/plot_examples_lcd_sample{num_samples}.png',bbox_inches='tight',dpi=300)
+plt.show()
+
