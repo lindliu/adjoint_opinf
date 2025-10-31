@@ -1314,7 +1314,7 @@ rr = 0
 cc = 0
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     # axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1339,7 +1339,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 1
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_test_re.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_test_re.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     # axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1365,7 +1365,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 2
 # Predicted state evolution
 if only_end:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     # axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
     im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1390,7 +1390,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 3
 # Predicted state evolution
 if only_end:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     # axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
     im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1415,7 +1415,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 4
 # Predicted state evolution
 if only_end:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     # axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1504,7 +1504,7 @@ rr = 1
 cc = 0
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1530,7 +1530,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 1
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_test_re.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_test_re.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1555,7 +1555,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 2
 # Predicted state evolution
 if only_end:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
 else:
     im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1579,7 +1579,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 3
 # Predicted state evolution
 if only_end:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
 else:
     im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1603,7 +1603,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 4
 # Predicted state evolution
 if only_end:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     # axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1691,7 +1691,7 @@ rr = 2
 cc = 0
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1717,7 +1717,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 1
 # True state evolution
 if only_end:
-    im0 = axes[rr,cc].imshow(Q_test_re.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im0 = axes[rr,cc].imshow(Q_test_re.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1742,7 +1742,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 2
 # Predicted state evolution
 if only_end:
-    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
 else:
     im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1766,7 +1766,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 3
 # Predicted state evolution
 if only_end:
-    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
     im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1790,7 +1790,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 4
 # Predicted state evolution
 if only_end:
-    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
     axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
 else:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
@@ -1828,10 +1828,10 @@ cbar.ax.tick_params(labelsize=13)
 
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
-fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (LCD Equation)",
+fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (CDE)",
              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_evolution_lcd_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_evolution_CDE_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
 plt.show()
 
 

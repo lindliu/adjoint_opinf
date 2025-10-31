@@ -64,7 +64,7 @@ max_iter = 10
 fig, axes = plt.subplots(4, 6, sharex=True, figsize=[16,8])
 pad = 5 # in points
 
-cols = ['Noise Level: 0%', 'Noise Level: 40%', 'Noise Level: 80%', 'Noise Level: 120%', 'Noise Level: 160%', 'Noise Level: 200%']
+cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
@@ -341,7 +341,7 @@ max_iter = 10
 fig, axes = plt.subplots(4, 6, sharex=True, figsize=[16,8])
 pad = 5 # in points
 
-cols = ['Noise Level: 0%', 'Noise Level: 40%', 'Noise Level: 80%', 'Noise Level: 120%', 'Noise Level: 160%', 'Noise Level: 200%']
+cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
@@ -628,7 +628,7 @@ max_iter = 10
 fig, axes = plt.subplots(4, 6, sharex=True, figsize=[16,8])
 pad = 5 # in points
 
-cols = ['Noise Level: 0%', 'Noise Level: 40%', 'Noise Level: 80%', 'Noise Level: 120%', 'Noise Level: 160%', 'Noise Level: 200%']
+cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
@@ -879,10 +879,10 @@ axes[rr,cc].set_xlabel('Model Dimension (r)', fontsize='large')
 
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
-fig.suptitle("Model Performance under Different Noise and Sample Conditions (lcd Equation)",
+fig.suptitle("Model Performance under Different Noise and Sample Conditions (CDE)",
              fontsize=18, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig('./figures_analysis/plot_error_lcd.png',bbox_inches='tight',dpi=300)
+plt.savefig('./figures_analysis/plot_error_CDE.png',bbox_inches='tight',dpi=300)
 plt.show()
 
 
@@ -924,7 +924,7 @@ for ax, col in zip(axes[0], cols):
                 xycoords='axes fraction', textcoords='offset points',
                 fontsize=20, ha='center', fontweight='bold', va='baseline')
 
-rows = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
+rows = ['NL = 0%', 'NL = 80%', 'NL = 160%']
 for ax, row in zip(axes[:,0], rows):
     ax.annotate(row,
                 xy=(0, 0.5),
@@ -1501,7 +1501,7 @@ for ax, col in zip(axes[0], cols):
                 xycoords='axes fraction', textcoords='offset points',
                 fontsize=20, ha='center', fontweight='bold', va='baseline')
 
-rows = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
+rows = ['NL = 0%', 'NL = 80%', 'NL = 160%']
 for ax, row in zip(axes[:,0], rows):
     ax.annotate(row,
                 xy=(0, 0.5),
@@ -2062,10 +2062,10 @@ plt.show()
 
 
 
-############ PLOTS examples lcd #################
+############ PLOTS examples CDE #################
 from matplotlib.lines import Line2D
 
-data_name = 'lcd'
+data_name = 'lcd'  # linear convection–diffusion equation
 split_ratio = .75
 ratio = str(split_ratio).replace('.','p')
 
@@ -2089,7 +2089,7 @@ for ax, col in zip(axes[0], cols):
                 xycoords='axes fraction', textcoords='offset points',
                 fontsize=20, ha='center', fontweight='bold', va='baseline')
 
-rows = ['Noise Level: 0%', 'Noise Level: 80%', 'Noise Level: 160%']
+rows = ['NL = 0%', 'NL = 80%', 'NL = 160%']
 for ax, row in zip(axes[:,0], rows):
     ax.annotate(row,
                 xy=(0, 0.5),
@@ -2609,9 +2609,9 @@ axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
-fig.suptitle("Illustrative Predictions under Different Noise Levels (LCD Equation)",
+fig.suptitle("Illustrative Predictions under Different Noise Levels (CDE)",
              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_lcd_sample{num_samples}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_CDE_sample{num_samples}.png',bbox_inches='tight',dpi=300)
 plt.show()
 

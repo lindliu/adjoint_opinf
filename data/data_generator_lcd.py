@@ -44,7 +44,7 @@ def periodic(arr):
     arr[:, -1] = arr[:, 1]
     return arr
 
-
+## u_t + (vx*u_x + vy*u_y) + nu (u_xx+u_yy) = 0
 U = []
 # ---- 时间推进 ----
 t = np.arange(0, t_end+dt, dt)
@@ -136,4 +136,67 @@ axes[4].set_xlabel('x')
 axes[4].set_ylabel('y')
 # axes[4].legend()
 
-fig.savefig('./lcd/2d_lcd.png')
+fig.savefig('./lcd/lcd_2d.png')
+
+
+
+
+
+
+
+
+
+
+# Define the mesh grid for plotting
+
+# Load the stored solution and spatial grid
+t = np.load("./lcd/total_lcd_t.npy")
+x = np.load('./lcd/total_lcd_x.npy')
+y = np.load('./lcd/total_lcd_y.npy')
+data_files = [glob.glob(os.path.join(os.getcwd(), f'./lcd/total_lcd_{i}.npy'))[0] for i in range(1,6)]
+U = [np.load(data_files[i]) for i in range(5)]
+U = np.concatenate(U, axis=2)
+
+U = np.transpose(U, (1,0,2))
+X, Y = np.meshgrid(x, y, indexing='ij')
+Nt = t.shape[0]
+
+# Function to plot the 3D surface of the solution at a given time step
+def plot_3d_surface(U_snapshot, time_step, ax):
+    surf = ax.plot_surface(X, Y, U_snapshot, cmap='plasma', edgecolor='none')
+    ax.set_title(r"$t = {:.1f}$".format(t[time_step]), fontsize=30)
+    ax.set_xlabel(r"$x$", fontsize=25, fontweight='bold', labelpad=10)
+    ax.set_ylabel(r"$y$", fontsize=25, fontweight='bold', labelpad=10)
+    ax.set_zlabel(r"$q(x,y,t)$",fontsize=25, fontweight='bold', labelpad=10)
+    # Tick parameters for axes
+    ax.tick_params(axis='both', which='major', labelsize=22, length=6, width=2)
+    ax.tick_params(axis='both', which='minor', labelsize=22, length=4, width=1.5)
+    ax.view_init(elev=30, azim=135)  # Adjust view angle for better visualization
+    return surf
+
+# Create figure for 3D plots with constrained layout for better positioning
+fig = plt.figure(figsize=(25, 6), constrained_layout=True)
+# fig, axes = plt.subplots(1,3, figsize=[20,6], constrained_layout=True)
+
+# Plot initial condition (t = 0)
+ax1 = fig.add_subplot(1, 4, 1, projection='3d')
+surf1 = plot_3d_surface(U[:, :, 0], 0, ax1)
+
+# Plot intermediate time step (t = 2.5)
+ax2 = fig.add_subplot(1, 4, 2, projection='3d')
+surf2 = plot_3d_surface(U[:, :, Nt//2], Nt//2, ax2)
+
+# Plot final time step (t = T-dt)
+ax3 = fig.add_subplot(1, 4, 3, projection='3d')
+surf3 = plot_3d_surface(U[:, :, -1], -1, ax3)
+
+# ax3 = fig.add_subplot(1, 4, 4, projection='3d')
+# surf3 = plot_3d_surface(U[:, :, -1], -1, ax3)
+# # Set global title with LaTeX and manually adjust vertical position
+
+# fig.set_constrained_layout_pads(w_pad=0.05, h_pad=0.05, wspace=0.06, hspace=0.06)
+plt.savefig('./lcd/lcd_3d.png', bbox_inches='tight',
+            bbox_extra_artists=[ax3.zaxis.label])
+# Show plot
+plt.show()
+
