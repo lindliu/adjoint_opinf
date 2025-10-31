@@ -686,7 +686,7 @@ cc = 0
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
-    # axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1315,7 +1315,7 @@ cc = 0
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
-    # axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
