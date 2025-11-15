@@ -178,19 +178,40 @@ def func_surrogate(t, x, a, b):
 
 
 
+# def func_lambda(t, x, A, H, u_interp):
+#     # H_3d = H.reshape(r, r, r)
+#     r = H.shape[0]
+#     H_3d = H.reshape(r,r,r)   ## A.shape: r,r.   H.shape: r,r,r
+#     M = np.einsum("ijk,j->ki", H_3d, x)
+    
+#     x = x.reshape(-1,1)
+#     u = u_interp(t).reshape(-1,1)
+
+#     dxdt = ((A.T + 2*M) @ x + u)
+#     return dxdt.flatten()
+
+
+
+
 def func_lambda(t, x, A, H, u_interp):
     # H_3d = H.reshape(r, r, r)
-    r = H.shape[0]
+    r = x.shape[0]
     H_3d = H.reshape(r,r,r)   ## A.shape: r,r.   H.shape: r,r,r
-    M = np.einsum("ijk,j->ki", H_3d, x)
+
+    # H(I ⊗ q): sum over k -> shape (i,j)
+    J1 = np.einsum('ijk,k->ij', H_3d, x)
+    # H(q ⊗ I): sum over j -> shape (i,k)
+    J2 = np.einsum('ijk,j->ik', H_3d, x)
+    M = J1 + J2                          # shape (r, r)
     
     x = x.reshape(-1,1)
     u = u_interp(t).reshape(-1,1)
 
-    dxdt = ((A.T + 2*M) @ x + u)
+    dxdt = ((A.T + M.T) @ x + u)
     return dxdt.flatten()
 
-
+    
+    
 def smooth(y, t, window_size, poly_order=2, verbose=False):    
     from scipy.signal import savgol_filter
     from statsmodels.tsa.statespace.tools import diff
