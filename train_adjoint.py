@@ -160,7 +160,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
 
     dt = t_train[1]-t_train[0]
 
-    loss_boundary = np.inf # 30000 # 
+    # loss_boundary = np.inf # 30000 # 
     for piece in pieces: # [750]:#
     # for piece in reversed(range(5,6)): # [750]:#
         # piece = 5
@@ -209,10 +209,10 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                 loss = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
                 print(f"Iteration {j}, Loss: {loss:.6f}")
                 
-                if loss>loss_boundary:
-                    print("Loss too large, reverting theta to previous value and breaking loop.")
-                    theta = theta_old
-                    break
+                # if loss>loss_boundary:
+                #     print("Loss too large, reverting theta to previous value and breaking loop.")
+                #     theta = theta_old
+                #     break
                 
                 #### Frobenius 正则 约束A不要太大，间接约束其特征值 ####
                 if reg_Frobenius>0:
@@ -267,7 +267,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                 ##### Armijo backtracking line search #####
                 eta_current = eta * 1.05  # Initial trial step size
                 ls_success = False
-                theta_ls_old = theta.copy()   # line search 前的备份
+                # theta_ls_old = theta.copy()   # line search 前的备份
                 
                 for _ in range(50):  # Max line search iterations
                     theta_new = theta - eta_current * gradient
@@ -277,11 +277,11 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                     tilde_Q = ode_solver(func_surrogate, q0, t, par=(A, H), method='BDF', rescale=True)
                     loss_new = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
                     
-                    # --- 检查是否爆炸 ---
-                    if loss_new > loss_boundary:
-                        theta = theta_ls_old  # 回退
-                        print("Line search loss too large, reverting theta and breaking.")
-                        break
+                    # # --- 检查是否爆炸 ---
+                    # if loss_new > loss_boundary:
+                    #     theta = theta_ls_old  # 回退
+                    #     print("Line search loss too large, reverting theta and breaking.")
+                    #     break
 
                     if loss_new <= loss - alpha * eta_current * (grad_norm ** 2):
                         eta = eta_current
@@ -291,7 +291,7 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                     else:
                         eta_current *= beta
                     
-                if not ls_success and loss_new <= loss_boundary:
+                if not ls_success:
                     theta_new = theta - eta * gradient  # Fallback to previous eta
                     A = theta_new[:r**2].reshape(r, r)
                     H = theta_new[r**2:].reshape(r, r**2)
