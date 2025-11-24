@@ -95,48 +95,103 @@ import matplotlib.pyplot as plt
 t = np.load("./lcd/total_lcd_t.npy")
 x = np.load('./lcd/total_lcd_x.npy')
 y = np.load('./lcd/total_lcd_y.npy')
+nt = t.shape[0]
+
 data_files = [glob.glob(os.path.join(os.getcwd(), f'./lcd/total_lcd_{i}.npy'))[0] for i in range(1,6)]
 U = [np.load(data_files[i]) for i in range(5)]
 U = np.concatenate(U, axis=2)
+U = np.transpose(U, axes=(2,0,1))
 
 
-# 可视化（每隔一定步数显示
-U = U.T
+
+import matplotlib.ticker as tkr
+import matplotlib
+matplotlib.rc('xtick', labelsize=14) 
+matplotlib.rc('ytick', labelsize=14) 
+
+# U = U.T
 X, Y = np.meshgrid(x, y, indexing="ij")
 step = nt//4
+idxs = [0, step, 2*step, 3*step, 4*step]
 
-fig, axes = plt.subplots(1,5,figsize=[15,3])
-axes[0].pcolormesh(X, Y, U[0], shading='auto', cmap='turbo')
-axes[0].set_title(f"t = {0*dt:.2f}")
-axes[0].set_xlabel('x')
-axes[0].set_ylabel('y')
-# axes[0].legend()
 
-axes[1].pcolormesh(X, Y, U[step], shading='auto', cmap='turbo')
-axes[1].set_title(f"t = {step*dt:.2f}")
-axes[1].set_xlabel('x')
-axes[1].set_ylabel('y')
-# axes[1].legend()
+# Common levels (or use vmin/vmax)
+vmin = np.min([U[i].min() for i in idxs])
+vmax = np.max([U[i].max() for i in idxs])
+levels = np.linspace(vmin, vmax, 21)
 
-axes[2].pcolormesh(X, Y, U[2*step], shading='auto', cmap='turbo')
-axes[2].set_title(f"t = {2*step*dt:.2f}")
-axes[2].set_xlabel('x')
-axes[2].set_ylabel('y')
-# axes[2].legend()
+fig, axes = plt.subplots(1, 5, sharey=True, figsize=(15, 5))
 
-axes[3].pcolormesh(X, Y, U[3*step], shading='auto', cmap='turbo')
-axes[3].set_title(f"t = {3*step*dt:.2f}")
-axes[3].set_xlabel('x')
-axes[3].set_ylabel('y')
-# axes[3].legend()
+mappable = None
+for ax, i in zip(axes, idxs):
+    im = ax.contourf(x, y, U[i], levels=levels, cmap='plasma', extend='both')
+    ax.set_title(f't = {t[i]:.2f}', fontsize=18)
+    ax.set_xlabel('x', fontsize=15)
+    if i==0:
+        ax.set_ylabel('y', fontsize=15)
+    ax.set_aspect('equal', adjustable='box')  # same as axis('scaled')
+    mappable = im  # keep last (all share same levels/cmap)
 
-axes[4].pcolormesh(X, Y, U[4*step], shading='auto', cmap='turbo')
-axes[4].set_title(f"t = {4*step*dt:.2f}")
-axes[4].set_xlabel('x')
-axes[4].set_ylabel('y')
-# axes[4].legend()
+# fig.suptitle('Fisher-KPP')
 
-fig.savefig('./lcd/lcd_2d.png')
+# Leave room on the right for a single colorbar (won't shrink subplots)
+fig.subplots_adjust(right=0.9, wspace=0.1)
+cbar_ax = fig.add_axes([0.91, 0.25, 0.02, 0.5])  # [left, bottom, width, height] in fig coords
+cbar = fig.colorbar(mappable, cax=cbar_ax,  format=tkr.FormatStrFormatter('%.1f'))
+# cbar.ax.set_ylabel('u', rotation=90, va='center')
+
+# plt.tight_layout()
+plt.savefig('./lcd/lcd_2d.png', dpi=200, bbox_inches='tight')
+plt.show()
+
+
+
+
+
+
+
+
+# # 可视化（每隔一定步数显示
+# # U = U.T
+# X, Y = np.meshgrid(x, y, indexing="ij")
+# step = nt//4
+
+# fig, axes = plt.subplots(1,5,figsize=[15,3])
+# axes[0].pcolormesh(X, Y, U[0], shading='auto', cmap='turbo')
+# axes[0].set_title(f"t = {0*dt:.2f}")
+# axes[0].set_xlabel('x')
+# axes[0].set_ylabel('y')
+# # axes[0].legend()
+
+# axes[1].pcolormesh(X, Y, U[step], shading='auto', cmap='turbo')
+# axes[1].set_title(f"t = {step*dt:.2f}")
+# axes[1].set_xlabel('x')
+# axes[1].set_ylabel('y')
+# # axes[1].legend()
+
+# axes[2].pcolormesh(X, Y, U[2*step], shading='auto', cmap='turbo')
+# axes[2].set_title(f"t = {2*step*dt:.2f}")
+# axes[2].set_xlabel('x')
+# axes[2].set_ylabel('y')
+# # axes[2].legend()
+
+# axes[3].pcolormesh(X, Y, U[3*step], shading='auto', cmap='turbo')
+# axes[3].set_title(f"t = {3*step*dt:.2f}")
+# axes[3].set_xlabel('x')
+# axes[3].set_ylabel('y')
+# # axes[3].legend()
+
+# axes[4].pcolormesh(X, Y, U[4*step], shading='auto', cmap='turbo')
+# axes[4].set_title(f"t = {4*step*dt:.2f}")
+# axes[4].set_xlabel('x')
+# axes[4].set_ylabel('y')
+# # axes[4].legend()
+
+# fig.savefig('./lcd/lcd_2d.png')
+
+
+
+
 
 
 

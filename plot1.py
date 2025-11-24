@@ -10,6 +10,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from train_adjoint import data_loader
 
+import matplotlib
+matplotlib.rc('xtick', labelsize=12) 
+matplotlib.rc('ytick', labelsize=12) 
 
 import random
 random.seed(10)
@@ -68,7 +71,8 @@ cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%'
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
-                size='x-large', ha='center', fontweight='bold', va='baseline')
+                fontsize=15, 
+                ha='center', fontweight='bold', va='baseline')
 
 rows = ['Samples: 20', 'Samples: 100', 'Samples: 1000', 'Samples: 10000']
 for ax, row in zip(axes[:,0], rows):
@@ -77,7 +81,7 @@ for ax, row in zip(axes[:,0], rows):
                 xytext=(-ax.yaxis.labelpad - pad, 0),
                 xycoords=ax.yaxis.label,
                 textcoords='offset points',
-                size='x-large',
+                fontsize=14,
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
@@ -345,7 +349,7 @@ cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%'
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
-                size='x-large', ha='center', fontweight='bold', va='baseline')
+                fontsize=15, ha='center', fontweight='bold', va='baseline')
 
 rows = ['Samples: 200', 'Samples: 500', 'Samples: 1000', 'Samples: 2001']
 for ax, row in zip(axes[:,0], rows):
@@ -354,7 +358,7 @@ for ax, row in zip(axes[:,0], rows):
                 xytext=(-ax.yaxis.labelpad - pad, 0),
                 xycoords=ax.yaxis.label,
                 textcoords='offset points',
-                size='x-large',
+                fontsize=14,
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
@@ -632,7 +636,7 @@ cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%'
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
-                size='x-large', ha='center', fontweight='bold', va='baseline')
+                fontsize=15, ha='center', fontweight='bold', va='baseline')
 
 rows = ['Samples: 200', 'Samples: 500', 'Samples: 1000', 'Samples: 2001']
 for ax, row in zip(axes[:,0], rows):
@@ -641,7 +645,7 @@ for ax, row in zip(axes[:,0], rows):
                 xytext=(-ax.yaxis.labelpad - pad, 0),
                 xycoords=ax.yaxis.label,
                 textcoords='offset points',
-                size='x-large',
+                fontsize=14,
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
@@ -915,14 +919,14 @@ x_indices = range(0,r)
 colors = plt.cm.plasma(np.linspace(0, 1, len(x_indices)))
 
 
-fig, axes = plt.subplots(3,3, sharex=True, sharey=True, figsize=[16,12])
+fig, axes = plt.subplots(3,3, sharex=True, sharey=True, figsize=[16,10])
 pad = 5 # in points
 
 cols = ['OpInf-ord2', 'OpInf-ord6', 'Adjoint']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
-                fontsize=20, ha='center', fontweight='bold', va='baseline')
+                fontsize=25, ha='center', fontweight='bold', va='baseline')
 
 rows = ['NL = 0%', 'NL = 80%', 'NL = 160%']
 for ax, row in zip(axes[:,0], rows):
@@ -931,11 +935,32 @@ for ax, row in zip(axes[:,0], rows):
                 xytext=(-ax.yaxis.labelpad - pad, 0),
                 xycoords=ax.yaxis.label,
                 textcoords='offset points',
-                fontsize=20,
+                fontsize=25,
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
 
+
+
+fontsize_text = 18
+T = 1
+for ax in axes.ravel():
+    # x in data coordinates, y in axes coordinates (0–1)
+    trans = ax.get_xaxis_transform()  # x=data, y=axes
+
+    ax.text(0.4 * T, 0.05, "Train",
+            ha="right", color="black", fontsize=fontsize_text,
+            transform=trans)
+    ax.text(0.59 * T, 0.05, "Val",
+            ha="right", color="black", fontsize=fontsize_text,
+            transform=trans)
+    ax.text(0.7 * T, 0.05, "Test",
+            ha="left", color="black", fontsize=fontsize_text,
+            transform=trans)
+    
+    ax.axvline(x=.5*T, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+    ax.axvline(x=.6*T, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+    ax.set_xlim(0, T)
 
 
 
@@ -968,21 +993,11 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=0.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=0.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
-#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$\hat{{q}}_{{{x_indices[i]},true}}(t)$"))
-# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$\hat{q}_{i,pred}(t)$"))
+#     legend_elements.append(Line2D([0], [0], color=colors[i], linewidth=3, label=rf"$q_{{x_indices[i]},true}(t)$"))
+# legend_elements.append(Line2D([0], [0], color="#00FFFF", linestyle="--", linewidth=2, label=r"$q_{i,pred}(t)$"))
 
 # Create legend
 legend_elements = [
@@ -992,7 +1007,7 @@ legend_elements = [
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
@@ -1021,16 +1036,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=0.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=0.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1045,7 +1050,7 @@ legend_elements = [
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-# axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
@@ -1073,16 +1078,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
 
 # # Create legend
 # legend_elements = []
@@ -1135,16 +1130,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1158,8 +1143,8 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
@@ -1187,16 +1172,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 # axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
 
 # # Create legend
 # legend_elements = []
@@ -1240,16 +1215,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 # axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
 
 # # Create legend
 # legend_elements = []
@@ -1303,16 +1268,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1326,8 +1281,8 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 
@@ -1356,16 +1311,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1379,7 +1324,7 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
@@ -1409,16 +1354,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.6, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.4, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.59, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.7, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 1)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1432,7 +1367,7 @@ legend_elements = [
 ]
 
 # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
@@ -1441,7 +1376,7 @@ axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
 fig.suptitle("Illustrative Predictions under Different Noise Levels (Burgers' Equation)",
-             fontsize=23, fontweight='bold', y=1.02)
+             fontsize=26, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig(f'./figures_analysis/plot_examples_burgers_sample{num_samples}.png',bbox_inches='tight',dpi=300)
 plt.show()
@@ -1486,20 +1421,20 @@ max_iter = 10
 opinf_use_val = True
 r = 5
 
-num_samples = 2001
+num_samples = 1000
 
 x_indices = range(0,r)
 colors = plt.cm.plasma(np.linspace(0, 1, len(x_indices)))
 
 
-fig, axes = plt.subplots(3,3, sharex=True, sharey=False, figsize=[16,12])
+fig, axes = plt.subplots(3,3, sharex=True, sharey=True, figsize=[16,10])
 pad = 5 # in points
 
 cols = ['OpInf-ord2', 'OpInf-ord6', 'Adjoint']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
-                fontsize=20, ha='center', fontweight='bold', va='baseline')
+                fontsize=25, ha='center', fontweight='bold', va='baseline')
 
 rows = ['NL = 0%', 'NL = 80%', 'NL = 160%']
 for ax, row in zip(axes[:,0], rows):
@@ -1508,12 +1443,30 @@ for ax, row in zip(axes[:,0], rows):
                 xytext=(-ax.yaxis.labelpad - pad, 0),
                 xycoords=ax.yaxis.label,
                 textcoords='offset points',
-                fontsize=20,
+                fontsize=25,
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
 
+fontsize_text = 18
+T = 5
+for ax in axes.ravel():
+    # x in data coordinates, y in axes coordinates (0–1)
+    trans = ax.get_xaxis_transform()  # x=data, y=axes
 
+    ax.text(0.65 * T, 0.05, "Train",
+            ha="right", color="black", fontsize=fontsize_text,
+            transform=trans)
+    ax.text(0.84 * T, 0.05, "Val",
+            ha="right", color="black", fontsize=fontsize_text,
+            transform=trans)
+    ax.text(0.87 * T, 0.05, "Test",
+            ha="left", color="black", fontsize=fontsize_text,
+            transform=trans)
+    
+    ax.axvline(x=.75*T, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+    ax.axvline(x=.85*T, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+    ax.set_xlim(0, T)
 
 
 noise_level = 0
@@ -1545,16 +1498,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1569,7 +1512,7 @@ legend_elements = [
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
@@ -1596,16 +1539,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
 
 # # Create legend
 # legend_elements = []
@@ -1649,16 +1582,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
 
 # # Create legend
 # legend_elements = []
@@ -1715,16 +1638,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1739,7 +1652,7 @@ legend_elements = [
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
@@ -1766,16 +1679,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
 
 # # Create legend
 # legend_elements = []
@@ -1819,16 +1722,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
 
 # # Create legend
 # legend_elements = []
@@ -1884,16 +1777,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1907,8 +1790,8 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
@@ -1936,16 +1819,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -1959,7 +1832,7 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
@@ -1989,16 +1862,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, 5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -2012,13 +1875,9 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
-
-
-
-
 
 
 
@@ -2026,7 +1885,7 @@ axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
 fig.suptitle("Illustrative Predictions under Different Noise Levels (FKPP Equation)",
-             fontsize=23, fontweight='bold', y=1.02)
+             fontsize=26, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig(f'./figures_analysis/plot_examples_FKPP_sample{num_samples}.png',bbox_inches='tight',dpi=300)
 plt.show()
@@ -2060,7 +1919,9 @@ plt.show()
 
 
 
-
+# import matplotlib
+# matplotlib.rc('xtick', labelsize=20) 
+# matplotlib.rc('ytick', labelsize=20) 
 
 ############ PLOTS examples CDE #################
 from matplotlib.lines import Line2D
@@ -2080,14 +1941,14 @@ x_indices = range(0,r)
 colors = plt.cm.plasma(np.linspace(0, 1, len(x_indices)))
 
 
-fig, axes = plt.subplots(3,3, sharex=True, sharey=False, figsize=[16,12])
+fig, axes = plt.subplots(3,3, sharex=True, sharey=True, figsize=[16,10])
 pad = 5 # in points
 
 cols = ['OpInf-ord2', 'OpInf-ord6', 'Adjoint']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
                 xycoords='axes fraction', textcoords='offset points',
-                fontsize=20, ha='center', fontweight='bold', va='baseline')
+                fontsize=25, ha='center', fontweight='bold', va='baseline')
 
 rows = ['NL = 0%', 'NL = 80%', 'NL = 160%']
 for ax, row in zip(axes[:,0], rows):
@@ -2096,13 +1957,31 @@ for ax, row in zip(axes[:,0], rows):
                 xytext=(-ax.yaxis.labelpad - pad, 0),
                 xycoords=ax.yaxis.label,
                 textcoords='offset points',
-                fontsize=20,
+                fontsize=25,
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
 
 
+fontsize_text = 18
+T=.5
+for ax in axes.ravel():
+    # x in data coordinates, y in axes coordinates (0–1)
+    trans = ax.get_xaxis_transform()  # x=data, y=axes
 
+    ax.text(0.65 * T, 0.05, "Train",
+            ha="right", color="black", fontsize=fontsize_text,
+            transform=trans)
+    ax.text(0.84 * T, 0.05, "Val",
+            ha="right", color="black", fontsize=fontsize_text,
+            transform=trans)
+    ax.text(0.87 * T, 0.05, "Test",
+            ha="left", color="black", fontsize=fontsize_text,
+            transform=trans)
+    
+    ax.axvline(x=.75*T, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+    ax.axvline(x=.85*T, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
+    ax.set_xlim(0, T)
 
 noise_level = 0
 name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
@@ -2133,16 +2012,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -2157,7 +2026,7 @@ legend_elements = [
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
@@ -2184,16 +2053,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
 
 # # Create legend
 # legend_elements = []
@@ -2237,16 +2096,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
 
 # # Create legend
 # legend_elements = []
@@ -2303,16 +2152,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -2327,7 +2166,7 @@ legend_elements = [
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
@@ -2354,16 +2193,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
 
 # # Create legend
 # legend_elements = []
@@ -2407,16 +2236,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # Ensure only left and bottom ticks are visible
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
-
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
 
 # # Create legend
 # legend_elements = []
@@ -2472,16 +2291,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -2495,8 +2304,8 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$q(t)$", fontsize=22, fontweight='bold')
 axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 
@@ -2524,16 +2333,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -2547,7 +2346,7 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
@@ -2577,16 +2376,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].yaxis.set_ticks_position('left')
 # axes[rr,cc].xaxis.set_ticks_position('bottom')
 
-# Add vertical line and annotations
-ymin, ymax = axes[rr,cc].get_ylim()
-axes[rr,cc].axvline(x=.75*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].axvline(x=.85*.5, ymin=0, ymax=0.96, color="gray", linewidth=1.3, linestyle="--")
-axes[rr,cc].text(0.65*.5, ymin + 0.05 * (ymax - ymin), r"Train", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.84*.5, ymin + 0.05 * (ymax - ymin), r"Val", ha="right", color="gray", fontsize=15)
-axes[rr,cc].text(0.87*.5, ymin + 0.05 * (ymax - ymin), r"Test", ha="left", color="gray", fontsize=15)
-# Train, Val, and Test denote the training, validation, and testing data regions, respectively.
-axes[rr,cc].set_xlim(0, .5)
-
 # # Create legend
 # legend_elements = []
 # for i in range(r):
@@ -2600,7 +2389,7 @@ legend_elements = [
 ]
 
 # # axes[rr,cc].set_title(rf"{method_names[method]} -- $\mathbf{{{noise} \%}}$", fontsize=33)
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=22, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$\hat{q}(t)$", fontsize=20, fontweight='bold')
 # axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
@@ -2610,7 +2399,7 @@ axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
 fig.suptitle("Illustrative Predictions under Different Noise Levels (CDE)",
-             fontsize=23, fontweight='bold', y=1.02)
+             fontsize=26, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig(f'./figures_analysis/plot_examples_CDE_sample{num_samples}.png',bbox_inches='tight',dpi=300)
 plt.show()

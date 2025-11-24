@@ -95,13 +95,15 @@ np.savez(f"./burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz", Q=Qfom, t=t,
 
 
 
+import matplotlib
+matplotlib.rc('xtick', labelsize=14) 
+matplotlib.rc('ytick', labelsize=14) 
+
 
 data_burgers = np.load(f"./burgers/total_burgers_snapshots_nu_{str(nu)[2:]}.npz")
 Qfom = data_burgers['Q']
 t = data_burgers['t']
 x = data_burgers['x']
-
-
 
 
 # Plotting
@@ -111,9 +113,9 @@ T_mesh, X_mesh = np.meshgrid(t, x)
 fig = plt.figure(figsize=(10, 6))
 ax = fig.add_subplot(111, projection='3d')
 ax.plot_surface(T_mesh, X_mesh, Qfom, cmap="jet", edgecolor="none")
-ax.set_title("Burgers' Equation (FDM)")
-ax.set_xlabel("Time")
-ax.set_ylabel("Space")
+# ax.set_title("Viscous Burgers' Equation Solution")
+ax.set_xlabel("t (time)")
+ax.set_ylabel("x (space)")
 ax.set_zlabel("q(t, x)")
 ax.view_init(elev=35, azim=-155)
 plt.savefig('./burgers/burgers_3d.png')
@@ -130,11 +132,11 @@ plt.show()
 
 # Contour Plot
 plt.figure(figsize=(8, 5))
-plt.contourf(T_mesh, X_mesh, Qfom, levels=30, cmap="jet")
+plt.contourf(T_mesh, X_mesh, Qfom, levels=30, cmap="plasma")
 plt.colorbar()
-plt.title("Burgers' Equation Solution (FDM)")
-plt.xlabel("Time")
-plt.ylabel("Space")
-plt.savefig('./burgers/burgers_contour.png')
+# plt.title("Viscous Burgers' Equation Solution")
+plt.xlabel("t (time)", fontsize=15)
+plt.ylabel("x (space)", fontsize=15)
+plt.savefig('./burgers/burgers_contour.png', bbox_inches='tight')
 plt.show()
 

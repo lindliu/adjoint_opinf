@@ -116,6 +116,10 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 
+import matplotlib
+matplotlib.rc('xtick', labelsize=14) 
+matplotlib.rc('ytick', labelsize=14) 
+
 
 # Load the stored solution and spatial grid
 t = np.load("./fkpp/total_fkpp_t.npy")
@@ -126,33 +130,44 @@ snapshots = [np.load(data_files[i]) for i in range(5)]
 snapshots = np.concatenate(snapshots,axis=2)
 
 
+import matplotlib.ticker as tkr
+
 U = snapshots
+idxs = [0, 500, 1000, 1500, 2000]
 
-# Plot snapshots
-fig, axes = plt.subplots(1, 5, figsize=(15, 5))
+# Common levels (or use vmin/vmax)
+vmin = np.min([U[:, :, i].min() for i in idxs])
+vmax = np.max([U[:, :, i].max() for i in idxs])
+levels = np.linspace(vmin, vmax, 21)
 
-axes[0].contourf(x, y, U[:,:,0], levels=20, cmap='viridis')
-axes[0].set_title(f't = {t[0]:.2f}')
-axes[0].axis('scaled')
+fig, axes = plt.subplots(1, 5, sharey=True, figsize=(15, 5))
 
-axes[1].contourf(x, y, U[:,:,500], levels=20, cmap='viridis')
-axes[1].set_title(f't = {t[500]:.2f}')
-axes[1].axis('scaled')
+mappable = None
+for ax, i in zip(axes, idxs):
+    im = ax.contourf(x, y, U[:, :, i], levels=levels, cmap='plasma', extend='both')
+    ax.set_title(f't = {t[i]:.2f}', fontsize=18)
+    ax.set_xlabel('x', fontsize=15)
+    if i==0:
+        ax.set_ylabel('y', fontsize=15)
+    ax.set_aspect('equal', adjustable='box')  # same as axis('scaled')
+    mappable = im  # keep last (all share same levels/cmap)
 
-axes[2].contourf(x, y, U[:,:,1000], levels=20, cmap='viridis')
-axes[2].set_title(f't = {t[1000]:.2f}')
-axes[2].axis('scaled')
+# fig.suptitle('Fisher-KPP')
 
-axes[3].contourf(x, y, U[:,:,1500], levels=20, cmap='viridis')
-axes[3].set_title(f't = {t[1500]:.2f}')
-axes[3].axis('scaled')
+# Leave room on the right for a single colorbar (won't shrink subplots)
+fig.subplots_adjust(right=0.9, wspace=0.1)
+cbar_ax = fig.add_axes([0.91, 0.25, 0.02, 0.5])  # [left, bottom, width, height] in fig coords
+cbar = fig.colorbar(mappable, cax=cbar_ax,  format=tkr.FormatStrFormatter('%.1f'))
+# cbar.ax.set_ylabel('u', rotation=90, va='center')
 
-axes[4].contourf(x, y, U[:,:,2000], levels=20, cmap='viridis')
-axes[4].set_title(f't = {t[2000]:.2f}')
-axes[4].axis('scaled')
-
-plt.savefig('./fkpp/fkpp_contour.png')
+# plt.tight_layout()
+plt.savefig('./fkpp/fkpp_contour.png', dpi=200, bbox_inches='tight')
 plt.show()
+
+
+
+
+
 
 
 

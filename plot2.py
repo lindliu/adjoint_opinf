@@ -15,6 +15,10 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 # from utils import model_reducer
 
 
+# import matplotlib
+# matplotlib.rc('xtick', labelsize=20) 
+# matplotlib.rc('ytick', labelsize=20)
+
 
 data_name = 'burgers'
 split_ratio = .5
@@ -102,7 +106,7 @@ cc = 0
 # True state evolution
 im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$x$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -111,8 +115,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -131,8 +135,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -152,8 +156,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -173,8 +177,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -194,8 +198,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 
 
@@ -203,7 +207,7 @@ axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
         
 # cbar = fig.colorbar(im3, ax=axes[rr,cc], fraction=0.025, pad=.02, shrink=1, aspect=40)
 # cbar.ax.tick_params(labelsize=13)
@@ -272,7 +276,7 @@ cc = 0
 # True state evolution
 im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$x$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -281,8 +285,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -302,8 +306,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -324,8 +328,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -345,8 +349,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -366,15 +370,15 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
         
 # cbar = fig.colorbar(im3, ax=axes[rr,cc], fraction=0.025, pad=.02, shrink=1, aspect=40)
 # cbar.ax.tick_params(labelsize=13)
@@ -443,8 +447,8 @@ rr = 2
 cc = 0
 # True state evolution
 im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$x$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -453,8 +457,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -465,7 +469,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 1
 # True state evolution
 im0 = axes[rr,cc].imshow(Q_test_re, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -475,8 +479,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -487,7 +491,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 2
 # Predicted state evolution
 im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -497,8 +501,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -508,7 +512,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 3
 # Predicted state evolution
 im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -518,8 +522,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -529,7 +533,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, widt
 cc = 4
 # Predicted state evolution
 im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -539,14 +543,14 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
         
 # cbar = fig.colorbar(im3, ax=axes[rr,cc], fraction=0.025, pad=.02, shrink=1, aspect=40)
 # cbar.ax.tick_params(labelsize=13)
@@ -635,7 +639,10 @@ for ax, row in zip(axes[:,0], rows):
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
-    
+
+for ax in axes.ravel():
+    ax.set_xticks([0, 5, 10])
+    ax.set_yticks([0, 5, 10])
 
 noise_level = 0
    
@@ -686,7 +693,7 @@ cc = 0
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_ylabel(r"$y$", fontsize=20, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -699,8 +706,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -724,8 +731,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -750,8 +757,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -775,8 +782,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -800,15 +807,15 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
 
 # cbar = fig.colorbar(im3, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -879,7 +886,7 @@ if only_end:
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$y$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -888,8 +895,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -914,8 +921,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -939,8 +946,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -963,8 +970,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -988,14 +995,14 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
 # cbar = fig.colorbar(im3, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # # 每列加一个 colorbar
@@ -1063,11 +1070,11 @@ cc = 0
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_original_test.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$y$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1076,8 +1083,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1089,7 +1096,7 @@ cc = 1
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_test_re.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1102,8 +1109,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1114,6 +1121,7 @@ cc = 2
 # Predicted state evolution
 if only_end:
     im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1126,8 +1134,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1138,7 +1146,7 @@ cc = 3
 # Predicted state evolution
 if only_end:
     im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1151,8 +1159,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1162,10 +1170,10 @@ cc = 4
 # Predicted state evolution
 if only_end:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -1174,15 +1182,16 @@ axes[rr,cc].spines['bottom'].set_linewidth(1.7)
 axes[rr,cc].spines['top'].set_linewidth(1.7)  
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
+
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
 
 # cbar = fig.colorbar(im3, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1315,7 +1324,7 @@ cc = 0
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
-    axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_ylabel(r"$y$", fontsize=20, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1328,8 +1337,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1353,8 +1362,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1379,8 +1388,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1404,8 +1413,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1429,15 +1438,15 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
 
 # cbar = fig.colorbar(im3, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1508,7 +1517,7 @@ if only_end:
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$y$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1517,8 +1526,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1543,8 +1552,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1568,8 +1577,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1592,8 +1601,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1617,14 +1626,14 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
 # cbar = fig.colorbar(im3, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # # 每列加一个 colorbar
@@ -1692,11 +1701,11 @@ cc = 0
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_original_test.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
-axes[rr,cc].set_ylabel(r"$y$", fontsize=15, fontweight='bold')
+axes[rr,cc].set_ylabel(r"$y$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1705,8 +1714,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1718,7 +1727,7 @@ cc = 1
 # True state evolution
 if only_end:
     im0 = axes[rr,cc].imshow(Q_test_re.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1731,8 +1740,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1743,6 +1752,7 @@ cc = 2
 # Predicted state evolution
 if only_end:
     im1 = axes[rr,cc].imshow(Q_pred_opinf2.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1755,8 +1765,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1767,7 +1777,7 @@ cc = 3
 # Predicted state evolution
 if only_end:
     im2 = axes[rr,cc].imshow(Q_pred_opinf6.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
 # axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
@@ -1780,8 +1790,8 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
@@ -1791,10 +1801,10 @@ cc = 4
 # Predicted state evolution
 if only_end:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([101,101,38])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[-1,1,-1,1], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$t$", fontsize=15, fontweight='bold')
+    axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -1804,14 +1814,14 @@ axes[rr,cc].spines['top'].set_linewidth(1.7)
 axes[rr,cc].spines['right'].set_linewidth(1.7)
 
 # Adjust tick parameters (size of ticks and labels)
-axes[rr,cc].tick_params(axis='both', which='major', labelsize=13, length=6, width=2)
-axes[rr,cc].tick_params(axis='both', which='minor', labelsize=13, length=4, width=1.5)
+axes[rr,cc].tick_params(axis='both', which='major', labelsize=15, length=6, width=2)
+axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, width=1.5)
 
 
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
-cbar.ax.tick_params(labelsize=13)
+cbar.ax.tick_params(labelsize=15)
 
 # cbar = fig.colorbar(im3, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
