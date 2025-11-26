@@ -568,8 +568,8 @@ cbar.ax.tick_params(labelsize=15)
 
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
-fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (Burgers' Equation)",
-             fontsize=23, fontweight='bold', y=1.02)
+# fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (Burgers' Equation)",
+#              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig(f'./figures_analysis/plot_examples_evolution_burgers_sample{num_samples}.png',bbox_inches='tight',dpi=300)
 plt.show()
@@ -1208,8 +1208,8 @@ cbar.ax.tick_params(labelsize=15)
 
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
-fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (FKPP Equation)",
-             fontsize=23, fontweight='bold', y=1.02)
+# fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (FKPP Equation)",
+#              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig(f'./figures_analysis/plot_examples_evolution_FKPP_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
 plt.show()
@@ -1838,8 +1838,8 @@ cbar.ax.tick_params(labelsize=15)
 
 plt.subplots_adjust(hspace=0.01, wspace=0.01)
 plt.tight_layout()
-fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (CDE)",
-             fontsize=23, fontweight='bold', y=1.02)
+# fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (CDE)",
+#              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
 plt.savefig(f'./figures_analysis/plot_examples_evolution_CDE_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
 plt.show()
