@@ -160,8 +160,8 @@ if __name__ == "__main__":
         opinf_use_val = True
         
         noise_level_list = [0, 40, 80, 120, 160, 200]
-        # for noise_level in noise_level_list:
-        for noise_level in [40]:
+        for noise_level in noise_level_list:
+        # for noise_level in [40]:
 
             ### get data ###
             Q_train, t_train, Q_valid, t_valid, Q_test, t_test, Q_original_train, Q_original_valid, Q_original_test, num_samples = \
@@ -173,7 +173,7 @@ if __name__ == "__main__":
                 operator_inference(Q_train, t_train, Q_valid, t_valid, Q_original_test, t_test, r, opinf_use_val, smoother=smoother, weighted=weighted)
             
             
-            epochs = 2
+            epochs = 100
             func = train_node(Q_train_, t_train, Q_test_, t_test, A_opinf, H_opinf, r, epochs, optimizer_name='Adam')
             
             t_all = np.r_[t_train,t_test]
