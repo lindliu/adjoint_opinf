@@ -296,6 +296,13 @@ def get_theta_by_opinf(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1, reg_
     model.fit(states=Q_, ddts=Qdot_)
     # print(model)
     
+    # order = 'bwd1'
+    # ddt_estimator = opinf.ddt.UniformFiniteDifferencer(t_, order)
+    # Qdot_ = ddt_estimator.estimate(Q_)[1]
+    # model = opinf.models.ContinuousModel(operators=["A", "H"])
+    # model.fit(states=Q_[:,:-1], ddts=Qdot_)
+
+
     # Operators A and H
     A_opinf = model.operators[0].entries
     H_opinf = model.operators[1].entries
@@ -369,3 +376,292 @@ def optimal_opinf(Q_train_, t_train, t_valid, t_test, order='ord6', opinf_use_va
     return A_opinf, H_opinf, regularizer, par_tsvd, loss_min
     
     
+
+
+
+
+
+
+def euler_solver(func, y0, t, par=()):
+    """
+    Fixed-step explicit Euler solver for RHS with signature
+
+        func(t, y, *par)
+
+    Parameters
+    ----------
+    func : callable
+        Right-hand side function.
+    y0 : ndarray, shape (r,)
+        Initial condition.
+    t : ndarray, shape (K,)
+        Prescribed time grid.
+    par : tuple
+        Additional parameters passed to func.
+
+    Returns
+    -------
+    Y : ndarray, shape (r, K)
+        State trajectory.
+    """
+
+    y0 = np.asarray(y0, dtype=float).reshape(-1)
+
+    r = y0.size
+    K = len(t)
+
+    if K < 1:
+        raise ValueError("The time grid must contain at least one point.")
+
+    if K > 1 and np.any(np.diff(t) <= 0):
+        raise ValueError("The time grid must be strictly increasing.")
+
+    Y = np.zeros((r, K), dtype=float)
+    Y[:, 0] = y0
+
+    y = y0.copy()
+
+    for k in range(K - 1):
+        tk = t[k]
+        dt_k = t[k + 1] - t[k]
+
+        dydt = np.asarray(
+            func(tk, y, *par),
+            dtype=float,
+        ).reshape(-1)
+
+        if dydt.shape != y.shape:
+            raise ValueError(
+                f"RHS shape {dydt.shape} does not match "
+                f"state shape {y.shape} at step {k}."
+            )
+
+        y = y + dt_k * dydt
+
+        if not np.all(np.isfinite(y)):
+            raise RuntimeError(
+                f"Euler solution became non-finite at step {k}."
+            )
+
+        Y[:, k + 1] = y
+
+    return Y
+
+
+
+
+def get_theta_by_opinf_euler(Q_, t_, order='ord6', regularizer='L2', par_tsvd=-1, reg_l2=1e-2):
+    # ### Q_ means reduced Q
+    # # # Estimate time derivatives using 6th-order finite differences.
+    # ddt_estimator = opinf.ddt.UniformFiniteDifferencer(t_, order)
+    # Qdot_ = ddt_estimator.estimate(Q_)[1]
+    
+    # # # Build the quadratic continuous model
+    # if regularizer == 'no':
+    #     model = opinf.models.ContinuousModel(operators=["A", "H"])
+    # if regularizer == 'L2':
+    #     D = Q_.T
+    #     Z = Qdot_
+    #     l2solver = opinf.lstsq.L2Solver(regularizer=reg_l2).fit(D, Z)
+    #     model = opinf.models.ContinuousModel(operators=["A", "H"], solver=l2solver)
+    # if regularizer == 'L2T':
+    #     D = Q_.T
+    #     Z = Qdot_
+    #     tsvdsolver = opinf.lstsq.TruncatedSVDSolver(par_tsvd)  # 0 or -1   # this number is critical
+    #     tsvdsolver.fit(D, Z)
+    #     # tsvdsolver.num_svdmodes = 2
+    #     model = opinf.models.ContinuousModel(operators=["A", "H"], solver=tsvdsolver)
+
+    # # # Fit the model
+    # model.fit(states=Q_, ddts=Qdot_)
+    # # print(model)
+    
+    order = 'bwd1'
+    ddt_estimator = opinf.ddt.UniformFiniteDifferencer(t_, order)
+    Qdot_ = ddt_estimator.estimate(Q_)[1]
+    model = opinf.models.ContinuousModel(operators=["A", "H"])
+    model.fit(states=Q_[:,:-1], ddts=Qdot_)
+
+
+    # Operators A and H
+    A_opinf = model.operators[0].entries
+    H_opinf = model.operators[1].entries
+    
+    # # Expanded H: size (r,r^2)
+    H_opinf = opinf.operators.QuadraticOperator.expand_entries(H_opinf)
+    
+    # np.save(f"./data/A_opinf_{order}_density_{k_samples}.npy", A_opinf)
+    # np.save(f"./data/H_opinf_{order}_density_{k_samples}.npy", H_opinf)
+    return A_opinf, H_opinf
+
+def optimal_opinf_euler(Q_train_, t_train, t_valid, t_test, order='ord6', opinf_use_val=True, Q_valid_=None, Q_s=None, M=100, T=5):
+    
+    ### TruncatedSVDSolver for L2T is critical  ########
+    loss_list = []
+    rho_list = []
+    regularizer_list = ['no','L2','L2','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
+    par_tsvd_list = [0,1e-2,1e-1,1e0,0,-1,-2,-3,-4,-5,-6,-7]
+    # regularizer_list = ['no','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
+    # par_tsvd_list = [0,1e-2,0,-1,-2,-3,-4,-5,-6,-7]
+    for regularizer_, par_tsvd_ in zip(regularizer_list, par_tsvd_list):
+        A_opinf, H_opinf = get_theta_by_opinf_euler(Q_train_, t_train, order=order, regularizer=regularizer_, par_tsvd=par_tsvd_, reg_l2=par_tsvd_)
+        
+        r = A_opinf.shape[0]
+        eigvals_A = np.linalg.eigvals(A_opinf)
+        eigvals_H = np.linalg.eigvals(H_opinf.reshape(r,r,r))
+        rho = max(np.max(abs(eigvals_A)), np.max(abs(eigvals_H)))
+        rho_list.append(rho)
+        
+        if rho>10:#np.log(M)/T:
+            loss_list.append(np.inf)
+            continue
+        
+        # try:
+        t_all = np.r_[t_train, t_valid, t_test]
+        # ### verify if operator inference works ###
+        # Q_opinf_ = solve_ivp(func_surrogate, (t_all[0], t_all[-1]), Q_s[:,0], \
+        #                     t_eval=t_all, args=(A_opinf, H_opinf),  method='BDF')
+        
+        # if Q_opinf_.success:
+        if opinf_use_val==False:
+            #### choose model depend on train dataset
+            # Q_opinf_ = ode_solver(func_surrogate, Q_s[:,0], t_train, par=(A_opinf, H_opinf), rescale=False)
+            # Q_opinf_ = rk4_solver(func_surrogate, Q_s[:,0], t_train, par=(A_opinf, H_opinf))
+            Q_opinf_ = euler_solver(func_surrogate, Q_s[:,0], t_train, par=(A_opinf, H_opinf))
+            loss_list.append(np.mean((Q_train_ - Q_opinf_)**2))
+        
+        if opinf_use_val==True:
+            assert Q_valid_ is not None
+            #### choose model depend on validataion dataset
+            # Q_opinf_ = ode_solver(func_surrogate, Q_valid_[:,0], t_valid, par=(A_opinf, H_opinf), rescale=True)
+            # Q_opinf_ = rk4_solver(func_surrogate, Q_valid_[:,0], t_valid, par=(A_opinf, H_opinf))
+            Q_opinf_ = euler_solver(func_surrogate, Q_valid_[:,0], t_valid, par=(A_opinf, H_opinf))
+            loss_list.append(np.mean((Q_valid_ - Q_opinf_)**2))
+        # else:
+        #     print('FalseFalseFalseFalseFalse')
+        #     loss_list.append(np.inf)
+    
+    # print(loss_list)
+    if min(loss_list)==np.inf:
+        idx = np.argmin(rho_list)
+    else:
+        idx = np.argmin(loss_list)
+    
+    loss_min = loss_list[idx]
+    regularizer = regularizer_list[idx]
+    par_tsvd = par_tsvd_list[idx]
+    
+    A_opinf, H_opinf = get_theta_by_opinf_euler(Q_train_, t_train, order=order, regularizer=regularizer, par_tsvd=par_tsvd, reg_l2=par_tsvd)
+    
+    
+    if regularizer=='L2':
+        par_tsvd = np.log10(par_tsvd)
+    return A_opinf, H_opinf, regularizer, par_tsvd, loss_min
+    
+    
+    
+    
+def rk4_solver(func, y0, t, par=()):
+    """
+    Fixed-step RK4 solver for RHS with signature
+
+        func(t, y, *args)
+
+    Returns
+    -------
+    Y : ndarray, shape (r, K)
+    """
+
+    y0 = np.asarray(y0, dtype=float)
+    r = y0.size
+    K = len(t)
+
+    Y = np.zeros((r, K))
+    Y[:, 0] = y0
+
+    y = y0.copy()
+
+    for k in range(K - 1):
+        tk = t[k]
+        dt_k = t[k + 1] - t[k]
+
+        k1 = func(tk, y, *par)
+        k2 = func(tk + 0.5 * dt_k, y + 0.5 * dt_k * k1, *par)
+        k3 = func(tk + 0.5 * dt_k, y + 0.5 * dt_k * k2, *par)
+        k4 = func(tk + dt_k, y + dt_k * k3, *par)
+
+        y = y + dt_k * (k1 + 2*k2 + 2*k3 + k4) / 6.0
+
+        if not np.all(np.isfinite(y)):
+            raise RuntimeError(f"RK4 solution blew up at step {k}")
+
+        Y[:, k + 1] = y
+
+    return Y
+
+def optimal_opinf_rk4(Q_train_, t_train, t_valid, t_test, order='ord6', opinf_use_val=True, Q_valid_=None, Q_s=None, M=100, T=5):
+    
+    ### TruncatedSVDSolver for L2T is critical  ########
+    loss_list = []
+    rho_list = []
+    regularizer_list = ['no','L2','L2','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
+    par_tsvd_list = [0,1e-2,1e-1,1e0,0,-1,-2,-3,-4,-5,-6,-7]
+    # regularizer_list = ['no','L2','L2T','L2T','L2T','L2T','L2T','L2T','L2T','L2T']
+    # par_tsvd_list = [0,1e-2,0,-1,-2,-3,-4,-5,-6,-7]
+    for regularizer_, par_tsvd_ in zip(regularizer_list, par_tsvd_list):
+        A_opinf, H_opinf = get_theta_by_opinf(Q_train_, t_train, order=order, regularizer=regularizer_, par_tsvd=par_tsvd_, reg_l2=par_tsvd_)
+        
+        r = A_opinf.shape[0]
+        eigvals_A = np.linalg.eigvals(A_opinf)
+        eigvals_H = np.linalg.eigvals(H_opinf.reshape(r,r,r))
+        rho = max(np.max(abs(eigvals_A)), np.max(abs(eigvals_H)))
+        rho_list.append(rho)
+        
+        if rho>10:#np.log(M)/T:
+            loss_list.append(np.inf)
+            continue
+        
+        # try:
+        t_all = np.r_[t_train, t_valid, t_test]
+        # ### verify if operator inference works ###
+        # Q_opinf_ = solve_ivp(func_surrogate, (t_all[0], t_all[-1]), Q_s[:,0], \
+        #                     t_eval=t_all, args=(A_opinf, H_opinf),  method='BDF')
+        
+        # if Q_opinf_.success:
+        if opinf_use_val==False:
+            #### choose model depend on train dataset
+            # Q_opinf_ = ode_solver(func_surrogate, Q_s[:,0], t_train, par=(A_opinf, H_opinf), rescale=False)
+            Q_opinf_ = rk4_solver(func_surrogate, Q_s[:,0], t_train, par=(A_opinf, H_opinf))
+            # Q_opinf_ = euler_solver(func_surrogate, Q_s[:,0], t_train, par=(A_opinf, H_opinf))
+            loss_list.append(np.mean((Q_train_ - Q_opinf_)**2))
+        
+        if opinf_use_val==True:
+            assert Q_valid_ is not None
+            #### choose model depend on validataion dataset
+            # Q_opinf_ = ode_solver(func_surrogate, Q_valid_[:,0], t_valid, par=(A_opinf, H_opinf), rescale=True)
+            Q_opinf_ = rk4_solver(func_surrogate, Q_valid_[:,0], t_valid, par=(A_opinf, H_opinf))
+            # Q_opinf_ = euler_solver(func_surrogate, Q_valid_[:,0], t_valid, par=(A_opinf, H_opinf))
+            loss_list.append(np.mean((Q_valid_ - Q_opinf_)**2))
+        # else:
+        #     print('FalseFalseFalseFalseFalse')
+        #     loss_list.append(np.inf)
+    
+    # print(loss_list)
+    if min(loss_list)==np.inf:
+        idx = np.argmin(rho_list)
+    else:
+        idx = np.argmin(loss_list)
+    
+    loss_min = loss_list[idx]
+    regularizer = regularizer_list[idx]
+    par_tsvd = par_tsvd_list[idx]
+    
+    A_opinf, H_opinf = get_theta_by_opinf(Q_train_, t_train, order=order, regularizer=regularizer, par_tsvd=par_tsvd, reg_l2=par_tsvd)
+    
+    
+    if regularizer=='L2':
+        par_tsvd = np.log10(par_tsvd)
+    return A_opinf, H_opinf, regularizer, par_tsvd, loss_min
+    
+    
+

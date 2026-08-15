@@ -19,8 +19,17 @@ dt = T / M  # Time step size
 
 # N = 2**7 # Number of spatial grid points
 N = 998  # Number of spatial grid points
+
+
+# N = 128
+# M = 5000
+# T = 1.0
+# dt = T / M
+
 L = 1.0  # Domain length
 dx = L / (N + 1)  # Spatial step size (excluding boundary points)
+
+
 
 x = np.linspace(0, L, N+2)  # Includes boundary points
 t = np.linspace(0, T, M+1)

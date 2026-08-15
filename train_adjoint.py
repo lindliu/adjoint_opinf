@@ -81,17 +81,17 @@ def data_loader(data_name, step, noise_level, split_ratio, split_ratio_validatio
 def get_smoothed(Q_train_, t_train):
     ### smoother
     # smoother = False
-    if smoother:
-        Q_s, _, smoothed = smooth(Q_train_, t_train, window_size=None, poly_order=3)
-        # Q_train_, _ = smooth(Q_train_, t_train, window_size=None, poly_order=3)
-        
-        if smoothed:
-            resid = Q_s - Q_train_
-            var = np.var(resid, axis=1) + 1e-8
-        else:
-            var = 1
+    # if smoother:
+    Q_s, _, smoothed = smooth(Q_train_, t_train, window_size=None, poly_order=3)
+    # Q_train_, _ = smooth(Q_train_, t_train, window_size=None, poly_order=3)
+    
+    if smoothed:
+        resid = Q_s - Q_train_
+        var = np.var(resid, axis=1) + 1e-8
     else:
         var = 1
+    # else:
+    #     var = 1
     return Q_s, var
 
 def get_weights(r, svdvals, var):
@@ -531,16 +531,19 @@ if __name__ == "__main__":
                 step = 10 ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
+                r_list = range(1,6)
                 
             if data_name=='burgers':
-                step = 500 # 1 # 10 # 100 # 500 # 
+                step = 1 # 1 # 10 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
-            
+                r_list = range(1,6)
+                
             if data_name=='lcd':
                 step = 1 ## 1, 2, 4, 10
                 num_samples = 2001//step ## 2000 ##
                 split_ratio = .75
+                r_list = range(1,16)
                 
             assert split_ratio + split_ratio_validation < 1, 'percentage of train and validation data is more than 1!!'
             
@@ -561,7 +564,7 @@ if __name__ == "__main__":
                 error_opinf_6_valid_list, error_adjoint_valid_list, error_opinf_2_valid_list = [], [], []
                 
                 reg_best, weighted_best = [], []
-                for r in range(1,16):
+                for r in r_list:
                 # for r in [3]:
                     print(f'dimension: {r}')
                     

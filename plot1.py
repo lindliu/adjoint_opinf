@@ -45,13 +45,22 @@ def get_errors(data_name, num_samples, noise_level, ratio, max_iter=10, smoother
 
     error = dict()
     error['error_opinf_2_list'] = get_min_from_two_list(error_true['error_opinf_2_list'], error_false['error_opinf_2_list'], \
-                                                        error_true['error_opinf_2_valid_list'], error_false['error_opinf_2_valid_list'])
+                                                        error_true['error_opinf_2_valid_list'], error_false['error_opinf_2_valid_list'])**.5
     error['error_opinf_6_list'] = get_min_from_two_list(error_true['error_opinf_6_list'], error_false['error_opinf_6_list'], \
-                                                        error_true['error_opinf_6_valid_list'], error_false['error_opinf_6_valid_list'])
+                                                        error_true['error_opinf_6_valid_list'], error_false['error_opinf_6_valid_list'])**.5
     error['error_adjoint_list'] = get_min_from_two_list(error_true['error_adjoint_list'], error_false['error_adjoint_list'], \
-                                                        error_true['error_adjoint_valid_list'], error_false['error_adjoint_valid_list'])
+                                                        error_true['error_adjoint_valid_list'], error_false['error_adjoint_valid_list'])**.5
 
     return error
+
+
+def get_error_node(data_name, num_samples, noise_level):
+    name_suffix = f'*{data_name}*_sam{num_samples}_*_noise{noise_level}'
+    path = glob.glob(f'./results_node/error_{name_suffix}*')
+    assert len(path)==1
+    error = np.load(path[0])
+
+    return error['error_adjoint_list']**.5
 
 
 # def plot_errors():
@@ -66,7 +75,10 @@ max_iter = 10
 ############ PLOTS errors #################
 fig, axes = plt.subplots(4, 6, sharex=True, figsize=[16,8])
 pad = 5 # in points
-
+# 每一行 6 个 subplot 共用同一个 y 轴
+for rr in range(4):
+    axes[rr, 0].get_shared_y_axes().join(*axes[rr, :])
+        
 cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%']
 for ax, col in zip(axes[0], cols):
     ax.annotate(col, xy=(0.5, 1), xytext=(0, pad),
@@ -97,6 +109,7 @@ cc = 0
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
+# axes[rr,cc].plot(np.log10(error_node), marker='*', linestyle='--', color='#6A00A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
 axes[rr,cc].legend()
@@ -149,9 +162,11 @@ rr = 1
 
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 0
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -159,41 +174,51 @@ axes[rr,cc].legend()
 
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 1
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 2
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 3
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 4
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 5
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -205,9 +230,11 @@ rr = 2
 
 noise_level = 0
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 0
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 axes[rr,cc].set_ylabel(r'RSE ($log_{10}$)', fontsize='large') #Relative State Error
@@ -215,41 +242,51 @@ axes[rr,cc].legend()
 
 noise_level = 40
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 1
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 80
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 2
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 120
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 3
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 160
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 4
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
 noise_level = 200
 error = get_errors(data_name, num_samples, noise_level, ratio)
+error_node = get_error_node(data_name, num_samples, noise_level)
 cc = 5
 axes[rr,cc].plot(np.log10(error['error_opinf_2_list']), marker='*',  linestyle='-', color='#21918C', label='OpInf-ord2', markersize=7, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_opinf_6_list']), marker='o',  linestyle='--', color='#FCA636', label='OpInf-ord6', markersize=7, linewidth=3)
+axes[rr,cc].plot(np.log10(error_node), marker='x', linestyle='--', color='#2B30A9', label='NODE', markersize=8, linewidth=3)
 axes[rr,cc].plot(np.log10(error['error_adjoint_list']), marker='*', linestyle='--', color='#6A00A8', label='Adjoint', markersize=8, linewidth=3)
 axes[rr,cc].set_xticks([0,1,2,3,4], [1,2,3,4,5])
 
@@ -344,6 +381,10 @@ max_iter = 10
 ############ PLOTS errors #################
 fig, axes = plt.subplots(4, 6, sharex=True, figsize=[16,8])
 pad = 5 # in points
+# 每一行 6 个 subplot 共用同一个 y 轴
+for rr in range(4):
+    axes[rr, 0].get_shared_y_axes().join(*axes[rr, :])
+
 
 cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%']
 for ax, col in zip(axes[0], cols):
@@ -631,6 +672,10 @@ max_iter = 10
 ############ PLOTS errors #################
 fig, axes = plt.subplots(4, 6, sharex=True, figsize=[16,8])
 pad = 5 # in points
+# 每一行 6 个 subplot 共用同一个 y 轴
+for rr in range(4):
+    axes[rr, 0].get_shared_y_axes().join(*axes[rr, :])
+    
 
 cols = ['NL = 0%', 'NL = 40%', 'NL = 80%', 'NL = 120%', 'NL = 160%', 'NL = 200%']
 for ax, col in zip(axes[0], cols):
@@ -1016,11 +1061,12 @@ axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None', label=fr'$q_{i+1}(t)$')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_2'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1153,11 +1199,12 @@ axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None', label=fr'$q_{i+1}(t)$')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_2'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1291,11 +1338,12 @@ axes[rr,cc].legend(handles=legend_elements, loc="center left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None', label=fr'$q_{i+1}(t)$')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_2'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1520,11 +1568,12 @@ axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None',label=fr'$q_{i+1}(t)$')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1660,11 +1709,12 @@ axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None',label=fr'$q_{i+1}(t)$')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -1799,11 +1849,12 @@ axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None',label=fr'$q_{i+1}(t)$')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -2034,11 +2085,16 @@ axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    if i<5:
+        axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None',label=fr'$q_{i+1}(t)$')
+    else:
+        axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
+
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -2174,11 +2230,16 @@ axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    if i<5:
+        axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None',label=fr'$q_{i+1}(t)$')
+    else:
+        axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
+
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
@@ -2313,11 +2374,15 @@ axes[rr,cc].legend(handles=legend_elements, loc="lower left", fontsize=15)
 
 cc = 1
 for i, color in zip(x_indices, colors):
-    axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
+    if i<5:
+        axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None',label=fr'$q_{i+1}(t)$')
+    else:
+        axes[rr,cc].plot(data['t_train'], data['Q_train_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_valid'], data['Q_valid_'][i,:], marker='+', color=color, linestyle='None')
     axes[rr,cc].plot(data['t_test'], data['Q_test_'][i,:], color=color, linestyle="-", linewidth=4)
     
     axes[rr,cc].plot(data['t_test'], data['Q_opinf_6'][i,:], color="#00FFFF", linestyle='--', linewidth=2)
+axes[rr,cc].legend(fontsize='x-large')
 
 # Customize axes thickness
 axes[rr,cc].spines['left'].set_linewidth(1.7)
