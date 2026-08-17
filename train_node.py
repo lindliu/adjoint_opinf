@@ -498,7 +498,7 @@ if __name__ == "__main__":
     split_ratio_validation = .1
     # r = 2
     
-    epochs = 180
+    epochs = 200
     
     weighted = False
     save_results = True

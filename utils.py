@@ -191,24 +191,41 @@ def func_surrogate(t, x, a, b):
 #     return dxdt.flatten()
 
 
-
-
-def func_lambda(t, x, A, H, u_interp):
-    # H_3d = H.reshape(r, r, r)
-    r = x.shape[0]
-    H_3d = H.reshape(r,r,r)   ## A.shape: r,r.   H.shape: r,r,r
-
-    # H(I ⊗ q): sum over k -> shape (i,j)
-    J1 = np.einsum('ijk,k->ij', H_3d, x)
-    # H(q ⊗ I): sum over j -> shape (i,k)
-    J2 = np.einsum('ijk,j->ik', H_3d, x)
-    M = J1 + J2                          # shape (r, r)
+def func_lambda(s, lam, A, H, others):
+    u_interp, q_interp = others
     
-    x = x.reshape(-1,1)
-    u = u_interp(t).reshape(-1,1)
+    r = lam.shape[0]
+    H_3d = H.reshape(r, r, r)
 
-    dxdt = ((A.T + M.T) @ x + u)
-    return dxdt.flatten()
+    q = q_interp(s)      # shape (r,)
+    u = u_interp(s)      # shape (r,)
+
+    J1 = np.einsum('ijk,k->ij', H_3d, q)
+    J2 = np.einsum('ijk,j->ik', H_3d, q)
+    M = J1 + J2
+
+    dlam_ds = (A.T + M.T) @ lam + u
+
+    return dlam_ds
+
+
+
+# def func_lambda(t, x, A, H, u_interp):
+#     # H_3d = H.reshape(r, r, r)
+#     r = x.shape[0]
+#     H_3d = H.reshape(r,r,r)   ## A.shape: r,r.   H.shape: r,r,r
+
+#     # H(I ⊗ q): sum over k -> shape (i,j)
+#     J1 = np.einsum('ijk,k->ij', H_3d, x)
+#     # H(q ⊗ I): sum over j -> shape (i,k)
+#     J2 = np.einsum('ijk,j->ik', H_3d, x)
+#     M = J1 + J2                          # shape (r, r)
+    
+#     x = x.reshape(-1,1)
+#     u = u_interp(t).reshape(-1,1)
+
+#     dxdt = ((A.T + M.T) @ x + u)
+#     return dxdt.flatten()
 
     
     

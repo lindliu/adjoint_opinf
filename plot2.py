@@ -34,6 +34,10 @@ num_samples = 10000//step
 
 
 
+def relative_error(A,B):
+    error = np.mean((A-B)**2)/np.mean(B**2)
+    return error**.5
+
 
 # Heat map
 fig, axes = plt.subplots(3, 5, sharex=True, sharey=True, figsize=(16, 10))
@@ -56,7 +60,8 @@ for ax, row in zip(axes[:,0], rows):
                 fontweight='bold',  # ✅ 加粗
                 ha='right', va='center',
                 rotation=ax.yaxis.label.get_rotation())  # ✅ 与 ylabel 同方向
-    
+
+
 
 noise_level = 0
    
@@ -90,6 +95,17 @@ Q_pred_opinf2 = Vr.decompress(data['Q_opinf_2'])
 Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6']) 
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
+
+
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e},\
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
 
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
@@ -140,6 +156,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -162,6 +184,13 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
+
 
 
 cc = 3
@@ -182,6 +211,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -203,7 +238,6 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 axes[rr,cc].set_xticks([0,.5,1.], [0.6,0.8,1.0])
 
 
-
 divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
@@ -217,6 +251,12 @@ cbar.ax.tick_params(labelsize=15)
 #                     fraction=0.02, pad=0.04)
 # cbar.ax.tick_params(labelsize=13)
 # cbar.set_label("Value", fontsize=15, fontweight='bold')
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -260,6 +300,16 @@ Q_pred_opinf2 = Vr.decompress(data['Q_opinf_2'])
 Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6']) 
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
+
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e}, \
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
 
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
@@ -311,7 +361,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -334,6 +389,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 3
@@ -354,7 +415,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 4
@@ -388,7 +454,12 @@ cbar.ax.tick_params(labelsize=15)
 #                     fraction=0.02, pad=0.04)
 # cbar.ax.tick_params(labelsize=13)
 # cbar.set_label("Value", fontsize=15, fontweight='bold')
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -433,6 +504,17 @@ Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6'])
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
 
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e}, \
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
+
+
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
 
@@ -447,7 +529,7 @@ rr = 2
 cc = 0
 # True state evolution
 im0 = axes[rr,cc].imshow(Q_original_test, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 axes[rr,cc].set_ylabel(r"$x$", fontsize=20, fontweight='bold')
 
 # Customize axes thickness
@@ -466,10 +548,11 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 
 
+
 cc = 1
 # True state evolution
 im0 = axes[rr,cc].imshow(Q_test_re, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -484,6 +567,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -491,7 +580,7 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 cc = 2
 # Predicted state evolution
 im1 = axes[rr,cc].imshow(Q_pred_opinf2, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -507,12 +596,19 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
+
 
 
 cc = 3
 # Predicted state evolution
 im2 = axes[rr,cc].imshow(Q_pred_opinf6, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -527,13 +623,19 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
 cc = 4
 # Predicted state evolution
 im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 1, 0, 1], origin='lower', cmap='plasma')
-axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+# axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -551,7 +653,9 @@ divider = make_axes_locatable(axes[rr, cc])
 cax = divider.append_axes("right", size="3%", pad=0.06)  # size 改小=更细
 cbar = fig.colorbar(im3, cax=cax)
 cbar.ax.tick_params(labelsize=15)
-        
+
+
+# axes[rr, cc].text(r'$t$', transform=axes[rr,cc].transAxes)
 # cbar = fig.colorbar(im3, ax=axes[rr,cc], fraction=0.025, pad=.02, shrink=1, aspect=40)
 # cbar.ax.tick_params(labelsize=13)
 
@@ -560,9 +664,24 @@ cbar.ax.tick_params(labelsize=15)
 #                     fraction=0.02, pad=0.04)
 # cbar.ax.tick_params(labelsize=13)
 # cbar.set_label("Value", fontsize=15, fontweight='bold')
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
-
+for cc in range(5):
+    axes[-1, cc].text(
+        0.5, -0.32,
+        r'$t$',
+        transform=axes[-1, cc].transAxes,
+        ha='center',
+        va='top',
+        fontsize=20,
+        fontweight='bold'
+    )
 
 
 
@@ -677,7 +796,17 @@ Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6'])
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
 
-
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e},\
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
+      
+      
 Q = np.c_[Q_train,Q_valid,Q_original_test]
 
 
@@ -736,7 +865,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -763,6 +897,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 3
@@ -787,7 +927,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 4
@@ -824,7 +969,12 @@ cbar.ax.tick_params(labelsize=15)
 #                     fraction=0.02, pad=0.04)
 # cbar.ax.tick_params(labelsize=13)
 # cbar.set_label("Value", fontsize=15, fontweight='bold')
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -868,6 +1018,16 @@ Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6'])
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
 
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e},\
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
+      
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
 
@@ -926,7 +1086,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -952,6 +1117,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 3
@@ -975,7 +1146,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 4
@@ -1010,8 +1186,12 @@ cbar.ax.tick_params(labelsize=15)
 # #                     fraction=0.02, pad=0.04)
 # # cbar.ax.tick_params(labelsize=13)
 # # cbar.set_label("Value", fontsize=15, fontweight='bold')
-
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -1054,6 +1234,16 @@ Q_pred_opinf2 = Vr.decompress(data['Q_opinf_2'])
 Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6']) 
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
+
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e},\
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
 
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
@@ -1114,6 +1304,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -1140,6 +1336,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 3
@@ -1164,16 +1366,21 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 cc = 4
 # Predicted state evolution
 if only_end:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint.reshape([125,125,151])[:,:,-1], vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 10, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
+    # axes[rr,cc].set_xlabel(r"$x$", fontsize=20, fontweight='bold')
 else:
     im3 = axes[rr,cc].imshow(Q_pred_adjoint, vmin=vmin, vmax=vmax, aspect='auto', extent=[0, 5, 0, 10], origin='lower', cmap='plasma')
-    axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
+    # axes[rr,cc].set_xlabel(r"$t$", fontsize=20, fontweight='bold')
 # axes[rr,cc].set_ylabel(r"$x$", fontsize=15, fontweight='bold')
 
 # Customize axes thickness
@@ -1200,9 +1407,24 @@ cbar.ax.tick_params(labelsize=15)
 # #                     fraction=0.02, pad=0.04)
 # # cbar.ax.tick_params(labelsize=13)
 # # cbar.set_label("Value", fontsize=15, fontweight='bold')
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
-
+for cc in range(5):
+    axes[-1, cc].text(
+        0.5, -0.32,
+        r'$x$',
+        transform=axes[-1, cc].transAxes,
+        ha='center',
+        va='top',
+        fontsize=20,
+        fontweight='bold'
+    )
 
 
 
@@ -1308,6 +1530,16 @@ Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6'])
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
 
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e},\
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
+
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
 
@@ -1367,7 +1599,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -1394,7 +1631,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 cc = 3
 # Predicted state evolution
@@ -1418,7 +1660,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 4
@@ -1455,7 +1702,12 @@ cbar.ax.tick_params(labelsize=15)
 #                     fraction=0.02, pad=0.04)
 # cbar.ax.tick_params(labelsize=13)
 # cbar.set_label("Value", fontsize=15, fontweight='bold')
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -1498,7 +1750,15 @@ Q_pred_opinf2 = Vr.decompress(data['Q_opinf_2'])
 Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6']) 
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
-
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e},\
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
 
@@ -1557,7 +1817,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -1583,6 +1848,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 3
@@ -1606,7 +1877,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 4
@@ -1641,7 +1917,12 @@ cbar.ax.tick_params(labelsize=15)
 # #                     fraction=0.02, pad=0.04)
 # # cbar.ax.tick_params(labelsize=13)
 # # cbar.set_label("Value", fontsize=15, fontweight='bold')
-
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 
@@ -1685,7 +1966,15 @@ Q_pred_opinf2 = Vr.decompress(data['Q_opinf_2'])
 Q_pred_opinf6 = Vr.decompress(data['Q_opinf_6']) 
 Q_pred_adjoint = Vr.decompress(data['Q_adjoint']) 
 
-
+error_to_FOM = [relative_error(Q_test_re, Q_original_test),
+                relative_error(Q_pred_opinf2, Q_original_test),
+                relative_error(Q_pred_opinf6, Q_original_test),
+                relative_error(Q_pred_adjoint, Q_original_test)]
+print(f'noise level: {noise_level}')
+print(f'rec. to true: {error_to_FOM[0]:.4e},\
+      opinf2 to true: {error_to_FOM[1]:.4e},\
+      opinf6 to true: {error_to_FOM[2]:.4e},\
+      adjoint to true: {error_to_FOM[3]:.4e}')
 
 Q = np.c_[Q_train,Q_valid,Q_original_test]
 
@@ -1745,6 +2034,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im0, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[0]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 # np.c_[Q_train,Q_valid,Q_pred_adjoint]
@@ -1771,6 +2066,13 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 # cbar = fig.colorbar(im1, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
 # # plt.suptitle("Space-Time Evolution of Burgers' Equation")
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[1]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
+
 
 
 cc = 3
@@ -1795,6 +2097,12 @@ axes[rr,cc].tick_params(axis='both', which='minor', labelsize=15, length=4, widt
 
 # cbar = fig.colorbar(im2, ax=axes[rr,cc])
 # cbar.ax.tick_params(labelsize=13)
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[2]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
 
 cc = 4
@@ -1830,7 +2138,24 @@ cbar.ax.tick_params(labelsize=15)
 # #                     fraction=0.02, pad=0.04)
 # # cbar.ax.tick_params(labelsize=13)
 # # cbar.set_label("Value", fontsize=15, fontweight='bold')
+axes[rr, cc].set_xlabel(
+    rf'RSE = {error_to_FOM[3]:.2e}',
+    fontsize=15,
+    fontweight='bold',
+    labelpad=5
+)
 
+
+for cc in range(5):
+    axes[-1, cc].text(
+        0.5, -0.32,
+        r'$x$',
+        transform=axes[-1, cc].transAxes,
+        ha='center',
+        va='top',
+        fontsize=20,
+        fontweight='bold'
+    )
 
 
 
@@ -1841,7 +2166,7 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (CDE)",
 #              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_evolution_CDE_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_evolution_ADE_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
 plt.show()
 
 

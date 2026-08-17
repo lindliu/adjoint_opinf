@@ -15,9 +15,9 @@ import os
 def ralative_error(A, B):
     return np.sum((A-B)**2)**.5/np.sum(B**2)**.5
     
-#table 1 and 2
-pertube = 1 #5,4,3,2,1
-noise = 0
+# #table 1 and 2
+# pertube = 2 #5,4,3,2
+# noise = 0
 
 # table 3 and 4
 pertube = 0 

@@ -931,7 +931,7 @@ plt.tight_layout()
 # fig.suptitle("Model Performance under Different Noise and Sample Conditions (CDE)",
 #              fontsize=18, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig('./figures_analysis/plot_error_CDE.png',bbox_inches='tight',dpi=300)
+plt.savefig('./figures_analysis/plot_error_ADE.png',bbox_inches='tight',dpi=300)
 plt.show()
 
 
@@ -2466,6 +2466,6 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predictions under Different Noise Levels (CDE)",
 #              fontsize=26, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_CDE_sample{num_samples}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_ADE_sample{num_samples}.png',bbox_inches='tight',dpi=300)
 plt.show()
 

@@ -206,7 +206,9 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                 tilde_Q = ode_solver(func_surrogate, q0, t, par=(A, H), method='BDF', rescale=True)
                 
                 # Loss computation: mean squared error.
-                loss = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
+                # loss = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
+                pointwise_loss = np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0)
+                loss = np.sum(pointwise_loss) * dt
                 print(f"Iteration {j}, Loss: {loss:.6f}")
                 
                 # if loss>loss_boundary:
@@ -224,17 +226,39 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
             
                 
                 
-                ##### Solve adjoint ODE backwards #####
-                error = 2*weights[:, None]*(tilde_Q-Q_)  ## Q_ - tilde_Q ## 
-                error = error[:,::-1]
+                # ##### Solve adjoint ODE backwards #####
+                # error = 2*weights[:, None]*(tilde_Q-Q_)  ## Q_ - tilde_Q ## 
+                # error = error[:,::-1]
                 
+                # s = t[-1]-t
+                # s = s[::-1]
+                # error_interp = interp1d(s, error.T, axis=0, kind="linear", fill_value="extrapolate")
+                # # Initial condition
+                # lambda_T = np.zeros(r)
+                # lambda_values = ode_solver(func_lambda, lambda_T, s, par=(A, H, error_interp), method='BDF', rescale=True)
+                # lambda_values = lambda_values[:,::-1]
+                
+                
+                ##### Solve adjoint ODE backwards #####
                 s = t[-1]-t
                 s = s[::-1]
-                error_interp = interp1d(s, error.T, axis=0, kind="linear", fill_value="extrapolate")
+                
+                error = 2*weights[:, None]*(tilde_Q-Q_)  ## Q_ - tilde_Q ## 
+                
+                error_rev = error[:, ::-1]
+                error_interp = interp1d(s, error_rev.T, axis=0, kind='linear', fill_value='extrapolate')
+                
+                # Forward trajectory expressed as a function of reversed time s
+                q_rev = tilde_Q[:, ::-1]
+                q_interp = interp1d(s, q_rev.T, axis=0, kind='linear', fill_value='extrapolate')
+                
                 # Initial condition
                 lambda_T = np.zeros(r)
-                lambda_values = ode_solver(func_lambda, lambda_T, s, par=(A, H, error_interp), method='BDF', rescale=True)
-                lambda_values = lambda_values[:,::-1]
+                lambda_values = ode_solver(func_lambda, lambda_T, s, \
+                                           par=(A, H, [error_interp, q_interp]), method='BDF', rescale=True)
+                lambda_values = lambda_values[:, ::-1]
+                
+                
                 
                 ##### Gradient computation. #####
                 grad_A = np.zeros(r**2)
@@ -242,7 +266,8 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                 
                 for k in range(k_samples_):
                     lambda_k = lambda_values[:, k]
-                    q_k = Q_[:, k]
+                    # q_k = Q_[:, k]
+                    q_k = tilde_Q[:, k]
                     
                     # Gradient parts for A.
                     outer_A = np.outer(lambda_k, q_k).flatten()
@@ -275,8 +300,15 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                     H = theta_new[r**2:].reshape(r, r**2)
                     # tilde_Q = q0[:, np.newaxis] + A @ Q_int + H @ Q2_int
                     tilde_Q = ode_solver(func_surrogate, q0, t, par=(A, H), method='BDF', rescale=True)
-                    loss_new = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
                     
+                    # loss_new = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
+                    pointwise_loss = np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0)
+                    loss_new = np.sum(pointwise_loss) * dt
+                    
+                    if reg_Frobenius>0:
+                        loss_new += (reg_Frobenius * np.linalg.norm(A, 'fro')**2
+                                     + reg_Frobenius * np.linalg.norm(H, 'fro')**2)
+                        
                     # # --- 检查是否爆炸 ---
                     # if loss_new > loss_boundary:
                     #     theta = theta_ls_old  # 回退
@@ -290,24 +322,36 @@ def optimize_by_adjoint(A_opinf, H_opinf, Q_train_, t_train, Q_s, weights, piece
                         break
                     else:
                         eta_current *= beta
-                    
+                
+                # Do not accept a step that fails Armijo
                 if not ls_success:
-                    theta_new = theta - eta * gradient  # Fallback to previous eta
-                    A = theta_new[:r**2].reshape(r, r)
-                    H = theta_new[r**2:].reshape(r, r**2)
-                    # tilde_Q = q0[:, np.newaxis] + A @ Q_int + H @ Q2_int
-                    tilde_Q = ode_solver(func_surrogate, q0, t, par=(A, H), method='BDF', rescale=True)
-                    loss_new = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
+                    eta *= beta
+                    print("Armijo line search failed; keeping current parameters.")
+                    break
+                
+                # if not ls_success:
+                #     theta_new = theta - eta * gradient  # Fallback to previous eta
+                #     A = theta_new[:r**2].reshape(r, r)
+                #     H = theta_new[r**2:].reshape(r, r**2)
+                #     # tilde_Q = q0[:, np.newaxis] + A @ Q_int + H @ Q2_int
+                #     tilde_Q = ode_solver(func_surrogate, q0, t, par=(A, H), method='BDF', rescale=True)
+                    # loss_new = np.mean(np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0))
+                    # pointwise_loss = np.sum(weights[:, None]*(Q_ - tilde_Q)**2, axis=0)
+                    # loss_new = np.sum(pointwise_loss) * dt
                     
-                    theta = theta_new
-                    if loss_new > loss:
-                        eta *= beta  # Force reduce eta if line search failed
+                #     if reg_Frobenius>0:
+                #         loss_new += (reg_Frobenius * np.linalg.norm(A, 'fro')**2
+                #                      + reg_Frobenius * np.linalg.norm(H, 'fro')**2)
+                        
+                #     theta = theta_new
+                #     if loss_new > loss:
+                #         eta *= beta  # Force reduce eta if line search failed
                     
-                    # if loss_new > loss:
-                    #     eta *= beta # Force reduce eta if line search failed
-                    #     print("Fallback step failed, reverting theta and reducing eta.")
-                    # else:
-                    #     theta = theta_new
+                #     # if loss_new > loss:
+                #     #     eta *= beta # Force reduce eta if line search failed
+                #     #     print("Fallback step failed, reverting theta and reducing eta.")
+                #     # else:
+                #     #     theta = theta_new
                         
                         
                 # if loss_new >= loss - 1e-6:
@@ -514,7 +558,7 @@ def main(data_name, r, noise_level, step, smoother, pieces, reg_Frobenius=0, \
 if __name__ == "__main__": 
     
     ###### config #####
-    max_iter = 10
+    max_iter = 20
     # ###Perform piecewise integration and optimization; if it is a list, then divide it into segments in order and optimize accordingly.
     pieces = [3,2,3]  # [1] #  [5,1,5] # 
     split_ratio_validation = .1
