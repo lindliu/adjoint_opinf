@@ -566,8 +566,8 @@ if __name__ == "__main__":
     
     save_results = True # False #
     
-    for opinf_use_val in [True, False]:
-    # for opinf_use_val in [False]:
+    # for opinf_use_val in [True, False]:
+    for opinf_use_val in [False]:
 
         # for data_name in ['burgers', 'fkpp', 'lcd']:
         for data_name in ['burgers']:
