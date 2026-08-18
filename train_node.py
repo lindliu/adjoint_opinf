@@ -371,7 +371,7 @@ def predict_and_plot(func, r, A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_o
         
         Q_adjoint = odeint(func, Q_0, t_all).detach().cpu().numpy().T  # shape: (T, r)
         Q_opinf_6 = np.random.randn(*Q_adjoint.shape)#Q_opinf_6 = odeint(func_opinf_6, Q_0, t_all).detach().cpu().numpy().T
-        Q_opinf_2 = odeint(func_opinf_2, Q_0, t_all).detach().cpu().numpy().T
+        Q_opinf_2 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_2, Q_0, t_all).detach().cpu().numpy().T
         
         error_adjoint_init_valid = np.mean((Q_valid_.T - Q_adjoint[:,train_idx:valid_idx].T)**2)/np.mean(Q_valid_.T**2)
         error_opinf_6_init_valid = np.mean((Q_valid_.T - Q_opinf_6[:,train_idx:valid_idx].T)**2)/np.mean(Q_valid_.T**2)
@@ -402,7 +402,7 @@ def predict_and_plot(func, r, A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_o
         Q_0 = torch.tensor(Q_valid_[:,0], dtype=torch.float32)
         Q_adjoint_val = odeint(func, Q_0, t_valid).detach().cpu().numpy().T  # shape: (T, r)
         Q_opinf_6_val = np.random.randn(*Q_adjoint_val.shape)#odeint(func_opinf_6, Q_0, t_valid).detach().cpu().numpy().T
-        Q_opinf_2_val = odeint(func_opinf_2, Q_0, t_valid).detach().cpu().numpy().T
+        Q_opinf_2_val = np.random.randn(*Q_adjoint_val.shape)#odeint(func_opinf_2, Q_0, t_valid).detach().cpu().numpy().T
         
         error_adjoint_valid = np.mean((Q_valid_.T - Q_adjoint_val.T)**2)/np.mean(Q_valid_.T**2)
         error_opinf_6_valid = np.mean((Q_valid_.T - Q_opinf_6_val.T)**2)/np.mean(Q_valid_.T**2)
@@ -412,7 +412,7 @@ def predict_and_plot(func, r, A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_o
         Q_0 = torch.tensor(Q_s[:,0], dtype=torch.float32)
         Q_adjoint = odeint(func, Q_0, t_train).detach().cpu().numpy().T  # shape: (T, r)
         Q_opinf_6 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_6, Q_0, t_train).detach().cpu().numpy().T
-        Q_opinf_2 = odeint(func_opinf_2, Q_0, t_train).detach().cpu().numpy().T
+        Q_opinf_2 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_2, Q_0, t_train).detach().cpu().numpy().T
         
         error_adjoint_train = np.mean((Q_train_.T - Q_adjoint.T)**2)/np.mean(Q_train_.T**2)
         error_opinf_6_train = np.mean((Q_train_.T - Q_opinf_6.T)**2)/np.mean(Q_train_.T**2)
@@ -445,7 +445,7 @@ def predict_and_plot(func, r, A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_o
         
         Q_adjoint = odeint(func, Q_0, t_test).detach().cpu().numpy().T
         Q_opinf_6 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_6, Q_0, t_test).detach().cpu().numpy().T  # shape: (T, r)
-        Q_opinf_2 = odeint(func_opinf_2, Q_0, t_test).detach().cpu().numpy().T
+        Q_opinf_2 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_2, Q_0, t_test).detach().cpu().numpy().T
         
         error_adjoint = np.mean((Q_test_.T - Q_adjoint.T)**2)/np.mean(Q_test_.T**2)
         error_opinf_6 = np.mean((Q_test_.T - Q_opinf_6.T)**2)/np.mean(Q_test_.T**2)
@@ -480,7 +480,7 @@ def predict_and_plot(func, r, A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_o
         Q_0 = torch.tensor(Q_s[:,0], dtype=torch.float32)
         Q_adjoint = odeint(func, Q_0, t_train).detach().cpu().numpy().T  # shape: (T, r)
         Q_opinf_6 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_6, Q_0, t_train).detach().cpu().numpy().T
-        Q_opinf_2 = odeint(func_opinf_2, Q_0, t_train).detach().cpu().numpy().T
+        Q_opinf_2 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_2, Q_0, t_train).detach().cpu().numpy().T
 
     return Q_opinf_6, Q_adjoint, Q_opinf_2, \
             error_opinf_6, error_adjoint, error_opinf_2, \
