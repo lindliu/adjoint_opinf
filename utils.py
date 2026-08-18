@@ -141,6 +141,7 @@ def add_noise(Q, percentage, method="max_norm"):
         scale = np.max(norms) * (percentage / 100)
     elif method == "std":
         # Calculate standard deviation of entire matrix
+        print('empircal std is: ', np.std(Q))
         scale = np.std(Q) * (percentage / 100)
     else:
         raise ValueError("Invalid method. Choose 'max_norm' or 'std'")

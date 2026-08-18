@@ -411,7 +411,7 @@ def predict_and_plot(func, r, A_opt, H_opt, A_opinf_6, H_opinf_6, A_opinf_2, H_o
         ### train time period prediction
         Q_0 = torch.tensor(Q_s[:,0], dtype=torch.float32)
         Q_adjoint = odeint(func, Q_0, t_train).detach().cpu().numpy().T  # shape: (T, r)
-        Q_opinf_6 = odeint(func_opinf_6, Q_0, t_train).detach().cpu().numpy().T
+        Q_opinf_6 = np.random.randn(*Q_adjoint.shape)#odeint(func_opinf_6, Q_0, t_train).detach().cpu().numpy().T
         Q_opinf_2 = odeint(func_opinf_2, Q_0, t_train).detach().cpu().numpy().T
         
         error_adjoint_train = np.mean((Q_train_.T - Q_adjoint.T)**2)/np.mean(Q_train_.T**2)
@@ -508,12 +508,12 @@ if __name__ == "__main__":
     # for data_name in ['burgers', 'fkpp', 'lcd']:
     for data_name in ['burgers']:
         if data_name=='fkpp':
-            step = 10 ## 1, 2, 4, 10
+            step = 1 ## 1, 2, 4, 10
             num_samples = 2001//step ## 2000 ##
             split_ratio = .75
             
         if data_name=='burgers':
-            step = 1 # 1 # 10 # 100 # 500 # 
+            step = 500 # 1 # 10 # 100 # 500 # 
             num_samples = 10000//step # 10000
             split_ratio = .5
         
@@ -525,7 +525,7 @@ if __name__ == "__main__":
         opinf_use_val = False # True
         
         noise_level_list = [0, 40, 80, 120, 160, 200]
-        for noise_level in noise_level_list: #[40]:#
+        for noise_level in [200]:#noise_level_list: #
         # for noise_level in [40]:
             
             error_opinf_6_init_list, error_adjoint_init_list, error_opinf_2_init_list = [], [], []
