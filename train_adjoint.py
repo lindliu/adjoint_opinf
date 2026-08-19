@@ -566,8 +566,8 @@ if __name__ == "__main__":
     
     save_results = True # False #
     
-    for opinf_use_val in [True, False]:
-    # for opinf_use_val in [True]:
+    # for opinf_use_val in [True, False]:
+    for opinf_use_val in [False]:
 
         # for data_name in ['burgers', 'fkpp', 'lcd']:
         for data_name in ['burgers']:
@@ -594,7 +594,7 @@ if __name__ == "__main__":
             ratio = str(split_ratio).replace('.','p')
             
             noise_level_list = [0, 40, 80, 120, 160, 200]
-            for noise_level in noise_level_list:#[200]:#
+            for noise_level in [120,160,200]:# noise_level_list:#[200]:#
             # for noise_level in [40,200]:
                 
                 name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
@@ -609,7 +609,7 @@ if __name__ == "__main__":
                 
                 reg_best, weighted_best = [], []
                 for r in r_list:
-                # for r in [3]:
+                # for r in [4]:
                     print(f'dimension: {r}')
                     
                     # ### A and H by operator inference under reduced order dataset
@@ -617,7 +617,7 @@ if __name__ == "__main__":
                     #     operator_inference(Q_train, t_train, Q_test, t_test, r, split_ratio_validation, opinf_use_val)
                     
                     #### find the best reg_Frobenius value ###
-                    reg_Frobenius_list = [0, 1e-2, 1e-1, 1e0, 1e1]*2
+                    reg_Frobenius_list = [0, 1e-2, 1e-1, 1e0]*2
                     weighted_list = [True]*int(len(reg_Frobenius_list)//2) + \
                                     [False]*int(len(reg_Frobenius_list)//2)
                     
