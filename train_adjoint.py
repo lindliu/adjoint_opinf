@@ -578,7 +578,7 @@ if __name__ == "__main__":
                 r_list = range(1,6)
                 
             if data_name=='burgers':
-                step = 10 # 1 # 10 # 100 # 500 # 
+                step = 100 # 1 # 10 # 100 # 500 # 
                 num_samples = 10000//step # 10000
                 split_ratio = .5
                 r_list = range(1,6)
