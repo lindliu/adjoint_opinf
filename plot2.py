@@ -78,7 +78,7 @@ Q_valid_ = Vr.compress(Q_valid)
 Q_test_ = Vr.compress(Q_test)
 
 
-name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
+name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_*_smooth{smoother}'
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
@@ -283,7 +283,7 @@ Q_valid_ = Vr.compress(Q_valid)
 Q_test_ = Vr.compress(Q_test)
 
 
-name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
+name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_*_smooth{smoother}'
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
@@ -486,7 +486,7 @@ Q_valid_ = Vr.compress(Q_valid)
 Q_test_ = Vr.compress(Q_test)
 
 
-name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_iter{max_iter}_smooth{smoother}'
+name_suffix = f'{data_name}_sam{num_samples}_ratio{ratio}_useVal{opinf_use_val}_noise{noise_level}_*_smooth{smoother}'
 path = glob.glob(f'./results/Predictions_{name_suffix}_best_dim{r}*')
 assert len(path)==1
 data = np.load(path[0])
@@ -690,7 +690,7 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (Burgers' Equation)",
 #              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_evolution_burgers_sample{num_samples}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_evolution_burgers_sample{num_samples}.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 
@@ -1433,7 +1433,7 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (FKPP Equation)",
 #              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_evolution_FKPP_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_evolution_FKPP_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 
@@ -2166,7 +2166,7 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predition of Evolution under Different Noise Levels (CDE)",
 #              fontsize=23, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_evolution_ADE_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_evolution_ADE_sample{num_samples}_end{only_end}.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 

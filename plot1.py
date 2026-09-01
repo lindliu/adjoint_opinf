@@ -433,7 +433,7 @@ plt.tight_layout()
 # fig.suptitle("Model Performance under Different Noise and Sample Conditions (Burgers' Equation)",
 #              fontsize=18, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig('./figures_analysis/plot_error_burgers.png',bbox_inches='tight',dpi=300)
+plt.savefig('./figures_analysis/plot_error_burgers.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 # Q_train, t_train, Q_test, t_test, Q_original_train, Q_original_test, num_samples = data_loader(data_name, step, noise_level, split_ratio)
@@ -845,7 +845,7 @@ plt.tight_layout()
 # fig.suptitle("Model Performance under Different Noise and Sample Conditions (FKPP Equation)",
 #              fontsize=18, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig('./figures_analysis/plot_error_fkpp.png',bbox_inches='tight',dpi=300)
+plt.savefig('./figures_analysis/plot_error_fkpp.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 
@@ -1136,7 +1136,7 @@ plt.tight_layout()
 # fig.suptitle("Model Performance under Different Noise and Sample Conditions (CDE)",
 #              fontsize=18, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig('./figures_analysis/plot_error_ADE.png',bbox_inches='tight',dpi=300)
+plt.savefig('./figures_analysis/plot_error_ADE.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 
@@ -1631,7 +1631,7 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predictions under Different Noise Levels (Burgers' Equation)",
 #              fontsize=26, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_burgers_sample{num_samples}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_burgers_sample{num_samples}.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 # Illustration of Predicted Trajectories from OpInf (order 2, 6) and Adjoint Methods
@@ -2143,7 +2143,7 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predictions under Different Noise Levels (FKPP Equation)",
 #              fontsize=26, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_FKPP_sample{num_samples}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_FKPP_sample{num_samples}.png',bbox_inches='tight',dpi=650)
 plt.show()
 
 
@@ -2671,6 +2671,6 @@ plt.tight_layout()
 # fig.suptitle("Illustrative Predictions under Different Noise Levels (CDE)",
 #              fontsize=26, fontweight='bold', y=1.02)
 # Effect of Noise and Sample Size on Model Accuracy for the Burgers Equation System
-plt.savefig(f'./figures_analysis/plot_examples_ADE_sample{num_samples}.png',bbox_inches='tight',dpi=300)
+plt.savefig(f'./figures_analysis/plot_examples_ADE_sample{num_samples}.png',bbox_inches='tight',dpi=650)
 plt.show()
 
