@@ -161,7 +161,7 @@ cbar = fig.colorbar(mappable, cax=cbar_ax,  format=tkr.FormatStrFormatter('%.1f'
 # cbar.ax.set_ylabel('u', rotation=90, va='center')
 
 # plt.tight_layout()
-plt.savefig('./fkpp/fkpp_contour.png', dpi=200, bbox_inches='tight')
+plt.savefig('./fkpp/fkpp_contour.png', dpi=650, bbox_inches='tight')
 plt.show()
 
 
@@ -209,7 +209,7 @@ surf3 = plot_3d_surface(U[:, :, -1], -1, ax3)
 
 plt.tight_layout(rect=[0, 0, 0.95, 1])
 
-plt.savefig('./fkpp/fkpp_3d.png', bbox_inches='tight')
+plt.savefig('./fkpp/fkpp_3d.png', bbox_inches='tight', dpi=650)
 # Show plot
 plt.show()
 

@@ -146,6 +146,6 @@ plt.colorbar()
 # plt.title("Viscous Burgers' Equation Solution")
 plt.xlabel("t (time)", fontsize=15)
 plt.ylabel("x (space)", fontsize=15)
-plt.savefig('./burgers/burgers_contour.png', bbox_inches='tight')
+plt.savefig('./burgers/burgers_contour.png', bbox_inches='tight',dpi=650)
 plt.show()
 

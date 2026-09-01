@@ -141,7 +141,7 @@ cbar = fig.colorbar(mappable, cax=cbar_ax,  format=tkr.FormatStrFormatter('%.1f'
 # cbar.ax.set_ylabel('u', rotation=90, va='center')
 
 # plt.tight_layout()
-plt.savefig('./lcd/lcd_2d.png', dpi=200, bbox_inches='tight')
+plt.savefig('./lcd/lcd_2d.png', dpi=650, bbox_inches='tight')
 plt.show()
 
 
